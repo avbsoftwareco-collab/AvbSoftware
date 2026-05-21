@@ -169,7 +169,7 @@ export default function ServicesPage() {
       {/* Services List */}
       <section className="section-padding bg-white">
         <div className="container-custom space-y-16">
-          {services.map((service, index) => {
+          {services.map((service) => {
             const Icon = service.icon;
             return (
               <motion.div

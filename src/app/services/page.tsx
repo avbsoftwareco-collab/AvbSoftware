@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { motion } from "framer-motion";
 import ServicesPage from "./ServicesPage";
 
 export const metadata: Metadata = {

@@ -201,6 +201,7 @@ export default function ContactPage() {
       }
     } catch (err) {
       setError("Failed to send message. Please email us directly.");
+       console.error("Error occurred:", err);
     } finally {
       setIsLoading(false);
     }
