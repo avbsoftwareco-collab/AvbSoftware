@@ -2,6 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============ FONTS ============ */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+
+/* ============ LUXURY CREAM THEME VARIABLES ============ */
+:root {
+  /* Backgrounds */
+  --bg-primary: #F5F0E6;
+  --bg-secondary: #EFE8D8;
+  --bg-card: #FAF5EA;
+  --bg-section: #F8F3E9;
+
+  /* Text */
+  --text-primary: #2B2419;
+  --text-secondary: #6B5D4A;
+  --text-muted: #8B7E6A;
+
+  /* Brand Colors */
+  --primary: #8B6F47;
+  --primary-dark: #6B5535;
+  --primary-light: #E8DCC4;
+  --primary-soft: #F0E8D4;
+  --primary-border: #D4C29E;
+  --accent: #A0825C;
+  --accent-gold: #C9A45C;
+
+  /* Borders & Shadows */
+  --border-light: #E8DEC8;
+  --border-medium: #D4C29E;
+  --shadow-soft: 0 4px 20px rgba(139, 111, 71, 0.08);
+  --shadow-medium: 0 10px 40px rgba(139, 111, 71, 0.12);
+  --shadow-strong: 0 20px 60px rgba(139, 111, 71, 0.18);
+}
+
 /* ============ BASE ============ */
 * {
   margin: 0;
@@ -15,17 +48,32 @@ html {
 }
 
 body {
-  background: #FFFFFF;
-  color: #0F172A;
+  background: var(--bg-primary);
+  color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
   overflow-x: hidden;
+}
+
+/* ============ TYPOGRAPHY ============ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.font-serif {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-sans {
+  font-family: var(--font-jakarta), 'Plus Jakarta Sans', sans-serif;
 }
 
 /* ============ COMPONENTS ============ */
 @layer components {
-  
-  /* ✅ CONTAINER — Use this EVERYWHERE */
+
+  /* ✅ CONTAINER */
   .container-custom {
     width: 100%;
     max-width: 1280px;
@@ -62,40 +110,50 @@ body {
     }
   }
 
-  /* ✅ BUTTONS */
+  /* ✅ BUTTONS - LUXURY STYLE */
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-7 py-3.5 text-white font-semibold rounded-xl text-sm transition-all;
-    background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
-    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
+    @apply inline-flex items-center gap-2 px-8 py-4 text-white font-semibold text-sm transition-all;
+    background: linear-gradient(135deg, #8B6F47 0%, #6B5535 100%);
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(139, 111, 71, 0.25);
+    letter-spacing: 0.3px;
   }
 
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+    box-shadow: 0 8px 24px rgba(139, 111, 71, 0.35);
   }
 
   .btn-secondary {
-    @apply inline-flex items-center gap-2 px-7 py-3.5 text-slate-900 font-semibold rounded-xl text-sm transition-all bg-white;
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    @apply inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm transition-all;
+    background: transparent;
+    color: var(--primary);
+    border: 1.5px solid var(--primary);
+    border-radius: 14px;
+    letter-spacing: 0.3px;
   }
 
   .btn-secondary:hover {
-    border-color: #6366F1;
-    color: #6366F1;
+    background: var(--primary);
+    color: white;
     transform: translateY(-2px);
   }
 
-  /* ✅ SECTION BADGE */
+  /* ✅ SECTION BADGE - Luxury Style */
   .section-badge {
-    @apply inline-flex items-center gap-2 px-4 py-2 text-indigo-600 text-xs font-semibold rounded-full;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase;
+    color: var(--primary);
+    letter-spacing: 2px;
   }
 
-  /* ✅ GRADIENT TEXT */
+  .section-badge::before {
+    content: '—';
+    font-weight: 400;
+  }
+
+  /* ✅ GRADIENT TEXT - Luxury Brown */
   .gradient-text {
-    background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
+    background: linear-gradient(135deg, #8B6F47 0%, #C9A45C 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -103,68 +161,91 @@ body {
 
   /* ✅ PREMIUM CARD */
   .card-premium {
-    @apply bg-white border border-slate-100 rounded-2xl p-6 transition-all;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-soft);
   }
 
   .card-premium:hover {
     transform: translateY(-4px);
-    border-color: rgba(99, 102, 241, 0.3);
-    box-shadow: 0 20px 40px -10px rgba(99, 102, 241, 0.2);
+    border-color: var(--primary-border);
+    box-shadow: var(--shadow-medium);
+  }
+
+  /* ✅ LUXURY SECTION HEADING */
+  .heading-luxury {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: var(--text-primary);
+  }
+
+  /* ✅ DIVIDER LINE */
+  .divider-line {
+    width: 50px;
+    height: 2px;
+    background: var(--primary);
+    margin: 0 auto;
   }
 }
 
 /* ============ BACKGROUNDS ============ */
-.bg-mesh-animated {
-  background: linear-gradient(-45deg, #FFFFFF, #FAFAFF, #FFF5FA, #FFFAF0);
-  background-size: 400% 400%;
-  animation: meshShift 15s ease infinite;
+.bg-cream {
+  background: var(--bg-primary);
 }
 
-@keyframes meshShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+.bg-cream-light {
+  background: var(--bg-card);
 }
 
-.grid-pattern {
-  background-image: 
-    linear-gradient(rgba(99, 102, 241, 0.07) 1px, transparent 1px),
-    linear-gradient(to right, rgba(99, 102, 241, 0.07) 1px, transparent 1px);
-  background-size: 64px 64px;
+.bg-cream-section {
+  background: var(--bg-section);
 }
 
-/* ============ BLOBS ============ */
+/* ============ DECORATIVE BLOBS ============ */
 .blob {
   position: absolute;
   border-radius: 50%;
   filter: blur(80px);
-  opacity: 0.3;
+  opacity: 0.4;
   pointer-events: none;
   z-index: 0;
 }
 
-.blob-1 {
+.blob-cream-1 {
   width: 400px;
   height: 400px;
-  background: #6366F1;
+  background: #E8DCC4;
   top: -100px;
   left: -100px;
 }
 
-.blob-2 {
+.blob-cream-2 {
   width: 350px;
   height: 350px;
-  background: #EC4899;
+  background: #D4C29E;
   top: 100px;
   right: -100px;
 }
 
-.blob-3 {
+.blob-cream-3 {
   width: 400px;
   height: 400px;
-  background: #F59E0B;
+  background: #C9A45C;
   bottom: -100px;
   left: 30%;
+  opacity: 0.2;
+}
+
+/* ============ GRID PATTERN ============ */
+.grid-pattern {
+  background-image: 
+    linear-gradient(rgba(139, 111, 71, 0.04) 1px, transparent 1px),
+    linear-gradient(to right, rgba(139, 111, 71, 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
 }
 
 /* ============ ANIMATIONS ============ */
@@ -184,16 +265,54 @@ body {
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
-  display: inline-block;
 }
 
-@keyframes barGrow {
-  to { height: var(--bar-height); }
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
 
-.animate-bar-grow {
-  animation: barGrow 1.2s ease-out forwards;
-  height: 0;
+.animate-pulse-soft {
+  animation: pulse-soft 3s ease-in-out infinite;
+}
+
+/* ============ LAPTOP MOCKUP STYLES ============ */
+.laptop-frame {
+  position: relative;
+  background: linear-gradient(180deg, #3a2f1f 0%, #2b2419 100%);
+  border-radius: 12px 12px 4px 4px;
+  padding: 12px 12px 0;
+  box-shadow: 
+    0 30px 60px -15px rgba(139, 111, 71, 0.4),
+    0 15px 30px -10px rgba(43, 36, 25, 0.3);
+}
+
+.laptop-screen {
+  background: #FAF5EA;
+  border-radius: 4px;
+  overflow: hidden;
+  aspect-ratio: 16/9;
+  position: relative;
+}
+
+.laptop-base {
+  height: 16px;
+  background: linear-gradient(180deg, #3a2f1f 0%, #1a1611 100%);
+  border-radius: 0 0 14px 14px;
+  margin: 0 -20px;
+  position: relative;
+}
+
+.laptop-base::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: #1a1611;
+  border-radius: 0 0 8px 8px;
 }
 
 /* ============ MARQUEE ============ */
@@ -218,16 +337,19 @@ body {
 }
 
 .skill-pill {
-  @apply inline-flex items-center gap-2 px-5 py-2.5 bg-white text-slate-600 text-sm font-medium rounded-full whitespace-nowrap;
-  border: 1px solid #E2E8F0;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  @apply inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium whitespace-nowrap;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 50px;
+  box-shadow: var(--shadow-soft);
   flex-shrink: 0;
   transition: all 0.3s ease;
 }
 
 .skill-pill:hover {
-  border-color: #6366F1;
-  color: #6366F1;
+  border-color: var(--primary);
+  color: var(--primary);
   transform: translateY(-2px);
 }
 
@@ -237,15 +359,15 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #FAFAFA;
+  background: var(--bg-primary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #6366F1, #EC4899);
+  background: linear-gradient(180deg, var(--primary), var(--accent));
   border-radius: 4px;
 }
 
 ::selection {
-  background: #6366F1;
+  background: var(--primary);
   color: white;
 }

@@ -2,254 +2,732 @@ export interface BlogPost {
   slug: string;
   title: string;
   excerpt: string;
+  metaTitle: string;          // ✅ NEW - SEO optimized title (50-60 chars)
+  metaDescription: string;    // ✅ NEW - SEO description (150-160 chars)
   category: string;
   readTime: string;
-  date: string;
+  date: string;               // ISO format for schema
+  dateDisplay: string;        // ✅ NEW - Human readable
+  updatedAt?: string;         // ✅ NEW - Last update
   author: string;
+  authorBio?: string;         // ✅ NEW - Author info
+  authorImage?: string;       // ✅ NEW
   thumbnail: string;
+  ogImage?: string;           // ✅ NEW - 1200x630 for social
   content: string;
   keywords: string[];
+  tags: string[];             // ✅ NEW
+  faqs?: { question: string; answer: string }[];  // ✅ NEW - Rich snippets
+  relatedPosts?: string[];    // ✅ NEW - Slugs of related
+  city?: string[];            // ✅ NEW - Target cities
+  featured?: boolean;         // ✅ NEW
 }
 
 export const blogPosts: BlogPost[] = [
+  // ==================== BLOG 1 ====================
   {
-    slug: "website-cost-india-2025",
-    title: "How Much Does a Website Cost in India in 2025?",
+    slug: "website-development-cost-indore-bhopal-2025",
+    title: "Website Banwane Ka Kharcha 2025 — Indore & Bhopal Business Guide",
+    metaTitle: "Website Cost in Indore & Bhopal 2025 | Price Guide - AVB Software",
+    metaDescription:
+      "Indore & Bhopal mein website banwane ka kharcha kitna hai? ₹3,000 se ₹2 lakh tak ka complete price guide. Free quote ke liye AVB Software se contact karein.",
     excerpt:
-      "Planning to build a website for your business? Here's a complete breakdown of website development costs in India — from landing pages to full e-commerce stores.",
+      "Indore ya Bhopal mein apne business ke liye website banwana chahte hain? Jaaniye 2025 mein website development ka poora kharcha — landing page se lekar full e-commerce store tak.",
     category: "Web Development",
     readTime: "6 min read",
-    date: "January 15, 2025",
+    date: "2025-01-15",
+    dateDisplay: "January 15, 2025",
+    updatedAt: "2025-01-20",
     author: "Abhinandan Meena",
+    authorBio: "Founder of AVB Software with 5+ years experience in web development for Indore & Bhopal businesses.",
+    authorImage: "/team/abhinandan.jpg",
     thumbnail: "/images/blog/website-cost-india.jpg",
-    keywords: ["website cost India", "website development price India 2025", "how much website costs"],
+    ogImage: "/images/blog/og-website-cost-indore-bhopal.jpg",
+    featured: true,
+    city: ["Indore", "Bhopal"],
+    tags: ["Web Development", "Pricing", "Indore", "Bhopal", "Business"],
+    keywords: [
+      "website cost India 2025",
+      "website development price India",
+      "website development cost Indore",
+      "website development cost Bhopal",
+      "website banwane ka kharcha Indore",
+      "website banwane ka kharcha Bhopal",
+      "cheap website development Indore",
+      "affordable website development Bhopal",
+      "website development company Indore price",
+      "web development company Indore",
+      "web development company Bhopal",
+      "best web designer Indore",
+      "best web designer Bhopal",
+      "ecommerce website cost Indore",
+      "business website price Bhopal",
+    ],
+    faqs: [
+      {
+        question: "Indore mein website banwane ka kharcha kitna hai?",
+        answer: "Indore mein website banwane ka kharcha ₹3,000 (simple landing page) se ₹2,00,000+ (custom web application) tak hota hai. Business website ka average cost ₹8,000 - ₹25,000 hai."
+      },
+      {
+        question: "Bhopal mein sabse sasti website kahan banti hai?",
+        answer: "Bhopal mein AVB Software ₹3,000 se shuru hone wale affordable website packages offer karta hai with agency-quality work, transparent pricing, aur 3-month free support."
+      },
+      {
+        question: "E-commerce website banane mein kitna time lagta hai?",
+        answer: "E-commerce website typically 15-30 din mein ready hoti hai. Yeh features, payment gateway integration, aur product count par depend karta hai."
+      },
+      {
+        question: "Kya WordPress sasti hai ya custom website?",
+        answer: "WordPress initially sasti hai (₹5,000-15,000) lekin long-term mein custom website (Next.js/React) zyada secure, fast, aur scalable hoti hai. Business growth ke liye custom recommended hai."
+      }
+    ],
+    relatedPosts: [
+      "custom-software-benefits-small-businesses-indore-bhopal",
+      "website-vs-mobile-app-indore-bhopal-business",
+      "erp-software-indore-bhopal-businesses"
+    ],
     content: `
-# How Much Does a Website Cost in India in 2025?
+# Website Banwane Ka Kharcha 2025 — Indore & Bhopal Business Guide
 
-If you're a business owner in India thinking about building a website, one of the first questions you'll ask is: **"How much does a website cost?"**
+Agar aap **Indore ya Bhopal mein apne business ke liye website banwana** chahte hain, toh sabse pehla sawaal yahi aata hai: **"Website banwane mein kitna kharcha aata hai?"**
 
-The honest answer is: it depends. But in this article, we'll break down every factor that affects website pricing so you can make an informed decision.
+Honest jawab yeh hai: depend karta hai. Lekin is article mein hum har ek factor ko detail mein samjhayenge taaki aap ek informed decision le sako.
 
-## Types of Websites and Their Costs in India
+> **Quick Answer:** Indore aur Bhopal mein website banwane ka kharcha ₹3,000 (basic) se ₹2,00,000+ (custom) tak hota hai. Average business website ₹8,000-₹25,000 mein ban jaati hai.
+
+## Indore & Bhopal mein Website ke Types aur Unki Cost
 
 ### 1. Simple Landing Page: ₹3,000 – ₹8,000
-A single-page website with basic information about your business. Includes:
+
+Ek single-page website jo aapke business ki basic information deti hai. Include hota hai:
 - Contact form
 - Mobile responsive design
 - Basic SEO setup
 - Hosting setup guidance
 
+**Best for:** Indore/Bhopal ke local service providers, freelancers, tutors, doctors
+
 ### 2. Business Website (5-10 pages): ₹8,000 – ₹25,000
-A complete multi-page business website. Includes:
+
+Ek complete multi-page business website. Include hota hai:
 - Home, About, Services, Contact pages
-- SEO optimization
+- **Local SEO optimization for Indore/Bhopal searches**
 - Google Analytics integration
-- Mobile responsive
+- Mobile responsive design
 - WhatsApp chat button
+- Google Maps integration
+
+**Best for:** Indore & Bhopal ke small businesses, shops, clinics, coaching centers
 
 ### 3. E-Commerce Website: ₹20,000 – ₹80,000
-A full online store with payment gateway integration:
-- Product catalog
+
+Ek full online store with payment gateway integration:
+- Product catalog (unlimited products)
 - Shopping cart & checkout
-- Payment gateway (Razorpay, PayPal)
-- Order management
-- Admin panel
+- Payment gateway (Razorpay, PayU, PayPal)
+- Order management system
+- Customer admin panel
+- GST-compliant invoicing
+
+**Best for:** Indore ke textile dealers, Bhopal ke retail shops, online sellers
 
 ### 4. Custom Web Application: ₹50,000 – ₹2,00,000+
-Complex web applications like ERPs, dashboards, booking systems.
 
-## What Factors Affect the Cost?
+Complex web applications jaise ERPs, dashboards, booking systems — specially **Madhya Pradesh ke manufacturing aur trading businesses** ke liye.
 
-1. **Design Complexity** — Custom design costs more than templates
-2. **Number of Pages** — More pages = higher cost
-3. **Features Required** — Login system, payment, booking add to cost
-4. **Technology Stack** — WordPress is cheaper; Next.js/React costs more
-5. **SEO Requirements** — Full SEO setup adds to the price
-6. **Who You Hire** — Freelancer < Small Agency < Large Agency
+## Website Ki Cost Ko Affect Karne Wale 6 Major Factors
 
-## Freelancer vs Agency: Which is Better?
+1. **Design Complexity** — Custom design, templates se 2-3x mehnga hota hai
+2. **Number of Pages** — Jyada pages = jyada cost (₹500-2000 per page)
+3. **Features Required** — Login system, payment, booking se cost badhti hai
+4. **Technology Stack** — WordPress sasta hai; Next.js/React 30-40% mehnga
+5. **SEO Requirements** — Indore/Bhopal local SEO setup ₹5,000-15,000 extra
+6. **Kaun Banayega** — Freelancer < Small Agency < Large Agency
 
-| Factor | Freelancer | Agency |
+## Freelancer vs Agency: Indore & Bhopal mein Kya Behtar Hai?
+
+| Factor | Freelancer | Agency (AVB Software) |
 |--------|-----------|--------|
 | Cost | ₹3,000-₹15,000 | ₹15,000-₹1,00,000 |
-| Reliability | Variable | More reliable |
-| Support | Limited | Ongoing |
-| Quality | Variable | Consistent |
+| Reliability | Variable ⚠️ | Highly reliable ✅ |
+| Support | Limited | 3-month free + ongoing |
+| Quality | Variable | Consistent ✅ |
+| Timeline | Often delayed | On-time delivery ✅ |
+| After Sales | None | Full support ✅ |
 
-## Why AVB Software?
+## Indore vs Bhopal — Pricing Mein Antar?
 
-At AVB Software, Bhopal, we offer the perfect balance:
-- **Agency-quality work** at freelancer-friendly prices
-- Transparent pricing with no hidden costs
-- 3-month post-launch support included
-- Fast delivery within agreed timelines
+Aksar log poochhte hain ki **Indore aur Bhopal mein website pricing alag hoti hai kya?** Sach kahein toh nahi — pricing mostly **same** rehti hai dono cities mein. Difference sirf agency ki quality aur experience ka hota hai.
 
-**Contact us today for a free quote on your website project.**
+## AVB Software — Indore & Bhopal ki Trusted Choice Kyun?
+
+AVB Software mein hum offer karte hain:
+- ✅ **Agency-quality kaam** freelancer-friendly prices pe
+- ✅ Transparent pricing, koi hidden cost nahi
+- ✅ 3-month post-launch support **FREE** included
+- ✅ Fast delivery within agreed timelines
+- ✅ **Local support** — Indore & Bhopal ke clients ke liye dedicated team
+- ✅ 100+ successful projects
+- ✅ Hindi & English dono mein communication
+
+## Conclusion
+
+**Indore aur Bhopal mein website banwane ka kharcha** aapke business type, features, aur agency ki expertise par depend karta hai. Budget chahe ₹3,000 ho ya ₹2 lakh, sahi agency chunna sabse important hai.
+
+**Ready to get started?** [AVB Software se contact karein](/contact) apne website project ka **free quote** lene ke liye!
     `,
   },
+
+  // ==================== BLOG 2 ====================
   {
-    slug: "custom-software-benefits-small-businesses-bhopal",
-    title: "Top 5 Benefits of Custom Software for Small Businesses in Bhopal",
+    slug: "custom-software-benefits-small-businesses-indore-bhopal",
+    title: "Indore & Bhopal ke Small Businesses ke liye Custom Software ke Top 5 Fayde",
+    metaTitle: "Custom Software for Small Business Indore Bhopal | AVB Software",
+    metaDescription:
+      "Indore & Bhopal ke small businesses ke liye custom software ke 5 game-changing fayde. Tally se chhutkara payen, costs bachayen. Starting from ₹25,000.",
     excerpt:
-      "Many small businesses in Bhopal use generic software that doesn't quite fit their needs. Here's why custom software could be the game-changer your business needs.",
+      "Indore aur Bhopal ke bahut se small businesses generic software use karte hain jo unki zaroorat poori nahi karta. Jaaniye kyun custom software aapke business ke liye game-changer ho sakta hai.",
     category: "Custom Software",
     readTime: "5 min read",
-    date: "January 22, 2025",
+    date: "2025-01-22",
+    dateDisplay: "January 22, 2025",
     author: "Varsha Thakre",
+    authorBio: "Senior Software Developer at AVB Software, specializing in custom ERP and business automation solutions.",
+    authorImage: "/team/varsha.jpg",
     thumbnail: "/images/blog/custom-software-bhopal.jpg",
-    keywords: ["custom software Bhopal", "software development small business", "ERP Bhopal"],
+    ogImage: "/images/blog/og-custom-software.jpg",
+    city: ["Indore", "Bhopal"],
+    tags: ["Custom Software", "ERP", "Small Business", "Indore", "Bhopal"],
+    keywords: [
+      "custom software Bhopal",
+      "custom software Indore",
+      "software development small business",
+      "ERP Bhopal",
+      "ERP software Indore",
+      "custom software development Indore",
+      "software banwana Indore",
+      "software banwana Bhopal",
+      "ERP software Indore small business",
+      "custom software Madhya Pradesh",
+      "software company Indore",
+      "software company Bhopal",
+      "business software Indore",
+      "inventory software Indore",
+      "CRM software Bhopal",
+      "billing software Indore",
+      "POS software Bhopal",
+    ],
+    faqs: [
+      {
+        question: "Custom software kya hota hai?",
+        answer: "Custom software woh hota hai jo specifically aapke business ke liye banaya jaata hai - aapke exact workflow, requirements, aur preferences ke according. Yeh generic software (Tally, Zoho) se behtar fit karta hai."
+      },
+      {
+        question: "Indore mein custom software ki cost kya hai?",
+        answer: "Indore mein custom software ₹25,000 (simple tools) se ₹2,00,000+ (enterprise ERP) tak ki cost mein develop hota hai. AVB Software transparent pricing offer karta hai."
+      },
+      {
+        question: "Custom software kitne time mein ban jaata hai?",
+        answer: "Simple custom software 15-30 din mein ban jaata hai. Complex ERP systems 2-4 mahine le sakte hain. Timeline features par depend karti hai."
+      },
+      {
+        question: "Tally vs custom software - kya behtar hai?",
+        answer: "Tally generic accounting ke liye achhi hai lekin custom software aapke specific business processes (manufacturing, textile, healthcare) ke liye perfect fit hota hai aur long-term mein zyada cost-effective hai."
+      }
+    ],
+    relatedPosts: [
+      "erp-software-indore-bhopal-businesses",
+      "website-development-cost-indore-bhopal-2025",
+      "why-business-needs-mobile-app-2025"
+    ],
     content: `
-# Top 5 Benefits of Custom Software for Small Businesses in Bhopal
+# Indore & Bhopal ke Small Businesses ke liye Custom Software ke Top 5 Fayde
 
-Are you still using Excel sheets to manage your inventory? Or spending hours on manual billing? If yes, custom software might be the solution you've been looking for.
+Kya aap abhi bhi **Excel sheets se apna inventory manage** kar rahe hain? Ya manual billing mein ghante laga rahe hain? Agar haan, toh **custom software** woh solution ho sakta hai jo aap dhundh rahe the.
 
-In this article, we'll explore why custom software development is a smart investment for small and medium businesses in Bhopal, Madhya Pradesh.
+Is article mein hum explore karenge ki kyun **custom software development Indore aur Bhopal**, Madhya Pradesh ke small aur medium businesses ke liye ek smart investment hai.
 
-## What is Custom Software?
+## Custom Software Kya Hota Hai?
 
-Custom software is software built specifically for your business — unlike off-the-shelf solutions like Tally, QuickBooks, or generic CRMs that try to fit every business.
+Custom software woh software hota hai jo **specifically aapke business ke liye** bana ho — off-the-shelf solutions jaise Tally, QuickBooks, ya generic CRMs ke ulta, jo har business ko fit karne ki koshish karte hain.
 
-## Benefit 1: Perfectly Fits Your Business Process
+## Fayda 1: Aapke Business Process Ko Perfectly Fit Karta Hai
 
-Generic software forces you to change how you work to match the software. Custom software does the opposite — it adapts to how YOU work.
+Generic software aapko apna kaam software ke according badalne par majboor karta hai. Custom software iska ulta karta hai — yeh aapke kaam ke TARIKE ke hisaab se adapt hota hai.
 
-**Example:** A textile dealer in Bhopal needs to manage fabric by meters, not units. A generic inventory system won't handle this well. Custom software will.
+**Example Indore ke liye:** Indore ka ek textile dealer fabric meters mein manage karna chahta hai, units mein nahi. Ek generic inventory system yeh handle nahi karega. Custom software karega.
 
-## Benefit 2: Saves Time Through Automation
+**Example Bhopal ke liye:** Bhopal ka ek hospital billing system chahta hai jo government schemes aur private patients dono handle kare. Custom software exactly yahi deta hai.
 
-Manual data entry, report generation, invoice creation — all of these can be automated with custom software.
+## Fayda 2: Automation Se Time Bachata Hai
 
-**Real impact:** Our clients have saved 3-4 hours per day after automating manual tasks.
+Manual data entry, report generation, invoice creation — yeh sab custom software se automate ho sakte hain.
 
-## Benefit 3: No Monthly Subscription Fees
+> **Real impact:** Hamare Indore & Bhopal ke clients ne manual tasks automate karne ke baad roz 3-4 ghante bachaye hain.
 
-Off-the-shelf software like Zoho, Salesforce, or QuickBooks charge monthly fees forever. Custom software is a one-time investment.
+## Fayda 3: Koi Monthly Subscription Fees Nahi
+
+Off-the-shelf software jaise Zoho, Salesforce, ya QuickBooks hamesha ke liye monthly fees charge karte hain. Custom software ek **one-time investment** hai.
 
 **Cost comparison:**
-- Zoho CRM: ₹800/user/month = ₹9,600/year per user
-- Custom CRM from AVB Software: ₹30,000 one-time
+| Software | Cost |
+|----------|------|
+| Zoho CRM | ₹800/user/month = ₹9,600/year per user |
+| Salesforce | ₹2,000/user/month = ₹24,000/year per user |
+| **AVB Custom CRM** | **₹30,000 one-time (lifetime)** |
 
-Within 3 years, custom software costs less.
+**3 saal mein custom software 60-70% sasta** pad jaata hai!
 
-## Benefit 4: Better Data Security
+## Fayda 4: Behtar Data Security
 
-Your business data stays in your control. No third-party company has access to your customer data, pricing, or business secrets.
+Aapka business data **aapke control mein** rehta hai. Koi third-party company aapke customer data, pricing, ya business secrets access nahi kar sakti.
 
-## Benefit 5: Competitive Advantage
+## Fayda 5: Competitive Advantage
 
-When your competitor is using the same generic software as everyone else, custom software gives you a unique edge in efficiency and customer service.
+Jab aapka competitor wahi generic software use kar raha hai jo baaki sab karte hain, custom software aapko efficiency aur customer service mein **unique edge** deta hai — especially Indore & Bhopal ke competitive markets mein.
 
-## Is Custom Software Right for You?
+## Kya Custom Software Aapke liye Sahi Hai?
 
-Custom software makes sense if:
-- You're spending 2+ hours/day on manual data entry
-- Generic software doesn't fit your workflow
-- You have 5+ employees using software daily
-- You're looking to scale your business
+Custom software tab sahi rehta hai jab:
+- ✅ Aap roz 2+ ghante manual data entry mein laga rahe hain
+- ✅ Generic software aapke workflow ke liye fit nahi hai
+- ✅ Aapke 5+ employees daily software use karte hain
+- ✅ Aap apna business scale karna chahte hain
 
-## How Much Does Custom Software Cost in Bhopal?
+## Indore & Bhopal mein Custom Software Ki Cost Kitni Hoti Hai?
 
-At AVB Software, we build custom software starting from ₹25,000 for simple tools to ₹2,00,000+ for complex enterprise systems.
+AVB Software mein hum custom software banate hain:
+- 🟢 **Simple tools** se shuru: ₹25,000
+- 🟡 **Medium business** software: ₹50,000 - ₹1,00,000
+- 🔴 **Complex enterprise** systems: ₹2,00,000+
 
-**Get a free consultation today and let's discuss how custom software can transform your business.**
+**Aaj hi free consultation lein** aur jaanein ki custom software aapke **Indore ya Bhopal ke business ko kaise transform** kar sakta hai.
     `,
   },
+
+  // ==================== BLOG 3 ====================
   {
     slug: "why-business-needs-mobile-app-2025",
-    title: "Why Your Business Needs a Mobile App in 2025",
+    title: "2025 mein Indore & Bhopal ke Business ko Mobile App Kyun Chahiye?",
+    metaTitle: "Mobile App Development Indore & Bhopal 2025 | AVB Software",
+    metaDescription:
+      "2025 mein Indore & Bhopal ke businesses ko mobile app kyun chahiye? 5 strong reasons, costs, aur benefits. React Native app ₹25,000 se shuru.",
     excerpt:
-      "With over 750 million smartphone users in India, having a mobile app is no longer a luxury — it's a necessity. Here's why your business needs one in 2025.",
+      "India mein 750 million se zyada smartphone users hain. Indore aur Bhopal ke business owners ke liye mobile app ab luxury nahi — zaroorat hai. Jaaniye kyun aur kaise shuru karein.",
     category: "Mobile Development",
     readTime: "7 min read",
-    date: "February 1, 2025",
+    date: "2025-02-01",
+    dateDisplay: "February 1, 2025",
     author: "Bharti Dhote",
+    authorBio: "Mobile App Developer at AVB Software with expertise in React Native and Flutter development.",
+    authorImage: "/team/bharti.jpg",
     thumbnail: "/images/blog/mobile-app-2025.jpg",
-    keywords: ["mobile app development India", "business mobile app 2025", "why need mobile app"],
+    ogImage: "/images/blog/og-mobile-app.jpg",
+    city: ["Indore", "Bhopal"],
+    tags: ["Mobile App", "React Native", "Indore", "Bhopal", "Business"],
+    keywords: [
+      "mobile app development India",
+      "business mobile app 2025",
+      "why need mobile app",
+      "mobile app development company Indore",
+      "mobile app development company Bhopal",
+      "mobile app banwana Indore",
+      "mobile app banwana Bhopal",
+      "app development cost Indore",
+      "app development cost Bhopal",
+      "React Native developer Indore",
+      "Android app development Bhopal",
+      "iOS app development Indore",
+      "app development Madhya Pradesh",
+      "business app Indore",
+      "flutter developer Indore",
+    ],
+    faqs: [
+      {
+        question: "Indore mein mobile app banwane ka kharcha kitna hai?",
+        answer: "Indore mein mobile app development cost ₹25,000 (simple app) se ₹1,50,000+ (complex marketplace) tak hota hai. React Native use karke Android + iOS dono milte hain ek hi cost mein."
+      },
+      {
+        question: "Bhopal mein best mobile app developer kaun hai?",
+        answer: "AVB Software Bhopal mein top mobile app development services provide karta hai with React Native, Flutter, aur native development expertise. 50+ successful apps deliver kar chuke hain."
+      },
+      {
+        question: "Kya mere business ko mobile app ki zaroorat hai?",
+        answer: "Agar aapke regular customers hain, aap loyalty program chahte hain, ya competitors se aage rahna chahte hain - toh mobile app definitely investment ke layak hai."
+      },
+      {
+        question: "App development mein kitna time lagta hai?",
+        answer: "Simple app 30-45 din, medium complexity app 2-3 mahine, aur complex apps 4-6 mahine mein ready hoti hain. Timeline features par depend karti hai."
+      }
+    ],
+    relatedPosts: [
+      "website-vs-mobile-app-indore-bhopal-business",
+      "website-development-cost-indore-bhopal-2025",
+      "custom-software-benefits-small-businesses-indore-bhopal"
+    ],
     content: `
-# Why Your Business Needs a Mobile App in 2025
+# 2025 mein Indore & Bhopal ke Business ko Mobile App Kyun Chahiye?
 
-India now has over **750 million smartphone users**. By the end of 2025, that number will cross 900 million. If your business doesn't have a mobile app, you're leaving a massive opportunity on the table.
+India mein ab **750 million se zyada smartphone users** hain. 2025 ke ant tak yeh number **900 million cross** kar lega. Indore aur Bhopal jaise growing cities mein agar aapke business ka mobile app nahi hai, toh aap ek **bahut badi opportunity miss** kar rahe hain.
 
-In this article, we'll explain why a mobile app is essential for businesses in India in 2025 — and how to get started.
+Is article mein hum explain karenge ki 2025 mein **Indore aur Bhopal ke businesses** ke liye mobile app kyun zaroori hai — aur kaise shuru karein.
 
-## The Mobile Reality in India
+## Madhya Pradesh ki Mobile Reality
 
-- 📱 750+ million smartphone users in India
-- ⏱️ Average Indian spends 4.7 hours/day on their phone
-- 🛒 70% of online purchases in India happen via mobile
-- 💬 WhatsApp, Instagram, and apps drive business decisions
+- 📱 **750+ million** smartphone users India mein
+- ⏱️ Average Indian **4.7 ghante/din** phone par spend karta hai
+- 🛒 **70%** online purchases India mein mobile se hoti hain
+- 💬 WhatsApp, Instagram, aur apps business decisions drive karte hain
+- 📍 **Indore & Bhopal** mein internet penetration tezi se badh raha hai
 
-Your customers are on their phones. Your business should be there too.
+Aapke customers unke phones par hain. **Aapka business wahan hona chahiye.**
 
-## Reason 1: Direct Channel to Your Customers
+## Karan 1: Aapke Customers Se Direct Connection
 
-A mobile app gives you a direct line to your customers — no middleman, no algorithm, no competition for attention.
+Mobile app aapko customers se direct connect karta hai — koi middleman nahi, koi algorithm nahi, attention ke liye koi competition nahi.
 
-**Push notifications** let you:
-- Announce offers and discounts
-- Send order updates
-- Remind customers about abandoned carts
-- Share important news
+**Push notifications** se aap kar sakte hain:
+- ✅ Offers aur discounts announce karna
+- ✅ Order updates bhejna
+- ✅ Customers ko abandoned carts yaad dilana
+- ✅ Important news share karna
 
-**Email open rate:** ~20% | **Push notification open rate:** ~50%
+> **Email open rate:** ~20% | **Push notification open rate:** ~50%
 
-## Reason 2: Better Customer Experience
+## Karan 2: Behtar Customer Experience
 
-A well-designed app makes it easier for customers to:
-- Browse your products/services
-- Make purchases
-- Track orders
-- Contact support
-- Leave reviews
+Ek well-designed app customers ke liye aasaan banata hai:
+- Aapke products/services browse karna
+- Purchases karna
+- Orders track karna
+- Support se contact karna
+- Reviews chhorna
 
-**Better experience = More repeat customers = More revenue**
+**Behtar experience = Zyada repeat customers = Zyada revenue**
 
-## Reason 3: Builds Customer Loyalty
+## Karan 3: Customer Loyalty Build Hoti Hai
 
-Apps with loyalty programs keep customers coming back.
+Loyalty programs wale apps customers ko baar baar laate hain.
 
-Features like:
-- Points and rewards
-- Exclusive app-only offers
-- Personalized recommendations
-- Easy reordering
+Features jaise:
+- 🎁 Points aur rewards
+- 💝 Exclusive app-only offers
+- 🎯 Personalized recommendations
+- 🔄 Easy reordering
 
-These features are difficult to implement on a website but natural in an app.
+## Karan 4: Indore & Bhopal mein Competitors Se Aage Rahein
 
-## Reason 4: Stand Out from Competitors
+Indore aur Bhopal mein aapke kitne local competitors ke paas mobile app hai? **Shayad koi nahi.** Apne area mein pehla quality app rakhna ek **massive competitive advantage** hai.
 
-How many of your local competitors have a mobile app? Probably none. Being the first in your area with a quality app is a massive competitive advantage.
+## Karan 5: Data aur Insights
 
-## Reason 5: Data and Insights
+Mobile apps aapko customers ke baare mein rich data dete hain:
+- 📊 Woh kya sabse zyada browse karte hain
+- 📉 Woh kahan drop off karte hain
+- ⏰ Woh kaunse time most active hain
+- 🎯 Woh kaunse features use karte hain
 
-Mobile apps give you rich data about your customers:
-- What they browse most
-- Where they drop off
-- What times they're most active
-- Which features they use
+## Indore & Bhopal ke Businesses ke liye Mobile App Types
 
-This data helps you make better business decisions.
-
-## Types of Mobile Apps for Indian Businesses
-
-1. **E-Commerce App** — Sell products online
-2. **Service Booking App** — Salons, doctors, repairs
+1. **E-Commerce App** — Products online bechna (Indore ke textile/retail ke liye perfect)
+2. **Service Booking App** — Salons, doctors, repairs (Bhopal ke liye ideal)
 3. **Restaurant/Food Delivery App** — Menu + ordering
-4. **Educational App** — Courses, coaching
+4. **Educational App** — Courses, coaching (Indore & Bhopal ke coaching institutes ke liye)
 5. **Business Management App** — Internal tools
 
-## How Much Does a Mobile App Cost in India?
+## Indore & Bhopal mein Mobile App Banwane Ki Cost Kitni Hai?
 
-At AVB Software, Bhopal:
-- Simple app (5-8 screens): ₹25,000 – ₹60,000
-- Medium app with backend: ₹60,000 – ₹1,50,000
-- Complex app (marketplace, real-time features): ₹1,50,000+
+AVB Software mein:
+- 🟢 **Simple app** (5-8 screens): ₹25,000 – ₹60,000
+- 🟡 **Medium app** with backend: ₹60,000 – ₹1,50,000
+- 🔴 **Complex app** (marketplace, real-time): ₹1,50,000+
 
-We build apps for both Android and iOS using React Native — so you only pay once and get both!
+Hum **React Native** use karke apps banate hain — toh aap ek baar pay karte hain aur **Android + iOS dono milta hai!**
 
-## Get Started Today
+## Aaj Hi Shuru Karein
 
-Don't wait. Your competitors are catching up. **Contact AVB Software for a free mobile app consultation.**
+Mat rukiye. Aapke Indore & Bhopal ke competitors catch up kar rahe hain. **[AVB Software se contact karein](/contact)** apna **free mobile app consultation** lene ke liye.
+    `,
+  },
+
+  // ==================== BLOG 4 ====================
+  {
+    slug: "erp-software-indore-bhopal-businesses",
+    title: "Indore & Bhopal ke Businesses ke liye ERP Software — Complete Guide 2025",
+    metaTitle: "ERP Software Indore & Bhopal 2025 | Custom ERP - AVB Software",
+    metaDescription:
+      "Indore & Bhopal ke businesses ke liye custom ERP software. Manufacturing, textile, hospital management ke liye perfect solution. ₹50,000 se shuru.",
+    excerpt:
+      "ERP software aapke poore business ko ek jagah manage karne mein help karta hai. Jaaniye Indore aur Bhopal ke businesses ke liye best ERP solution kaunsa hai aur iska kharcha kya hoga.",
+    category: "Custom Software",
+    readTime: "6 min read",
+    date: "2025-02-15",
+    dateDisplay: "February 15, 2025",
+    author: "Abhinandan Meena",
+    authorBio: "Founder of AVB Software with 5+ years experience in web development for Indore & Bhopal businesses.",
+    authorImage: "/team/abhinandan.jpg",
+    thumbnail: "/images/blog/erp-software-indore.jpg",
+    ogImage: "/images/blog/og-erp-software.jpg",
+    city: ["Indore", "Bhopal"],
+    tags: ["ERP", "Custom Software", "Indore", "Bhopal", "Manufacturing"],
+    keywords: [
+      "ERP software Indore",
+      "ERP software Bhopal",
+      "ERP software Madhya Pradesh",
+      "custom ERP Indore",
+      "best ERP software India",
+      "ERP banwana Indore",
+      "inventory management software Indore",
+      "accounting software Bhopal",
+      "business management software Indore",
+      "manufacturing ERP Indore",
+      "textile ERP Indore",
+      "hospital ERP Bhopal",
+      "SAP alternative Indore",
+      "Tally alternative Bhopal",
+    ],
+    faqs: [
+      {
+        question: "ERP software kya hota hai?",
+        answer: "ERP (Enterprise Resource Planning) software ek integrated system hai jo aapke business ki sabhi activities - inventory, accounting, HR, sales, purchase ko ek hi platform par manage karta hai."
+      },
+      {
+        question: "Indore mein ERP software ki cost kya hai?",
+        answer: "Indore mein custom ERP software ₹50,000 (basic) se ₹2,00,000+ (enterprise) tak hota hai. SAP/Oracle se 70% sasta aur 100% customized."
+      },
+      {
+        question: "Tally vs Custom ERP - kya behtar hai?",
+        answer: "Tally accounting ke liye achhi hai, lekin custom ERP aapke complete business (manufacturing, inventory, HR, sales) ko handle karta hai. Growing businesses ke liye custom ERP zyada powerful hai."
+      },
+      {
+        question: "ERP implementation mein kitna time lagta hai?",
+        answer: "Basic ERP 30-45 din, medium complexity 2-3 mahine, aur enterprise ERP 4-6 mahine mein implement hota hai. Training aur data migration include hai."
+      }
+    ],
+    relatedPosts: [
+      "custom-software-benefits-small-businesses-indore-bhopal",
+      "website-development-cost-indore-bhopal-2025",
+      "why-business-needs-mobile-app-2025"
+    ],
+    content: `
+# Indore & Bhopal ke Businesses ke liye ERP Software — Complete Guide 2025
+
+Agar aap **Indore ya Bhopal mein business chalate hain** aur abhi bhi alag alag Excel sheets, registers, aur manual processes par depend kar rahe hain — toh **ERP software** exactly woh solution hai jo aapko chahiye.
+
+## ERP Software Kya Hota Hai?
+
+**ERP (Enterprise Resource Planning)** software ek aisa system hai jo aapke poore business ko ek jagah manage karta hai:
+
+- 📦 Inventory & Stock Management
+- 💰 Accounting & Billing
+- 👥 HR & Payroll
+- 🛒 Sales & Purchase Orders
+- 📊 Reports & Analytics
+
+## Indore ke Businesses ke liye ERP Kyun Zaroori Hai?
+
+**Indore ek rapidly growing business hub** hai. Textile, manufacturing, trading, aur IT — sabhi industries mein competition badh raha hai. ERP software aapko yeh advantages deta hai:
+
+### Textile Business (Indore ke liye Specially)
+- ✅ Fabric stock meters mein track karna
+- ✅ Multiple warehouse management
+- ✅ GST-compliant billing
+- ✅ Supplier & customer management
+
+### Manufacturing Business
+- ✅ Raw material to finished goods tracking
+- ✅ Production planning
+- ✅ Quality control
+- ✅ Cost analysis per product
+
+## Bhopal ke Businesses ke liye ERP Kyun Zaroori Hai?
+
+**Bhopal mein government aur healthcare sector dominant** hai. Custom ERP yahan kaise kaam karta hai:
+
+### Hospital / Clinic Management
+- ✅ Patient records & history
+- ✅ Appointment scheduling
+- ✅ Billing & insurance claims
+- ✅ Pharmacy management
+- ✅ Lab report management
+
+### Government Contractors
+- ✅ Project tracking
+- ✅ Document management
+- ✅ Billing & invoicing
+- ✅ Compliance reporting
+
+## Ready-made ERP vs Custom ERP — Kya Chunein?
+
+| Factor | Ready-made (SAP/Tally) | Custom ERP (AVB Software) |
+|--------|----------------------|--------------------------|
+| Cost | ₹50,000 – ₹5,00,000/year | ₹50,000 – ₹2,00,000 **one-time** |
+| Fit | 60-70% fit | **100% fit** ✅ |
+| Training | Difficult | **Easy** (aapki language mein) |
+| Support | Call center | **Local Indore/Bhopal team** |
+| Customization | Limited | **Unlimited** ✅ |
+
+## AVB Software ka ERP Solution
+
+Hum **Indore aur Bhopal ke businesses** ke liye custom ERP banate hain jo:
+- ✅ **Hindi aur English** dono mein kaam kare
+- ✅ **GST aur Indian accounting** standards follow kare
+- ✅ Aapke existing process ke saath fit ho
+- ✅ **Mobile par bhi** accessible ho
+- ✅ Cloud-based — kahin se bhi access
+
+**Starting from ₹50,000** — [Aaj hi free demo book karein](/contact).
+    `,
+  },
+
+  // ==================== BLOG 5 ====================
+  {
+    slug: "website-vs-mobile-app-indore-bhopal-business",
+    title: "Website ya Mobile App — Indore & Bhopal ke Business ke liye Kya Behtar Hai?",
+    metaTitle: "Website vs Mobile App Indore Bhopal | Complete Guide 2025",
+    metaDescription:
+      "Website ya Mobile App - Indore & Bhopal ke business ke liye kya pehle banwayein? Complete comparison guide with costs, benefits, aur expert advice.",
+    excerpt:
+      "Website aur mobile app mein se kya chunein? Indore aur Bhopal ke business owners ke liye yeh ek common sawaal hai. Is guide mein jaaniye apne business type ke liye best choice.",
+    category: "Web Development",
+    readTime: "5 min read",
+    date: "2025-03-01",
+    dateDisplay: "March 1, 2025",
+    author: "Varsha Thakre",
+    authorBio: "Senior Software Developer at AVB Software, specializing in custom ERP and business automation solutions.",
+    authorImage: "/team/varsha.jpg",
+    thumbnail: "/images/blog/website-vs-app-indore.jpg",
+    ogImage: "/images/blog/og-website-vs-app.jpg",
+    city: ["Indore", "Bhopal"],
+    tags: ["Website", "Mobile App", "Indore", "Bhopal", "Comparison"],
+    keywords: [
+      "website vs mobile app Indore",
+      "website ya app Bhopal business",
+      "website banwana ya app Indore",
+      "digital presence Indore business",
+      "web development vs app development Bhopal",
+      "online business Indore",
+      "digital marketing Indore",
+      "software company Indore",
+      "IT company Bhopal",
+      "tech solution Madhya Pradesh",
+      "website ya app kya banwayein",
+    ],
+    faqs: [
+      {
+        question: "Pehle website banwayein ya mobile app?",
+        answer: "Zyadatar businesses ke liye pehle website banwana behtar hai - kyunki website Google par dikhti hai, kam cost mein bante hai, aur sabhi devices par accessible hai. App baad mein add kar sakte hain."
+      },
+      {
+        question: "Indore mein website + app combo ki cost?",
+        answer: "AVB Software ka Indore & Bhopal ke liye special combo package ₹50,000 se shuru hota hai - jisme professional website + Android/iOS app + admin panel + 3-month support included hai."
+      },
+      {
+        question: "Restaurant business ke liye kya behtar hai?",
+        answer: "Restaurant ke liye dono zaroori hain - website Google par dikhne ke liye aur app regular customers ke loyalty programs ke liye. Start with website, then add app."
+      },
+      {
+        question: "Kya mobile app SEO mein help karta hai?",
+        answer: "Direct nahi, lekin Google ab apps ko bhi index karta hai. Website SEO ke liye essential hai, app brand presence aur user engagement ke liye."
+      }
+    ],
+    relatedPosts: [
+      "website-development-cost-indore-bhopal-2025",
+      "why-business-needs-mobile-app-2025",
+      "custom-software-benefits-small-businesses-indore-bhopal"
+    ],
+    content: `
+# Website ya Mobile App — Indore & Bhopal ke Business ke liye Kya Behtar Hai?
+
+**Indore aur Bhopal ke bahut se business owners** yeh sawaal poochhte hain: **"Pehle website banwayein ya mobile app?"**
+
+Dono ki apni jagah hai — lekin aapke business type ke hisaab se priority alag hoti hai.
+
+## Pehle Website Kyun?
+
+### Website ke Fayde:
+- ✅ **Google par dikhai dete hain** — Log "software company Indore" search karte hain, website chahiye
+- ✅ **Kam cost** — App se 3-4 guna sasta
+- ✅ **Sabhi devices par accessible** — Phone, laptop, tablet
+- ✅ **SEO friendly** — Indore & Bhopal mein local search se customers aate hain
+- ✅ **Quick to launch** — 7-15 din mein ready
+
+### Website ke liye Best Business Types (Indore & Bhopal):
+- 🏫 Coaching institutes
+- 🏥 Clinics & hospitals
+- ⚖️ Law firms
+- 📊 CA offices
+- 🏘️ Real estate agencies
+- 🏭 Manufacturers & exporters
+
+## Pehle App Kyun?
+
+### App ke Fayde:
+- ✅ **Regular customers** ke liye perfect — Jo baar baar aate hain
+- ✅ **Offline bhi** kaam karta hai
+- ✅ **Push notifications** — Direct customer engagement
+- ✅ **Loyalty programs** easy hain
+- ✅ **Brand presence** strong banti hai
+
+### App ke liye Best Business Types (Indore & Bhopal):
+- 🍽️ Restaurants & food delivery
+- 🛍️ Retail shops
+- 💇 Salons & spas
+- 💪 Gym & fitness centers
+- 🥬 Grocery stores
+
+## AVB Software ki Recommendation
+
+> **Agar budget limited hai:** Pehle website banwayein → Google par aayein → Customers aayein → Phir app banwayein.
+
+> **Agar budget hai:** Dono saath banwayein — website + app ka **combo package** hum offer karte hain.
+
+## Indore & Bhopal ke liye Special Combo Package
+
+AVB Software offer karta hai:
+- ✅ Professional Website (Next.js)
+- ✅ Android + iOS App (React Native)
+- ✅ Admin Panel
+- ✅ Local SEO Setup (Indore/Bhopal)
+- ✅ 3 Month FREE Support
+
+**[Aaj hi call karein ya WhatsApp karein](/contact)** — free consultation available hai **Indore & Bhopal ke businesses** ke liye.
     `,
   },
 ];
+
+// ✅ HELPER FUNCTIONS - SEO ke liye useful
+export function getPostBySlug(slug: string): BlogPost | undefined {
+  return blogPosts.find((post) => post.slug === slug);
+}
+
+export function getRelatedPosts(currentSlug: string, limit = 3): BlogPost[] {
+  const currentPost = getPostBySlug(currentSlug);
+  if (!currentPost?.relatedPosts) {
+    return blogPosts.filter((p) => p.slug !== currentSlug).slice(0, limit);
+  }
+  return currentPost.relatedPosts
+    .map((slug) => getPostBySlug(slug))
+    .filter((p): p is BlogPost => p !== undefined)
+    .slice(0, limit);
+}
+
+export function getPostsByCategory(category: string): BlogPost[] {
+  return blogPosts.filter((post) => post.category === category);
+}
+
+export function getPostsByCity(city: string): BlogPost[] {
+  return blogPosts.filter((post) => post.city?.includes(city));
+}
+
+export function getFeaturedPosts(): BlogPost[] {
+  return blogPosts.filter((post) => post.featured);
+}
+
+export function getAllCategories(): string[] {
+  return Array.from(new Set(blogPosts.map((post) => post.category)));
+}
+
+export function getAllTags(): string[] {
+  return Array.from(new Set(blogPosts.flatMap((post) => post.tags)));
+}

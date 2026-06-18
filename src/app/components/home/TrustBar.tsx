@@ -1,216 +1,199 @@
-// "use client";
-
-// import Image from "next/image";
-
-// const clients = [
-//   { 
-//     id: 1, 
-//     name: "TechCorp Solutions", 
-//     firmType: "IT Services", 
-//     location: "Mumbai",
-//     image: "/images/clients/placeholder-1.svg"
-//   },
-//   { 
-//     id: 2, 
-//     name: "FinSolve Group", 
-//     firmType: "Financial Services", 
-//     location: "Delhi",
-//     image: "/images/clients/placeholder-1.svg"
-//   },
-//   // ... add more clients
-// ];
-
-// export default function TrustBar() {
-//   return (
-//     <section className="py-16 bg-gradient-to-b from-white to-slate-50/80 border-y border-slate-100">
-//       <div className="container-custom">
-//         {/* Section header */}
-//         <div className="text-center mb-10">
-//           <p className="text-sm font-semibold text-indigo-600 uppercase tracking-wider mb-2">
-//             Trusted Partners
-//           </p>
-//           <h3 className="text-2xl md:text-3xl font-bold text-slate-800">
-//             Loved by businesses across India
-//           </h3>
-//           <div className="w-20 h-1 bg-gradient-to-r from-indigo-500 to-pink-500 rounded-full mx-auto mt-4" />
-//         </div>
-
-//         {/* Scrolling marquee */}
-//         <div className="relative w-full overflow-hidden py-6">
-//           <div className="flex animate-marquee-ltr">
-//             {/* First set */}
-//             {clients.map((client) => (
-//               <div
-//                 key={client.id}
-//                 className="mx-5 flex-shrink-0 w-96 bg-white rounded-2xl shadow-lg border border-slate-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden group"
-//               >
-//                 {/* Large photo section */}
-//                 <div className="relative w-full h-56 bg-slate-100">
-//                   <Image
-//                     src={client.image}
-//                     alt={`${client.name} team`}
-//                     fill
-//                     className="object-cover group-hover:scale-105 transition-transform duration-500"
-//                     priority={client.id <= 2}
-//                   />
-//                 </div>
-//                 {/* Client info below photo */}
-//                 <div className="p-5">
-//                   <h4 className="text-xl font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">
-//                     {client.name}
-//                   </h4>
-//                   <p className="text-sm text-slate-500 mt-1">{client.firmType}</p>
-//                   <p className="text-sm text-slate-400 mt-2 flex items-center gap-1">
-//                     <span>📍</span> {client.location}
-//                   </p>
-//                 </div>
-//               </div>
-//             ))}
-//             {/* Duplicate for seamless loop */}
-//             {clients.map((client) => (
-//               <div
-//                 key={`dup-${client.id}`}
-//                 className="mx-5 flex-shrink-0 w-96 bg-white rounded-2xl shadow-lg border border-slate-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden group"
-//               >
-//                 <div className="relative w-full h-56 bg-slate-100">
-//                   <Image
-//                     src={client.image}
-//                     alt={`${client.name} team`}
-//                     fill
-//                     className="object-cover group-hover:scale-105 transition-transform duration-500"
-//                   />
-//                 </div>
-//                 <div className="p-5">
-//                   <h4 className="text-xl font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">
-//                     {client.name}
-//                   </h4>
-//                   <p className="text-sm text-slate-500 mt-1">{client.firmType}</p>
-//                   <p className="text-sm text-slate-400 mt-2 flex items-center gap-1">
-//                     <span>📍</span> {client.location}
-//                   </p>
-//                 </div>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-
-//         <p className="text-center text-xs text-slate-400 mt-6">
-//           📸 Replace these placeholder images with actual client photos
-//         </p>
-
-//         <style jsx>{`
-//           @keyframes marqueeLTR {
-//             0% { transform: translateX(-50%); }
-//             100% { transform: translateX(0); }
-//           }
-//           .animate-marquee-ltr {
-//             animation: marqueeLTR 40s linear infinite;
-//             display: flex;
-//             width: fit-content;
-//           }
-//           .animate-marquee-ltr:hover {
-//             animation-play-state: paused;
-//           }
-//         `}</style>
-//       </div>
-//     </section>
-//   );
-// }
-
-
-
-
 "use client";
 
 import Image from "next/image";
 
-// Demo placeholder image (clean avatar)
-const demoImage =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='40' r='25' fill='%2394a3b8'/%3E%3Cpath d='M20 80 Q50 60 80 80' stroke='%2394a3b8' stroke-width='8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E";
-
 const clients = [
-  { id: 1, name: "TechCorp Solutions", firmType: "IT Services", location: "Mumbai", image: demoImage },
-  { id: 2, name: "FinSolve Group", firmType: "Financial Services", location: "Delhi", image: demoImage },
-  { id: 3, name: "MediCare Innovations", firmType: "Healthcare", location: "Bangalore", image: demoImage },
-  { id: 4, name: "EcoMart Retail", firmType: "E-commerce", location: "Chennai", image: demoImage },
-  { id: 5, name: "DataFlow Analytics", firmType: "Data Science", location: "Hyderabad", image: demoImage },
-  { id: 6, name: "BuildPro Constructions", firmType: "Real Estate", location: "Pune", image: demoImage },
-  { id: 7, name: "CloudNine Hosting", firmType: "Cloud Services", location: "Kolkata", image: demoImage },
+  {
+    id: 1,
+    name: "Krishna Timber",
+    firmType: "Timber & Woodworks",
+    location: "Bhopal",
+    image: "/clients/Krishan.jpeg",
+    workDone: "Payment and Billing System",
+  },
+  {
+    id: 2,
+    name: "VRN.INC",
+    firmType: "Sales & Marketing",
+    location: "Bhopal",
+    image: "/clients/finsolve.png",
+    workDone: "CRM And Payment Software",
+  },
+  {
+    id: 3,
+    name: "MediCare Innovations",
+    firmType: "Healthcare",
+    location: "Bhopal",
+    image: "/clients/",
+    workDone: "Doctors Appointment Software",
+  },
+  {
+    id: 4,
+    name: "Rcc Infrastructure",
+    firmType: "Infrastructure",
+    location: "Bhopal",
+    image: "/clients/rcc-logo.png",
+    workDone: "Purchase Order And Office Expenses Payment Reconciliation",
+  },
+  // {
+  //   id: 5,
+  //   name: "DataFlow Analytics",
+  //   firmType: "Data Science",
+  //   location: "Indore",
+  //   image: "/clients/dataflow.png",
+  //   workDone: "Analytics Dashboard UI/UX",
+  // },
+  // {
+  //   id: 6,
+  //   name: "BuildPro Constructions",
+  //   firmType: "Real Estate",
+  //   location: "Bhopal",
+  //   image: "/clients/buildpro.png",
+  //   workDone: "Property Booking Portal",
+  // },
+  // {
+  //   id: 7,
+  //   name: "CloudNine Hosting",
+  //   firmType: "Cloud Services",
+  //   location: "Ujjain",
+  //   image: "/clients/cloudnine.png",
+  //   workDone: "Hosting Platform Website",
+  // },
 ];
 
 export default function TrustBar() {
   return (
-    <section className="py-16 bg-gradient-to-b from-white to-slate-50/80 border-y border-slate-100">
-      <div className="container-custom">
+    <section
+      className="py-20 bg-gradient-to-b from-[#FAF5EA] to-[#F5F0E6] border-y border-[#D4C29E]/30 relative overflow-hidden"
+      aria-labelledby="trust-heading"
+    >
+      {/* Background decoration */}
+      <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-[#E8DCC4]/30 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[#C9A45C]/15 rounded-full blur-3xl" />
+
+      <div className="container-custom relative">
         {/* Section header */}
-        <div className="text-center mb-10">
-          <p className="text-sm font-semibold text-indigo-600 uppercase tracking-wider mb-2">
-            Trusted Partners
-          </p>
-          <h3 className="text-2xl md:text-3xl font-bold text-slate-800">
-            Loved by businesses across India
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[2px] text-[#8B6F47] mb-4">
+            <span className="w-8 h-px bg-[#8B6F47]"></span>
+            TRUSTED PARTNERS
+            <span className="w-8 h-px bg-[#8B6F47]"></span>
+          </div>
+          <h3
+            id="trust-heading"
+            className="text-3xl md:text-4xl font-bold text-[#2B2419]"
+            style={{ fontFamily: "'Playfair Display', serif" }}
+          >
+            Trusted by Businesses Across <span className="italic gradient-text">India</span>
           </h3>
-          <div className="w-20 h-1 bg-gradient-to-r from-indigo-500 to-pink-500 rounded-full mx-auto mt-4" />
+          <p className="text-[#6B5D4A] text-base mt-4 max-w-2xl mx-auto">
+            Proud to have partnered with amazing businesses in Indore, Bhopal & beyond
+          </p>
         </div>
 
-        {/* Scrolling marquee — left to right */}
+        {/* Scrolling marquee */}
         <div className="relative w-full overflow-hidden py-4">
           <div className="flex animate-marquee-ltr">
             {/* First set */}
             {clients.map((client) => (
-              <div
+              <article
                 key={client.id}
-                className="mx-4 flex-shrink-0 w-80 bg-white rounded-2xl shadow-md border border-slate-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group"
+                className="mx-4 flex-shrink-0 w-96 bg-white rounded-2xl shadow-md border border-[#E8DEC8] hover:shadow-xl hover:shadow-[#8B6F47]/15 transition-all duration-300 hover:-translate-y-2 hover:border-[#D4C29E] overflow-hidden group"
               >
-                <div className="p-4 flex items-center gap-4">
-                  <div className="relative w-16 h-16 rounded-full overflow-hidden bg-slate-100 flex-shrink-0">
-                    <Image src={client.image} alt={client.name} fill className="object-cover" />
+                <div className="p-6 flex items-start gap-4">
+                  {/* Client Logo */}
+                  <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF5EA] to-[#E8DCC4] flex-shrink-0 border border-[#E8DEC8] flex items-center justify-center">
+                    <Image
+                      src={client.image}
+                      alt={`${client.name} logo`}
+                      fill
+                      className="object-contain p-2"
+                    />
                   </div>
+
+                  {/* Client Info */}
                   <div className="flex-1">
-                    <h4 className="font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">
+                    <h4 
+                      className="font-bold text-[#2B2419] group-hover:text-[#8B6F47] transition-colors text-lg"
+                      style={{ fontFamily: "'Playfair Display', serif" }}
+                    >
                       {client.name}
                     </h4>
-                    <p className="text-xs text-slate-500 mt-0.5">{client.firmType}</p>
-                    <p className="text-xs text-slate-400 mt-1 flex items-center gap-1">
-                      <span>📍</span> {client.location}
+                    <p className="text-xs text-[#6B5D4A] mt-1 font-medium">
+                      {client.firmType}
                     </p>
+                    <p className="text-xs text-[#8B7E6A] mt-1 flex items-center gap-1">
+                      <span aria-hidden="true">📍</span> {client.location}
+                    </p>
+
+                    {/* Work Done */}
+                    <div className="mt-3 pt-3 border-t border-[#E8DEC8]">
+                      <p className="text-[10px] font-semibold text-[#8B6F47] uppercase tracking-wider">
+                        ✦ Work Delivered
+                      </p>
+                      <p className="text-sm text-[#2B2419] mt-1 font-medium">
+                        {client.workDone}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </article>
             ))}
-            {/* Duplicate for seamless loop */}
+
+            {/* Duplicate set for seamless loop */}
             {clients.map((client) => (
-              <div
+              <article
                 key={`dup-${client.id}`}
-                className="mx-4 flex-shrink-0 w-80 bg-white rounded-2xl shadow-md border border-slate-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group"
+                className="mx-4 flex-shrink-0 w-96 bg-white rounded-2xl shadow-md border border-[#E8DEC8] hover:shadow-xl hover:shadow-[#8B6F47]/15 transition-all duration-300 hover:-translate-y-2 hover:border-[#D4C29E] overflow-hidden group"
+                aria-hidden="true"
               >
-                <div className="p-4 flex items-center gap-4">
-                  <div className="relative w-16 h-16 rounded-full overflow-hidden bg-slate-100 flex-shrink-0">
-                    <Image src={client.image} alt={client.name} fill className="object-cover" />
+                <div className="p-6 flex items-start gap-4">
+                  <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF5EA] to-[#E8DCC4] flex-shrink-0 border border-[#E8DEC8] flex items-center justify-center">
+                    <Image
+                      src={client.image}
+                      alt=""
+                      fill
+                      className="object-contain p-2"
+                    />
                   </div>
+
                   <div className="flex-1">
-                    <h4 className="font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">
+                    <h4 
+                      className="font-bold text-[#2B2419] group-hover:text-[#8B6F47] transition-colors text-lg"
+                      style={{ fontFamily: "'Playfair Display', serif" }}
+                    >
                       {client.name}
                     </h4>
-                    <p className="text-xs text-slate-500 mt-0.5">{client.firmType}</p>
-                    <p className="text-xs text-slate-400 mt-1 flex items-center gap-1">
+                    <p className="text-xs text-[#6B5D4A] mt-1 font-medium">
+                      {client.firmType}
+                    </p>
+                    <p className="text-xs text-[#8B7E6A] mt-1 flex items-center gap-1">
                       <span>📍</span> {client.location}
                     </p>
+
+                    <div className="mt-3 pt-3 border-t border-[#E8DEC8]">
+                      <p className="text-[10px] font-semibold text-[#8B6F47] uppercase tracking-wider">
+                        ✦ Work Delivered
+                      </p>
+                      <p className="text-sm text-[#2B2419] mt-1 font-medium">
+                        {client.workDone}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
 
-        <p className="text-center text-xs text-slate-400 mt-6">
-          🚀 Replace these demo photos with actual client logos or team photos
-        </p>
-
         <style jsx>{`
           @keyframes marqueeLTR {
-            0% { transform: translateX(-50%); }
-            100% { transform: translateX(0); }
+            0% {
+              transform: translateX(-50%);
+            }
+            100% {
+              transform: translateX(0);
+            }
           }
           .animate-marquee-ltr {
             animation: marqueeLTR 35s linear infinite;
