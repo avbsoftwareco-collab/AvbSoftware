@@ -43,13 +43,22 @@ export default function DynamicCakeSite({ client }: { client: Client }) {
           </div>
         </div>
 
-        {/* ===== NAVBAR ===== */}
+        {/* ===== NAVBAR WITH LOGO ===== */}
         <nav className="bg-white sticky top-12 z-40 shadow-lg border-b border-[#F8D8E0]">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-[#D4647C] to-[#B84960] rounded-2xl flex items-center justify-center text-2xl">
-                🎂
-              </div>
+              {/* LOGO */}
+              {client.logo_url ? (
+                <img 
+                  src={client.logo_url}
+                  alt={client.business_name}
+                  className="w-12 h-12 rounded-2xl object-cover border-2 border-[#D4647C]"
+                />
+              ) : (
+                <div className="w-12 h-12 bg-gradient-to-br from-[#D4647C] to-[#B84960] rounded-2xl flex items-center justify-center text-2xl">
+                  🎂
+                </div>
+              )}
               <div>
                 <div className="text-xl font-bold text-[#5C2837]" style={{ fontFamily: "'Playfair Display', serif" }}>
                   {client.business_name}
@@ -77,7 +86,7 @@ export default function DynamicCakeSite({ client }: { client: Client }) {
           </div>
         </nav>
 
-        {/* ===== HERO ===== */}
+        {/* ===== HERO WITH IMAGE ===== */}
         <section id="home" className="relative py-20 md:py-28 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-[#FFF5F7] via-[#FFE5EC] to-[#FFD0DC]"></div>
           <div className="absolute top-20 -left-20 w-96 h-96 bg-[#D4647C]/10 rounded-full blur-3xl"></div>
@@ -126,10 +135,19 @@ export default function DynamicCakeSite({ client }: { client: Client }) {
                 </div>
               </div>
 
+              {/* HERO IMAGE */}
               <div className="relative">
-                <div className="aspect-square bg-white rounded-3xl border-4 border-[#F8D8E0] flex items-center justify-center text-9xl shadow-2xl">
-                  🎂
-                </div>
+                {client.hero_image_url ? (
+                  <img 
+                    src={client.hero_image_url}
+                    alt={client.business_name}
+                    className="aspect-square w-full object-cover rounded-3xl border-4 border-[#F8D8E0] shadow-2xl"
+                  />
+                ) : (
+                  <div className="aspect-square bg-white rounded-3xl border-4 border-[#F8D8E0] flex items-center justify-center text-9xl shadow-2xl">
+                    🎂
+                  </div>
+                )}
                 <div className="absolute -top-4 -right-4 bg-white px-4 py-2 rounded-full shadow-2xl font-bold text-sm border-2 border-[#F8D8E0]">
                   🍰 Fresh Daily
                 </div>
@@ -141,7 +159,7 @@ export default function DynamicCakeSite({ client }: { client: Client }) {
           </div>
         </section>
 
-        {/* ===== MENU (Dynamic Products!) ===== */}
+        {/* ===== MENU WITH PRODUCT IMAGES ===== */}
         {client.products && client.products.length > 0 && (
           <section id="menu" className="py-20 bg-white">
             <div className="container mx-auto px-4">
@@ -155,15 +173,29 @@ export default function DynamicCakeSite({ client }: { client: Client }) {
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {client.products.map((product, index) => (
-                  <div key={index} className="bg-[#FFF5F7] p-6 rounded-3xl border border-[#F8D8E0] hover:border-[#D4647C] hover:shadow-xl hover:-translate-y-2 transition-all text-center">
-                    <div className="text-5xl mb-3">🎂</div>
-                    <h3 className="font-bold text-[#5C2837] mb-1" style={{ fontFamily: "'Playfair Display', serif" }}>
-                      {product.name}
-                    </h3>
-                    <div className="text-[#D4647C] font-bold text-lg mb-2">{product.price}</div>
-                    {product.description && (
-                      <p className="text-[#7A4B5C] text-xs">{product.description}</p>
+                  <div key={index} className="bg-[#FFF5F7] rounded-3xl border border-[#F8D8E0] hover:border-[#D4647C] hover:shadow-xl hover:-translate-y-2 transition-all overflow-hidden">
+                    {/* PRODUCT IMAGE */}
+                    {product.image_url ? (
+                      <img 
+                        src={product.image_url}
+                        alt={product.name}
+                        className="w-full h-48 object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-48 bg-gradient-to-br from-[#FFE5EC] to-[#F8D8E0] flex items-center justify-center text-6xl">
+                        🎂
+                      </div>
                     )}
+                    
+                    <div className="p-6 text-center">
+                      <h3 className="font-bold text-[#5C2837] mb-1" style={{ fontFamily: "'Playfair Display', serif" }}>
+                        {product.name}
+                      </h3>
+                      <div className="text-[#D4647C] font-bold text-lg mb-2">{product.price}</div>
+                      {product.description && (
+                        <p className="text-[#7A4B5C] text-xs">{product.description}</p>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -249,11 +281,22 @@ export default function DynamicCakeSite({ client }: { client: Client }) {
           </div>
         </section>
 
-        {/* ===== FOOTER ===== */}
+        {/* ===== FOOTER WITH LOGO ===== */}
         <footer className="bg-[#5C2837] text-[#FFD0DC] py-8 text-center">
           <div className="container mx-auto px-4">
-            <div className="text-2xl mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
-              🎂 {client.business_name}
+            <div className="flex items-center justify-center gap-3 mb-3">
+              {client.logo_url ? (
+                <img 
+                  src={client.logo_url}
+                  alt={client.business_name}
+                  className="w-10 h-10 rounded-lg object-cover"
+                />
+              ) : (
+                <span className="text-2xl">🎂</span>
+              )}
+              <div className="text-2xl" style={{ fontFamily: "'Playfair Display', serif" }}>
+                {client.business_name}
+              </div>
             </div>
             <p className="text-sm">© {new Date().getFullYear()} {client.business_name}. Made with 💝</p>
             <p className="text-xs mt-2 text-[#D4647C]">

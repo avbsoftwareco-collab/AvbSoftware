@@ -19,6 +19,7 @@ export interface Product {
   name: string;
   price: string;
   description?: string;
+  image_url?: string;
 }
 
 export interface Review {
@@ -159,42 +160,55 @@ export async function deleteClient(id: string): Promise<boolean> {
 // IMAGE UPLOAD FUNCTIONS
 // ============================================
 
-// Upload image to storage
+// Upload image to Supabase Storage
 export async function uploadImage(
-  file: File, 
-  subdomain: string, 
-  type: 'logo' | 'hero' | 'product' | 'gallery'
+  file: File,
+  subdomain: string,
+  type: 'logo' | 'hero' | 'product'
 ): Promise<string | null> {
-  const fileExt = file.name.split('.').pop();
-  const fileName = `${subdomain}/${type}-${Date.now()}.${fileExt}`;
-  
-  const { error } = await supabase.storage
-    .from('client-images')
-    .upload(fileName, file);
-  
-  if (error) {
-    console.error('Error uploading image:', error);
+  try {
+    // Generate unique filename
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${subdomain}/${type}-${Date.now()}.${fileExt}`;
+
+    // Upload to Supabase Storage
+    const { error } = await supabase.storage
+      .from('client-images')
+      .upload(fileName, file, {
+        cacheControl: '3600',
+        upsert: true,
+      });
+
+    if (error) {
+      console.error('Upload error:', error);
+      return null;
+    }
+
+    // Get public URL
+    const { data: { publicUrl } } = supabase.storage
+      .from('client-images')
+      .getPublicUrl(fileName);
+
+    return publicUrl;
+  } catch (error) {
+    console.error('Upload failed:', error);
     return null;
   }
-  
-  // Get public URL
-  const { data: { publicUrl } } = supabase.storage
-    .from('client-images')
-    .getPublicUrl(fileName);
-  
-  return publicUrl;
 }
 
 // Delete image from storage
-export async function deleteImage(path: string): Promise<boolean> {
-  const { error } = await supabase.storage
-    .from('client-images')
-    .remove([path]);
-  
-  if (error) {
-    console.error('Error deleting image:', error);
+export async function deleteImage(url: string): Promise<boolean> {
+  try {
+    const path = url.split('/client-images/')[1];
+    if (!path) return false;
+
+    const { error } = await supabase.storage
+      .from('client-images')
+      .remove([path]);
+
+    return !error;
+  } catch (error) {
+    console.error('Delete failed:', error);
     return false;
   }
-  
-  return true;
 }

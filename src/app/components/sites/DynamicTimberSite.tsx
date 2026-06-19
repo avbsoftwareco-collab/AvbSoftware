@@ -47,13 +47,22 @@ export default function DynamicTimberSite({ client }: { client: Client }) {
           </div>
         </div>
 
-        {/* ===== NAVBAR ===== */}
+        {/* ===== NAVBAR WITH LOGO ===== */}
         <nav className="bg-[#3D2817] text-white sticky top-12 z-40 shadow-xl">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-[#C9A45C] to-[#8B6F47] rounded-lg flex items-center justify-center text-2xl">
-                🪵
-              </div>
+              {/* LOGO - Show uploaded logo or default */}
+              {client.logo_url ? (
+                <img 
+                  src={client.logo_url}
+                  alt={client.business_name}
+                  className="w-12 h-12 rounded-lg object-cover border-2 border-[#C9A45C]"
+                />
+              ) : (
+                <div className="w-12 h-12 bg-gradient-to-br from-[#C9A45C] to-[#8B6F47] rounded-lg flex items-center justify-center text-2xl">
+                  🪵
+                </div>
+              )}
               <div>
                 <div className="text-xl font-bold" style={{ fontFamily: "'Playfair Display', serif" }}>
                   {client.business_name}
@@ -81,7 +90,7 @@ export default function DynamicTimberSite({ client }: { client: Client }) {
           </div>
         </nav>
 
-        {/* ===== HERO SECTION ===== */}
+        {/* ===== HERO SECTION WITH IMAGE ===== */}
         <section id="home" className="relative py-20 md:py-32 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-[#3D2817] via-[#6B4423] to-[#8B6F47]"></div>
           <div
@@ -138,11 +147,19 @@ export default function DynamicTimberSite({ client }: { client: Client }) {
                 </div>
               </div>
 
-              {/* Right Side */}
+              {/* HERO IMAGE - Right Side */}
               <div className="relative">
-                <div className="aspect-square bg-gradient-to-br from-[#C9A45C]/20 to-[#8B6F47]/20 rounded-3xl border-2 border-[#C9A45C]/30 flex items-center justify-center text-9xl backdrop-blur-sm">
-                  🪵
-                </div>
+                {client.hero_image_url ? (
+                  <img 
+                    src={client.hero_image_url}
+                    alt={client.business_name}
+                    className="aspect-square w-full object-cover rounded-3xl border-2 border-[#C9A45C]/30 shadow-2xl"
+                  />
+                ) : (
+                  <div className="aspect-square bg-gradient-to-br from-[#C9A45C]/20 to-[#8B6F47]/20 rounded-3xl border-2 border-[#C9A45C]/30 flex items-center justify-center text-9xl backdrop-blur-sm">
+                    🪵
+                  </div>
+                )}
                 <div className="absolute -top-4 -right-4 bg-white text-[#3D2817] px-4 py-2 rounded-full shadow-2xl font-bold text-sm">
                   ⭐ Top Quality
                 </div>
@@ -184,7 +201,7 @@ export default function DynamicTimberSite({ client }: { client: Client }) {
           </div>
         </section>
 
-        {/* ===== PRODUCTS (Dynamic from DB!) ===== */}
+        {/* ===== PRODUCTS WITH IMAGES ===== */}
         {client.products && client.products.length > 0 && (
           <section id="products" className="py-20 bg-[#F5EFE6]">
             <div className="container mx-auto px-4">
@@ -197,8 +214,20 @@ export default function DynamicTimberSite({ client }: { client: Client }) {
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {client.products.map((product, index) => (
-                  <div key={index} className="bg-white p-6 rounded-2xl border border-[#E8DEC8] hover:border-[#8B6F47] hover:shadow-xl hover:-translate-y-2 transition-all">
-                    <div className="text-6xl mb-4">🪵</div>
+                  <div key={index} className="bg-white p-6 rounded-2xl border border-[#E8DEC8] hover:border-[#8B6F47] hover:shadow-xl hover:-translate-y-2 transition-all overflow-hidden">
+                    {/* PRODUCT IMAGE */}
+                    {product.image_url ? (
+                      <img 
+                        src={product.image_url}
+                        alt={product.name}
+                        className="w-full h-48 object-cover rounded-xl mb-4"
+                      />
+                    ) : (
+                      <div className="w-full h-48 bg-gradient-to-br from-[#FAF5EA] to-[#E8DCC4] rounded-xl flex items-center justify-center text-6xl mb-4">
+                        🪵
+                      </div>
+                    )}
+                    
                     <h3 className="font-bold text-xl text-[#3D2817] mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
                       {product.name}
                     </h3>
@@ -223,7 +252,7 @@ export default function DynamicTimberSite({ client }: { client: Client }) {
           </section>
         )}
 
-        {/* ===== REVIEWS (Dynamic from DB!) ===== */}
+        {/* ===== REVIEWS ===== */}
         {client.reviews && client.reviews.length > 0 && (
           <section className="py-20 bg-[#FAF5EA]">
             <div className="container mx-auto px-4">
@@ -310,11 +339,22 @@ export default function DynamicTimberSite({ client }: { client: Client }) {
           </div>
         </section>
 
-        {/* ===== FOOTER ===== */}
+        {/* ===== FOOTER WITH LOGO ===== */}
         <footer className="bg-[#1F1208] text-[#E8D5B5] py-8 text-center">
           <div className="container mx-auto px-4">
-            <div className="text-2xl mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
-              🪵 {client.business_name}
+            <div className="flex items-center justify-center gap-3 mb-3">
+              {client.logo_url ? (
+                <img 
+                  src={client.logo_url}
+                  alt={client.business_name}
+                  className="w-10 h-10 rounded-lg object-cover"
+                />
+              ) : (
+                <span className="text-2xl">🪵</span>
+              )}
+              <div className="text-2xl" style={{ fontFamily: "'Playfair Display', serif" }}>
+                {client.business_name}
+              </div>
             </div>
             <p className="text-sm">© {new Date().getFullYear()} {client.business_name}. All rights reserved.</p>
             <p className="text-xs mt-2 text-[#C9A45C]">
