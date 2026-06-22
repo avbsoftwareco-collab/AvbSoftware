@@ -368,6 +368,8 @@ export async function getAllClients(): Promise<Client[]> {
 }
 
 export async function getClientBySubdomain(subdomain: string): Promise<Client | null> {
+  console.log("Fetching client for subdomain:", subdomain);
+  
   const { data, error } = await supabase
     .from('clients')
     .select('*')
@@ -378,6 +380,9 @@ export async function getClientBySubdomain(subdomain: string): Promise<Client | 
     console.error('Error fetching client:', error);
     return null;
   }
+  
+  console.log("Client data received:", data);
+  console.log("hero_image_url:", data?.hero_image_url);
   
   return data;
 }

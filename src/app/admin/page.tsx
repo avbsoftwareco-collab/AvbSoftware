@@ -132,14 +132,14 @@ export default function AdminLoginPage() {
         </form>
 
         {/* Default Credentials Info */}
-        <div className="mt-6 p-4 bg-[#FAF5EA] rounded-xl border border-[#E8DEC8]">
+        {/* <div className="mt-6 p-4 bg-[#FAF5EA] rounded-xl border border-[#E8DEC8]">
           <p className="text-xs text-[#6B5D4A] font-semibold mb-2">🔑 Default Credentials:</p>
           <p className="text-xs text-[#8B6F47]">Email: {ADMIN_EMAIL}</p>
           <p className="text-xs text-[#8B6F47]">Password: {ADMIN_PASSWORD}</p>
           <p className="text-[10px] text-[#8B7E6A] mt-2 italic">
             ⚠️ Change in src/app/admin/page.tsx
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   );
