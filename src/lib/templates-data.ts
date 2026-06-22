@@ -21,10 +21,13 @@ export interface Template {
   };
   deliveryTime: string;
   demoBusinessName: string;
-  demoComponent: string; // Component name for demo
+  demoComponent: string;
 }
 
 export const templates: Template[] = [
+  // ============================================
+  // TIMBER PRO - Wood & Hardware
+  // ============================================
   {
     id: "timber-pro",
     slug: "timber-pro",
@@ -36,25 +39,22 @@ export const templates: Template[] = [
     bestseller: true,
     features: [
       "Premium Hero Section",
-      "Product Showcase",
+      "Multi-Page Website (5 Pages)",
+      "Product Showcase with Images",
       "About Us Story",
-      "Gallery with Lightbox",
+      "Photo Gallery with Lightbox",
       "Customer Testimonials",
-      "Contact Form",
       "WhatsApp Integration",
       "Google Maps",
       "Mobile Responsive",
       "SEO Optimized",
     ],
     sections: [
-      "Hero with Background Image",
-      "About Us",
-      "Our Products",
-      "Why Choose Us",
-      "Gallery",
-      "Testimonials",
-      "Contact + Map",
-      "Footer",
+      "Home Page",
+      "About Us Page",
+      "Products Page",
+      "Photo Gallery Page",
+      "Contact Page",
     ],
     colors: {
       primary: "#6B4423",
@@ -69,6 +69,10 @@ export const templates: Template[] = [
     demoBusinessName: "Krishna Timber",
     demoComponent: "TimberDemo",
   },
+
+  // ============================================
+  // SWEET BITES - Bakery & Cake
+  // ============================================
   {
     id: "cake-shop",
     slug: "cake-shop",
@@ -77,11 +81,10 @@ export const templates: Template[] = [
     shortDescription: "Sweet & elegant template for bakeries and cake shops",
     description: "A delicious template for cake shops, bakeries, and dessert businesses. Beautiful menu display, online ordering, and custom cake designs showcase.",
     emoji: "🎂",
-    isNew: true,
     features: [
       "Sweet Hero Section",
       "Cake Menu Display",
-      "Custom Cake Designer",
+      "Custom Cake Orders",
       "Photo Gallery",
       "Customer Reviews",
       "Online Order via WhatsApp",
@@ -94,9 +97,8 @@ export const templates: Template[] = [
       "Hero with Cake Imagery",
       "About Bakery",
       "Cake Menu",
-      "Custom Orders",
       "Photo Gallery",
-      "Customer Love",
+      "Customer Reviews",
       "Contact + Order",
       "Footer",
     ],
@@ -113,23 +115,57 @@ export const templates: Template[] = [
     demoBusinessName: "Sweet Bites Bakery",
     demoComponent: "CakeDemo",
   },
+
   // ============================================
-  // NAYA TEMPLATE ADD KARNE KE LIYE:
-  // Bas yaha ek aur object add karo!
-  // Example:
+  // RESTAURANT PRO - Restaurant, Bar, Cafe, Pub
   // ============================================
-  /*
   {
     id: "restaurant-pro",
     slug: "restaurant-pro",
     name: "Restaurant Pro",
     category: "Food & Restaurant",
-    ...
+    shortDescription: "Dark luxury template for restaurants, bars, cafes and pubs",
+    description: "A premium dark-themed template perfect for restaurants, bars, cafes, lounges and pubs. Features elegant gold accents, menu display, reservation system, and stunning food photography showcase.",
+    emoji: "🍽️",
+    isNew: true,
+    features: [
+      "Dark Luxury Design",
+      "Multi-Page Website (5 Pages)",
+      "Menu with Categories & Prices",
+      "Food Photo Gallery",
+      "Reservation via WhatsApp",
+      "Customer Reviews",
+      "Special Offers Section",
+      "WhatsApp Integration",
+      "Google Maps",
+      "Mobile Responsive",
+    ],
+    sections: [
+      "Home Page",
+      "About Page",
+      "Menu Page",
+      "Photo Gallery Page",
+      "Contact & Reservation Page",
+    ],
+    colors: {
+      primary: "#D4AF37",
+      secondary: "#8B0000",
+      accent: "#1a1a2e",
+    },
+    pricing: {
+      monthly: 799,
+      yearly: 7999,
+    },
+    deliveryTime: "3-5 Days",
+    demoBusinessName: "The Golden Fork",
+    demoComponent: "RestaurantDemo",
   },
-  */
 ];
 
-// Helper functions
+// ============================================
+// HELPER FUNCTIONS
+// ============================================
+
 export function getTemplateBySlug(slug: string): Template | undefined {
   return templates.find((t) => t.slug === slug);
 }

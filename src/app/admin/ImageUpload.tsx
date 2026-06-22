@@ -9,7 +9,7 @@ interface ImageUploadProps {
   onUpload: (url: string) => void;
   onRemove?: () => void;
   subdomain: string;
-  type: 'logo' | 'hero' | 'product';
+type: 'logo' | 'hero' | 'product' | 'gallery' | 'team' | 'chef' | 'about' | 'specialty' | 'menu' | 'featured' | 'story';
   label: string;
 }
 

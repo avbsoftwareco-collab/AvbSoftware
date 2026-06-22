@@ -1,9 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import WhatsAppButton from "./components/WhatsAppButton";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -34,10 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${jakarta.variable}`}>
       <body className="bg-cream antialiased">
-        <Navbar />
         {children}
-        <Footer />
-        <WhatsAppButton />
       </body>
     </html>
   );

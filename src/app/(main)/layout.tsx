@@ -1,7 +1,18 @@
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import WhatsAppButton from "../components/WhatsAppButton";
+
 export default function MainLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <>
+      <Navbar />
+      {children}
+      <Footer />
+      <WhatsAppButton />
+    </>
+  );
 }
