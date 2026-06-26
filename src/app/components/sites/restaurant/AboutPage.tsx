@@ -1,790 +1,9 @@
-// "use client";
-
-// import { motion, useScroll, useTransform } from "framer-motion";
-// import { useRef } from "react";
-
-// interface TeamMember {
-//   name: string;
-//   role: string;
-//   bio: string;
-//   image: string;
-// }
-
-// interface RestaurantAboutProps {
-//   restaurantName?: string;
-//   heroImage?: string;
-//   aboutImage?: string;
-//   storyImages?: string[];
-//   chefName?: string;
-//   chefImage?: string;
-//   chefQuote?: string;
-//   teamMembers?: TeamMember[];
-//   awards?: { title: string; year: string; org: string }[];
-//   story?: {
-//     heading: string;
-//     paragraphs: string[];
-//   };
-// }
-
-// const defaultProps: RestaurantAboutProps = {
-//   restaurantName: "AURUM",
-//   heroImage:
-//     "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=1920&q=80",
-//   aboutImage:
-//     "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80",
-//   storyImages: [
-//     "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&q=80",
-//     "https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=600&q=80",
-//   ],
-//   chefName: "Chef Marco Bellini",
-//   chefImage:
-//     "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=80",
-//   chefQuote:
-//     "Food is not just nourishment — it is art, memory, and emotion served on a plate.",
-//   teamMembers: [
-//     {
-//       name: "Marco Bellini",
-//       role: "Executive Chef",
-//       bio: "Michelin-starred chef with 20 years across Paris, Milan and New York.",
-//       image:
-//         "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400&q=80",
-//     },
-//     {
-//       name: "Sophie Laurent",
-//       role: "Head Sommelier",
-//       bio: "Award-winning sommelier curating world-class wine experiences.",
-//       image:
-//         "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
-//     },
-//     {
-//       name: "Raj Kapoor",
-//       role: "Bar Director",
-//       bio: "Pioneering mixologist known for his innovative cocktail philosophy.",
-//       image:
-//         "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
-//     },
-//   ],
-//   awards: [
-//     { title: "Restaurant of the Year", year: "2024", org: "City Dining Awards" },
-//     { title: "Best Cocktail Bar", year: "2023", org: "National Bar Guild" },
-//     { title: "Michelin Recommended", year: "2022", org: "Michelin Guide" },
-//     { title: "Best Ambiance", year: "2023", org: "Luxury Living Magazine" },
-//   ],
-//   story: {
-//     heading: "Born From Passion, Crafted With Purpose",
-//     paragraphs: [
-//       "AURUM was born from a singular vision: to create a space where extraordinary food, impeccable service, and breathtaking design converge into one unforgettable experience.",
-//       "Founded in 2020 by a team of culinary visionaries, we set out to redefine what a restaurant could be. Not just a place to eat, but a destination — a sanctuary where every visit tells a story.",
-//       "From our hand-selected ingredients to our bespoke interiors, every element of AURUM has been curated with obsessive attention to detail. We believe that true luxury lies in the details you almost miss.",
-//     ],
-//   },
-// };
-
-// export default function AboutPage(props: RestaurantAboutProps) {
-//   const merged = { ...defaultProps, ...props };
-//   const heroRef = useRef<HTMLDivElement>(null);
-//   const chefRef = useRef<HTMLDivElement>(null);
-
-//   const { scrollYProgress: heroScroll } = useScroll({
-//     target: heroRef,
-//     offset: ["start start", "end start"],
-//   });
-//   const heroY = useTransform(heroScroll, [0, 1], ["0%", "40%"]);
-
-//   const { scrollYProgress: chefScroll } = useScroll({
-//     target: chefRef,
-//     offset: ["start end", "end start"],
-//   });
-//   const chefX = useTransform(chefScroll, [0, 1], ["-5%", "5%"]);
-
-//   return (
-//     <div
-//       style={{
-//         backgroundColor: "#0a0a0a",
-//         color: "#f5f0e8",
-//         fontFamily: "'Georgia', serif",
-//         overflowX: "hidden",
-//       }}
-//     >
-//       {/* ══════════════════════════════════════════ */}
-//       {/* HERO - Full Width with Parallax */}
-//       {/* ══════════════════════════════════════════ */}
-//       <section
-//         ref={heroRef}
-//         style={{
-//           position: "relative",
-//           height: "70vh",
-//           overflow: "hidden",
-//           display: "flex",
-//           alignItems: "flex-end",
-//           justifyContent: "flex-start",
-//         }}
-//       >
-//         <motion.div
-//           style={{ y: heroY, position: "absolute", inset: 0 }}
-//         >
-//           <div
-//             style={{
-//               position: "absolute",
-//               inset: 0,
-//               backgroundImage: `url(${merged.heroImage})`,
-//               backgroundSize: "cover",
-//               backgroundPosition: "center top",
-//               filter: "brightness(0.3)",
-//             }}
-//           />
-//         </motion.div>
-
-//         {/* Diagonal overlay */}
-//         <div
-//           style={{
-//             position: "absolute",
-//             inset: 0,
-//             background:
-//               "linear-gradient(135deg, rgba(0,0,0,0.8) 0%, transparent 60%)",
-//           }}
-//         />
-
-//         <motion.div
-//           initial={{ opacity: 0, y: 60 }}
-//           animate={{ opacity: 1, y: 0 }}
-//           transition={{ duration: 1, delay: 0.3 }}
-//           style={{
-//             position: "relative",
-//             zIndex: 10,
-//             padding: "0 8% 80px",
-//           }}
-//         >
-//           <span
-//             style={{
-//               color: "#D4AF37",
-//               fontSize: "10px",
-//               letterSpacing: "6px",
-//               textTransform: "uppercase",
-//               fontFamily: "sans-serif",
-//               display: "block",
-//               marginBottom: "20px",
-//             }}
-//           >
-//             About Us
-//           </span>
-//           <h1
-//             style={{
-//               fontSize: "clamp(48px, 7vw, 90px)",
-//               fontWeight: 700,
-//               margin: 0,
-//               lineHeight: 1.05,
-//               color: "#f5f0e8",
-//             }}
-//           >
-//             Our
-//             <br />
-//             <span
-//               style={{
-//                 background: "linear-gradient(135deg, #D4AF37, #f5c842)",
-//                 WebkitBackgroundClip: "text",
-//                 WebkitTextFillColor: "transparent",
-//                 backgroundClip: "text",
-//               }}
-//             >
-//               Legacy
-//             </span>
-//           </h1>
-//         </motion.div>
-
-//         {/* Gold line at bottom */}
-//         <div
-//           style={{
-//             position: "absolute",
-//             bottom: 0,
-//             left: 0,
-//             right: 0,
-//             height: "2px",
-//             background:
-//               "linear-gradient(90deg, #D4AF37, rgba(212,175,55,0.3), transparent)",
-//           }}
-//         />
-//       </section>
-
-//       {/* ══════════════════════════════════════════ */}
-//       {/* STORY - Split Screen with DIFFERENT Image */}
-//       {/* ══════════════════════════════════════════ */}
-//       <section
-//         style={{
-//           display: "grid",
-//           gridTemplateColumns: "1fr 1fr",
-//           minHeight: "80vh",
-//         }}
-//       >
-//         {/* Left Content */}
-//         <motion.div
-//           initial={{ opacity: 0, x: -60 }}
-//           whileInView={{ opacity: 1, x: 0 }}
-//           viewport={{ once: true }}
-//           transition={{ duration: 1 }}
-//           style={{
-//             padding: "100px 80px",
-//             backgroundColor: "#0f0f0f",
-//             display: "flex",
-//             flexDirection: "column",
-//             justifyContent: "center",
-//           }}
-//         >
-//           <div
-//             style={{
-//               display: "flex",
-//               alignItems: "center",
-//               gap: "16px",
-//               marginBottom: "40px",
-//             }}
-//           >
-//             <div
-//               style={{
-//                 width: "50px",
-//                 height: "1px",
-//                 backgroundColor: "#D4AF37",
-//               }}
-//             />
-//             <span
-//               style={{
-//                 color: "#D4AF37",
-//                 fontSize: "10px",
-//                 letterSpacing: "5px",
-//                 textTransform: "uppercase",
-//                 fontFamily: "sans-serif",
-//               }}
-//             >
-//               The Story
-//             </span>
-//           </div>
-
-//           <h2
-//             style={{
-//               fontSize: "clamp(28px, 3.5vw, 44px)",
-//               fontWeight: 700,
-//               lineHeight: 1.2,
-//               margin: "0 0 36px",
-//               color: "#f5f0e8",
-//             }}
-//           >
-//             {merged.story?.heading}
-//           </h2>
-
-//           {merged.story?.paragraphs.map((para, i) => (
-//             <motion.p
-//               key={i}
-//               initial={{ opacity: 0, y: 20 }}
-//               whileInView={{ opacity: 1, y: 0 }}
-//               viewport={{ once: true }}
-//               transition={{ delay: i * 0.15, duration: 0.7 }}
-//               style={{
-//                 color: "rgba(245,240,232,0.65)",
-//                 lineHeight: 1.9,
-//                 fontSize: "14px",
-//                 marginBottom: "20px",
-//                 fontFamily: "sans-serif",
-//                 fontWeight: 300,
-//               }}
-//             >
-//               {para}
-//             </motion.p>
-//           ))}
-
-//           {/* Small gallery strip */}
-//           <div
-//             style={{
-//               display: "grid",
-//               gridTemplateColumns: "1fr 1fr",
-//               gap: "8px",
-//               marginTop: "40px",
-//             }}
-//           >
-//             {merged.storyImages?.map((img, i) => (
-//               <motion.div
-//                 key={i}
-//                 initial={{ opacity: 0, scale: 0.9 }}
-//                 whileInView={{ opacity: 1, scale: 1 }}
-//                 viewport={{ once: true }}
-//                 transition={{ delay: i * 0.1, duration: 0.6 }}
-//                 style={{
-//                   height: "160px",
-//                   backgroundImage: `url(${img})`,
-//                   backgroundSize: "cover",
-//                   backgroundPosition: "center",
-//                   filter: "brightness(0.75) sepia(0.2)",
-//                 }}
-//               />
-//             ))}
-//           </div>
-//         </motion.div>
-
-//         {/* Right - ABOUT IMAGE (Different from Hero) */}
-//         <motion.div
-//           initial={{ opacity: 0, x: 60 }}
-//           whileInView={{ opacity: 1, x: 0 }}
-//           viewport={{ once: true }}
-//           transition={{ duration: 1 }}
-//           style={{ position: "relative", overflow: "hidden" }}
-//         >
-//           <div
-//             style={{
-//               position: "absolute",
-//               inset: 0,
-//               backgroundImage: `url(${merged.aboutImage})`,
-//               backgroundSize: "cover",
-//               backgroundPosition: "center",
-//               filter: "brightness(0.6) sepia(0.15)",
-//             }}
-//           />
-
-//           {/* Gradient overlay */}
-//           <div
-//             style={{
-//               position: "absolute",
-//               inset: 0,
-//               background:
-//                 "linear-gradient(135deg, rgba(0,0,0,0.5), rgba(212,175,55,0.05))",
-//             }}
-//           />
-
-//           {/* Stats overlay */}
-//           <div
-//             style={{
-//               position: "absolute",
-//               bottom: "60px",
-//               right: "40px",
-//               backgroundColor: "rgba(0,0,0,0.85)",
-//               border: "1px solid rgba(212,175,55,0.3)",
-//               padding: "32px 40px",
-//               backdropFilter: "blur(10px)",
-//             }}
-//           >
-//             <div
-//               style={{
-//                 fontSize: "52px",
-//                 fontWeight: 700,
-//                 color: "#D4AF37",
-//                 lineHeight: 1,
-//               }}
-//             >
-//               2020
-//             </div>
-//             <div
-//               style={{
-//                 color: "rgba(245,240,232,0.7)",
-//                 fontFamily: "sans-serif",
-//                 fontSize: "11px",
-//                 letterSpacing: "3px",
-//                 textTransform: "uppercase",
-//                 marginTop: "8px",
-//               }}
-//             >
-//               Founded
-//             </div>
-//           </div>
-//         </motion.div>
-//       </section>
-
-//       {/* ══════════════════════════════════════════ */}
-//       {/* CHEF SECTION - Magazine Style */}
-//       {/* ══════════════════════════════════════════ */}
-//       <section
-//         ref={chefRef}
-//         style={{
-//           position: "relative",
-//           overflow: "hidden",
-//           backgroundColor: "#080808",
-//         }}
-//       >
-//         {/* Background parallax image */}
-//         <motion.div
-//           style={{
-//             x: chefX,
-//             position: "absolute",
-//             inset: "-10%",
-//             backgroundImage: `url(${merged.chefImage})`,
-//             backgroundSize: "cover",
-//             backgroundPosition: "center",
-//             filter: "brightness(0.15) blur(2px)",
-//           }}
-//         />
-
-//         <div
-//           style={{
-//             position: "relative",
-//             zIndex: 10,
-//             display: "grid",
-//             gridTemplateColumns: "1fr 1fr",
-//             minHeight: "80vh",
-//           }}
-//         >
-//           {/* Chef Image */}
-//           <motion.div
-//             initial={{ opacity: 0, scale: 0.9 }}
-//             whileInView={{ opacity: 1, scale: 1 }}
-//             viewport={{ once: true }}
-//             transition={{ duration: 1 }}
-//             style={{ position: "relative" }}
-//           >
-//             <div
-//               style={{
-//                 margin: "60px 0 60px 60px",
-//                 height: "calc(100% - 120px)",
-//                 minHeight: "500px",
-//                 backgroundImage: `url(${merged.chefImage})`,
-//                 backgroundSize: "cover",
-//                 backgroundPosition: "center top",
-//                 filter: "brightness(0.85)",
-//               }}
-//             />
-//             {/* Gold frame accent */}
-//             <div
-//               style={{
-//                 position: "absolute",
-//                 top: "40px",
-//                 left: "40px",
-//                 right: "20px",
-//                 bottom: "40px",
-//                 border: "1px solid rgba(212,175,55,0.3)",
-//                 pointerEvents: "none",
-//               }}
-//             />
-//           </motion.div>
-
-//           {/* Chef Content */}
-//           <motion.div
-//             initial={{ opacity: 0, x: 40 }}
-//             whileInView={{ opacity: 1, x: 0 }}
-//             viewport={{ once: true }}
-//             transition={{ duration: 0.9, delay: 0.2 }}
-//             style={{
-//               display: "flex",
-//               flexDirection: "column",
-//               justifyContent: "center",
-//               padding: "80px 80px 80px 60px",
-//             }}
-//           >
-//             <span
-//               style={{
-//                 color: "#D4AF37",
-//                 fontSize: "10px",
-//                 letterSpacing: "5px",
-//                 textTransform: "uppercase",
-//                 fontFamily: "sans-serif",
-//                 display: "block",
-//                 marginBottom: "32px",
-//               }}
-//             >
-//               The Mastermind
-//             </span>
-
-//             {/* Quote */}
-//             <div
-//               style={{
-//                 fontSize: "60px",
-//                 color: "#D4AF37",
-//                 lineHeight: 0.5,
-//                 marginBottom: "24px",
-//                 fontFamily: "Georgia, serif",
-//               }}
-//             >
-//               "
-//             </div>
-//             <p
-//               style={{
-//                 fontSize: "clamp(18px, 2.5vw, 26px)",
-//                 lineHeight: 1.5,
-//                 color: "#f5f0e8",
-//                 fontStyle: "italic",
-//                 margin: "0 0 40px",
-//                 fontWeight: 400,
-//               }}
-//             >
-//               {merged.chefQuote}
-//             </p>
-
-//             <div
-//               style={{
-//                 width: "60px",
-//                 height: "1px",
-//                 backgroundColor: "#D4AF37",
-//                 marginBottom: "24px",
-//               }}
-//             />
-
-//             <h3
-//               style={{
-//                 fontSize: "24px",
-//                 fontWeight: 700,
-//                 color: "#f5f0e8",
-//                 margin: "0 0 8px",
-//               }}
-//             >
-//               {merged.chefName}
-//             </h3>
-//             <p
-//               style={{
-//                 color: "#D4AF37",
-//                 fontFamily: "sans-serif",
-//                 fontSize: "12px",
-//                 letterSpacing: "3px",
-//                 textTransform: "uppercase",
-//                 margin: 0,
-//               }}
-//             >
-//               Executive Chef & Founder
-//             </p>
-//           </motion.div>
-//         </div>
-//       </section>
-
-//       {/* ══════════════════════════════════════════ */}
-//       {/* TEAM MEMBERS */}
-//       {/* ══════════════════════════════════════════ */}
-//       <section
-//         style={{
-//           padding: "120px 5%",
-//           backgroundColor: "#0a0a0a",
-//         }}
-//       >
-//         <motion.div
-//           initial={{ opacity: 0, y: 40 }}
-//           whileInView={{ opacity: 1, y: 0 }}
-//           viewport={{ once: true }}
-//           transition={{ duration: 0.8 }}
-//           style={{ textAlign: "center", marginBottom: "80px" }}
-//         >
-//           <span
-//             style={{
-//               color: "#D4AF37",
-//               fontSize: "10px",
-//               letterSpacing: "6px",
-//               textTransform: "uppercase",
-//               fontFamily: "sans-serif",
-//               display: "block",
-//               marginBottom: "20px",
-//             }}
-//           >
-//             Our People
-//           </span>
-//           <h2
-//             style={{
-//               fontSize: "clamp(32px, 4.5vw, 56px)",
-//               fontWeight: 700,
-//               color: "#f5f0e8",
-//               margin: 0,
-//             }}
-//           >
-//             The Team Behind Aurum
-//           </h2>
-//         </motion.div>
-
-//         <div
-//           style={{
-//             display: "grid",
-//             gridTemplateColumns: "repeat(3, 1fr)",
-//             gap: "2px",
-//             maxWidth: "1200px",
-//             margin: "0 auto",
-//           }}
-//         >
-//           {merged.teamMembers?.map((member, i) => (
-//             <motion.div
-//               key={i}
-//               initial={{ opacity: 0, y: 50 }}
-//               whileInView={{ opacity: 1, y: 0 }}
-//               viewport={{ once: true }}
-//               transition={{ delay: i * 0.15, duration: 0.8 }}
-//               whileHover={{ y: -8 }}
-//               style={{
-//                 backgroundColor: "#0f0f0f",
-//                 overflow: "hidden",
-//               }}
-//             >
-//               {/* Image */}
-//               <div
-//                 style={{
-//                   height: "320px",
-//                   backgroundImage: `url(${member.image})`,
-//                   backgroundSize: "cover",
-//                   backgroundPosition: "center top",
-//                   filter: "brightness(0.8) grayscale(0.3)",
-//                   position: "relative",
-//                 }}
-//               >
-//                 <div
-//                   style={{
-//                     position: "absolute",
-//                     bottom: 0,
-//                     left: 0,
-//                     right: 0,
-//                     height: "60px",
-//                     background:
-//                       "linear-gradient(to top, #0f0f0f, transparent)",
-//                   }}
-//                 />
-//               </div>
-
-//               {/* Content */}
-//               <div style={{ padding: "28px 32px 36px" }}>
-//                 <div
-//                   style={{
-//                     width: "24px",
-//                     height: "1px",
-//                     backgroundColor: "#D4AF37",
-//                     marginBottom: "16px",
-//                   }}
-//                 />
-//                 <h3
-//                   style={{
-//                     fontSize: "20px",
-//                     fontWeight: 700,
-//                     color: "#f5f0e8",
-//                     margin: "0 0 6px",
-//                   }}
-//                 >
-//                   {member.name}
-//                 </h3>
-//                 <p
-//                   style={{
-//                     color: "#D4AF37",
-//                     fontFamily: "sans-serif",
-//                     fontSize: "11px",
-//                     letterSpacing: "2px",
-//                     textTransform: "uppercase",
-//                     margin: "0 0 16px",
-//                   }}
-//                 >
-//                   {member.role}
-//                 </p>
-//                 <p
-//                   style={{
-//                     color: "rgba(245,240,232,0.6)",
-//                     fontFamily: "sans-serif",
-//                     fontSize: "13px",
-//                     lineHeight: 1.7,
-//                     margin: 0,
-//                     fontWeight: 300,
-//                   }}
-//                 >
-//                   {member.bio}
-//                 </p>
-//               </div>
-//             </motion.div>
-//           ))}
-//         </div>
-//       </section>
-
-//       {/* ══════════════════════════════════════════ */}
-//       {/* AWARDS */}
-//       {/* ══════════════════════════════════════════ */}
-//       <section
-//         style={{
-//           padding: "80px 5%",
-//           backgroundColor: "#0f0f0f",
-//           borderTop: "1px solid rgba(212,175,55,0.15)",
-//         }}
-//       >
-//         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-//           <motion.div
-//             initial={{ opacity: 0, y: 30 }}
-//             whileInView={{ opacity: 1, y: 0 }}
-//             viewport={{ once: true }}
-//             style={{ textAlign: "center", marginBottom: "60px" }}
-//           >
-//             <h2
-//               style={{
-//                 fontSize: "clamp(28px, 3.5vw, 44px)",
-//                 fontWeight: 700,
-//                 color: "#f5f0e8",
-//                 margin: 0,
-//               }}
-//             >
-//               Recognition & Awards
-//             </h2>
-//           </motion.div>
-
-//           <div
-//             style={{
-//               display: "grid",
-//               gridTemplateColumns: "repeat(4, 1fr)",
-//               gap: "1px",
-//               backgroundColor: "rgba(212,175,55,0.1)",
-//             }}
-//           >
-//             {merged.awards?.map((award, i) => (
-//               <motion.div
-//                 key={i}
-//                 initial={{ opacity: 0, scale: 0.9 }}
-//                 whileInView={{ opacity: 1, scale: 1 }}
-//                 viewport={{ once: true }}
-//                 transition={{ delay: i * 0.1, duration: 0.6 }}
-//                 style={{
-//                   backgroundColor: "#0f0f0f",
-//                   padding: "48px 32px",
-//                   textAlign: "center",
-//                 }}
-//               >
-//                 <div
-//                   style={{
-//                     color: "#D4AF37",
-//                     fontSize: "28px",
-//                     marginBottom: "16px",
-//                   }}
-//                 >
-//                   ✦
-//                 </div>
-//                 <div
-//                   style={{
-//                     fontSize: "28px",
-//                     fontWeight: 700,
-//                     color: "#D4AF37",
-//                     fontFamily: "sans-serif",
-//                     marginBottom: "12px",
-//                   }}
-//                 >
-//                   {award.year}
-//                 </div>
-//                 <h4
-//                   style={{
-//                     fontSize: "15px",
-//                     fontWeight: 700,
-//                     color: "#f5f0e8",
-//                     margin: "0 0 8px",
-//                     lineHeight: 1.3,
-//                   }}
-//                 >
-//                   {award.title}
-//                 </h4>
-//                 <p
-//                   style={{
-//                     color: "rgba(245,240,232,0.5)",
-//                     fontFamily: "sans-serif",
-//                     fontSize: "11px",
-//                     letterSpacing: "2px",
-//                     margin: 0,
-//                     textTransform: "uppercase",
-//                   }}
-//                 >
-//                   {award.org}
-//                 </p>
-//               </motion.div>
-//             ))}
-//           </div>
-//         </div>
-//       </section>
-//     </div>
-//   );
-// }
-
-
-
-
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { Client } from "@/lib/supabase";
+import { useRestaurantTheme } from "./useTheme";
 
 // ═══════════════════════════════════════════════════
 // ANIMATIONS
@@ -819,9 +38,17 @@ const ScaleIn = ({ children, delay = 0, className = "" }: { children: React.Reac
 
 const PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' fill='%23111'%3E%3Crect width='800' height='600'/%3E%3Ctext x='50%25' y='50%25' font-size='24' fill='%23D4AF37' text-anchor='middle' dominant-baseline='middle' font-family='sans-serif'%3EUpload Image%3C/text%3E%3C/svg%3E";
 
-export default function AboutPage({ client }: { client: Client }) {
+interface AboutPageProps {
+  client: Client;
+  setPage?: (page: string, postSlug?: string) => void;
+}
+
+export default function AboutPage({ client }: AboutPageProps) {
   const heroRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
+
+  // 🎨 Get theme colors
+  const theme = useRestaurantTheme(client);
 
   useEffect(() => {
     const c = () => setIsMobile(window.innerWidth < 768);
@@ -842,7 +69,7 @@ export default function AboutPage({ client }: { client: Client }) {
   const storyImage2 = client.story_image_2 || client.featured_image_3 || client.products?.[1]?.image_url || PLACEHOLDER;
 
   // ══════════════════════════════════════════════════
-  // DATA - All Dynamic
+  // DATA
   // ══════════════════════════════════════════════════
   const restaurantName = client.business_name || "Restaurant";
   const yearEstablished = client.year_established || client.established_year || "2020";
@@ -854,8 +81,7 @@ export default function AboutPage({ client }: { client: Client }) {
   const chefRole = client.chef_role || "Executive Chef";
 
   const storyHeading = client.story_heading || client.about_heading || "Born From Passion, Crafted With Purpose";
-  
-  // Auto-generate story paragraphs - FIXED with explicit type
+
   const storyParagraphs: string[] = (() => {
     if (client.story_paragraphs && client.story_paragraphs.length > 0) {
       return client.story_paragraphs as string[];
@@ -865,9 +91,9 @@ export default function AboutPage({ client }: { client: Client }) {
       client.about_text_2,
       client.about,
     ].filter((p): p is string => Boolean(p));
-    
+
     if (paragraphs.length > 0) return paragraphs;
-    
+
     return [
       `Founded in ${yearEstablished}, ${restaurantName} began as a passionate vision to redefine the dining experience in ${client.city || "the city"}. What started as a dream has now blossomed into a beloved destination for food enthusiasts and connoisseurs alike.`,
       `Over the years, we have remained committed to one simple philosophy — exceptional ingredients, authentic flavors, and an atmosphere that turns every meal into a cherished memory. Our journey is built on the trust of countless guests who walk through our doors.`,
@@ -878,44 +104,19 @@ export default function AboutPage({ client }: { client: Client }) {
   const teamMembers: any[] = client.team_members || [];
   const awards: any[] = client.awards || [];
 
-  // ══════════════════════════════════════════════════
-  // MISSION & VISION
-  // ══════════════════════════════════════════════════
-  const mission: string = (client as any).mission || 
+  const mission: string = (client as any).mission ||
     `To deliver an unforgettable culinary journey that celebrates authentic flavors, premium ingredients, and warm hospitality — making every visit to ${restaurantName} a moment worth remembering.`;
-  
-  const vision: string = (client as any).vision || 
+
+  const vision: string = (client as any).vision ||
     `To become ${client.city || "the city"}'s most loved dining destination, where tradition meets innovation, and where every guest leaves with a smile and a story to share.`;
 
-  // ══════════════════════════════════════════════════
-  // CORE VALUES
-  // ══════════════════════════════════════════════════
   const values = [
-    {
-      icon: "🌿",
-      title: "Quality First",
-      desc: "We source only the finest ingredients from trusted local and global suppliers, ensuring every dish meets our uncompromising standards.",
-    },
-    {
-      icon: "❤️",
-      title: "Passion Driven",
-      desc: "Our team pours their heart into every plate, treating cooking as an art form and hospitality as a sacred calling.",
-    },
-    {
-      icon: "✨",
-      title: "Authentic Experience",
-      desc: "We believe in preserving traditional techniques while embracing modern creativity to create unique flavor experiences.",
-    },
-    {
-      icon: "🤝",
-      title: "Guest Family",
-      desc: "Every guest who walks in is treated like family. Your comfort, satisfaction, and happiness are our highest priorities.",
-    },
+    { icon: "🌿", title: "Quality First", desc: "We source only the finest ingredients from trusted local and global suppliers, ensuring every dish meets our uncompromising standards." },
+    { icon: "❤️", title: "Passion Driven", desc: "Our team pours their heart into every plate, treating cooking as an art form and hospitality as a sacred calling." },
+    { icon: "✨", title: "Authentic Experience", desc: "We believe in preserving traditional techniques while embracing modern creativity to create unique flavor experiences." },
+    { icon: "🤝", title: "Guest Family", desc: "Every guest who walks in is treated like family. Your comfort, satisfaction, and happiness are our highest priorities." },
   ];
 
-  // ══════════════════════════════════════════════════
-  // JOURNEY TIMELINE
-  // ══════════════════════════════════════════════════
   const timeline = [
     { year: yearEstablished, title: "The Beginning", desc: `${restaurantName} opened its doors with a vision to revolutionize the dining scene.` },
     { year: String(parseInt(yearEstablished) + Math.floor(yearsRunning / 3)), title: "Growing Recognition", desc: "Earned love from thousands of guests and established our signature style." },
@@ -924,7 +125,10 @@ export default function AboutPage({ client }: { client: Client }) {
   ];
 
   return (
-    <div className="bg-[#0a0a0a] text-[#f5f0e8] font-serif overflow-x-hidden">
+    <div 
+      style={{ backgroundColor: theme.bg, color: theme.text }}
+      className="font-serif overflow-x-hidden"
+    >
 
       {/* ════════════════════════════════════════════════════ */}
       {/*  1. HERO                                            */}
@@ -948,24 +152,48 @@ export default function AboutPage({ client }: { client: Client }) {
           transition={{ duration: 1, delay: 0.3 }}
           className="relative z-10 px-4 sm:px-6 md:px-[5%] lg:px-[8%] pb-12 sm:pb-16 md:pb-20"
         >
-          <span className="text-[#D4AF37] text-[9px] sm:text-[10px] tracking-[4px] sm:tracking-[6px] uppercase font-sans block mb-3 sm:mb-4 md:mb-5">
+          <span 
+            className="text-[9px] sm:text-[10px] tracking-[4px] sm:tracking-[6px] uppercase font-sans block mb-3 sm:mb-4 md:mb-5"
+            style={{ color: theme.primary }}
+          >
             About {restaurantName}
           </span>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[90px] font-bold m-0 leading-[1.05]">
+          <h1 
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[90px] font-bold m-0 leading-[1.05]"
+            style={{ color: theme.text }}
+          >
             Our<br />
-            <span className="bg-gradient-to-br from-[#D4AF37] to-[#f5c842] bg-clip-text text-transparent">
+            <span 
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage: `linear-gradient(to bottom right, ${theme.primary}, ${theme.accent})`,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
               Legacy
             </span>
           </h1>
         </motion.div>
 
-        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#D4AF37] via-[rgba(212,175,55,0.3)] to-transparent" />
+        <div 
+          className="absolute bottom-0 left-0 right-0 h-[2px]"
+          style={{
+            background: `linear-gradient(to right, ${theme.primary}, ${theme.primary}4d, transparent)`,
+          }}
+        />
       </section>
 
       {/* ════════════════════════════════════════════════════ */}
       {/*  2. INTRO STATS BAR                                 */}
       {/* ════════════════════════════════════════════════════ */}
-      <section className="bg-[#0f0f0f] border-b border-[rgba(212,175,55,0.15)] py-10 sm:py-12 md:py-14">
+      <section 
+        className="py-10 sm:py-12 md:py-14"
+        style={{ 
+          backgroundColor: theme.bgSecondary,
+          borderBottom: `1px solid ${theme.primary}26`,
+        }}
+      >
         <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-8 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 md:gap-10">
           {[
             { number: yearEstablished, label: "Founded" },
@@ -975,10 +203,16 @@ export default function AboutPage({ client }: { client: Client }) {
           ].map((stat, i) => (
             <FadeIn key={i} delay={i * 0.1}>
               <div className="text-center">
-                <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#D4AF37] mb-1 sm:mb-2 leading-none">
+                <div 
+                  className="text-3xl sm:text-4xl md:text-5xl font-bold mb-1 sm:mb-2 leading-none"
+                  style={{ color: theme.primary }}
+                >
                   {stat.number}
                 </div>
-                <div className="text-[9px] sm:text-[10px] md:text-[11px] tracking-[2px] sm:tracking-[3px] text-[rgba(245,240,232,0.5)] uppercase font-sans">
+                <div 
+                  className="text-[9px] sm:text-[10px] md:text-[11px] tracking-[2px] sm:tracking-[3px] uppercase font-sans"
+                  style={{ color: theme.textMuted, opacity: 0.7 }}
+                >
                   {stat.label}
                 </div>
               </div>
@@ -991,22 +225,37 @@ export default function AboutPage({ client }: { client: Client }) {
       {/*  3. STORY - Split Screen                            */}
       {/* ════════════════════════════════════════════════════ */}
       <section className="grid grid-cols-1 lg:grid-cols-2 min-h-0 lg:min-h-[80vh]">
-        <FadeIn direction="left" className="bg-[#0f0f0f] order-2 lg:order-1">
-          <div className="flex flex-col justify-center px-4 sm:px-6 md:px-10 lg:px-14 xl:px-20 py-12 sm:py-16 md:py-20 lg:py-[100px]">
+        <FadeIn direction="left" className="order-2 lg:order-1">
+          <div 
+            className="flex flex-col justify-center px-4 sm:px-6 md:px-10 lg:px-14 xl:px-20 py-12 sm:py-16 md:py-20 lg:py-[100px]"
+            style={{ backgroundColor: theme.bgSecondary }}
+          >
             <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8 md:mb-10">
-              <div className="w-8 sm:w-10 md:w-[50px] h-px bg-[#D4AF37]" />
-              <span className="text-[#D4AF37] text-[9px] sm:text-[10px] tracking-[4px] sm:tracking-[5px] uppercase font-sans">
+              <div 
+                className="w-8 sm:w-10 md:w-[50px] h-px"
+                style={{ backgroundColor: theme.primary }}
+              />
+              <span 
+                className="text-[9px] sm:text-[10px] tracking-[4px] sm:tracking-[5px] uppercase font-sans"
+                style={{ color: theme.primary }}
+              >
                 The Story
               </span>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl md:text-[36px] lg:text-[40px] xl:text-[44px] font-bold leading-[1.15] sm:leading-[1.2] mb-6 sm:mb-8 md:mb-9 text-[#f5f0e8]">
+            <h2 
+              className="text-2xl sm:text-3xl md:text-[36px] lg:text-[40px] xl:text-[44px] font-bold leading-[1.15] sm:leading-[1.2] mb-6 sm:mb-8 md:mb-9"
+              style={{ color: theme.text }}
+            >
               {storyHeading}
             </h2>
 
             {storyParagraphs.map((para, i) => (
               <FadeIn key={i} delay={i * 0.15}>
-                <p className="text-[rgba(245,240,232,0.7)] leading-[1.7] sm:leading-[1.8] md:leading-[1.9] text-sm sm:text-[15px] mb-5 sm:mb-6 font-sans font-light">
+                <p 
+                  className="leading-[1.7] sm:leading-[1.8] md:leading-[1.9] text-sm sm:text-[15px] mb-5 sm:mb-6 font-sans font-light"
+                  style={{ color: theme.textMuted }}
+                >
                   {para}
                 </p>
               </FadeIn>
@@ -1032,13 +281,28 @@ export default function AboutPage({ client }: { client: Client }) {
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${aboutImage})`, filter: "brightness(0.6) sepia(0.15)" }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-[rgba(0,0,0,0.5)] to-[rgba(212,175,55,0.05)]" />
+          <div 
+            className="absolute inset-0"
+            style={{ background: `linear-gradient(to bottom right, rgba(0,0,0,0.5), ${theme.primary}0d)` }}
+          />
 
-          <div className="absolute bottom-4 right-4 sm:bottom-8 sm:right-6 md:bottom-12 md:right-8 lg:bottom-[60px] lg:right-10 bg-[rgba(0,0,0,0.85)] border border-[rgba(212,175,55,0.3)] p-4 sm:p-5 md:p-6 lg:p-8 backdrop-blur-[10px]">
-            <div className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-bold text-[#D4AF37] leading-none">
+          <div 
+            className="absolute bottom-4 right-4 sm:bottom-8 sm:right-6 md:bottom-12 md:right-8 lg:bottom-[60px] lg:right-10 p-4 sm:p-5 md:p-6 lg:p-8 backdrop-blur-[10px]"
+            style={{
+              backgroundColor: `${theme.bg}d9`,
+              border: `1px solid ${theme.primary}4d`,
+            }}
+          >
+            <div 
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-bold leading-none"
+              style={{ color: theme.primary }}
+            >
               {yearEstablished}
             </div>
-            <div className="text-[rgba(245,240,232,0.7)] font-sans text-[9px] sm:text-[10px] md:text-[11px] tracking-[2px] sm:tracking-[3px] uppercase mt-1 sm:mt-2">
+            <div 
+              className="font-sans text-[9px] sm:text-[10px] md:text-[11px] tracking-[2px] sm:tracking-[3px] uppercase mt-1 sm:mt-2"
+              style={{ color: theme.textMuted }}
+            >
               Founded
             </div>
           </div>
@@ -1048,13 +312,21 @@ export default function AboutPage({ client }: { client: Client }) {
       {/* ════════════════════════════════════════════════════ */}
       {/*  4. MISSION & VISION CARDS                          */}
       {/* ════════════════════════════════════════════════════ */}
-      <section className="relative px-4 sm:px-6 md:px-[5%] py-20 sm:py-24 md:py-28 lg:py-32 bg-[#080808] overflow-hidden">
+      <section 
+        className="relative px-4 sm:px-6 md:px-[5%] py-20 sm:py-24 md:py-28 lg:py-32 overflow-hidden"
+        style={{ backgroundColor: theme.bgSecondary }}
+      >
         <div className="absolute inset-0 overflow-hidden opacity-10">
           {[...Array(5)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute h-px bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent"
-              style={{ top: `${20 + i * 15}%`, left: 0, right: 0 }}
+              className="absolute h-px"
+              style={{ 
+                top: `${20 + i * 15}%`, 
+                left: 0, 
+                right: 0,
+                background: `linear-gradient(to right, transparent, ${theme.primary}, transparent)`,
+              }}
               animate={{ x: ["-100%", "100%"] }}
               transition={{ duration: 8 + i * 2, repeat: Infinity, ease: "linear", delay: i * 1.5 }}
             />
@@ -1063,14 +335,36 @@ export default function AboutPage({ client }: { client: Client }) {
 
         <FadeIn className="text-center mb-12 sm:mb-16 md:mb-20 relative z-10">
           <div className="flex items-center justify-center gap-4 sm:gap-5 mb-4 sm:mb-5">
-            <div className="h-px w-12 sm:w-16 md:w-20 bg-gradient-to-r from-transparent to-[#D4AF37]" />
-            <span className="text-[#D4AF37] text-[9px] sm:text-[10px] tracking-[4px] sm:tracking-[6px] uppercase font-sans">
+            <div 
+              className="h-px w-12 sm:w-16 md:w-20"
+              style={{ background: `linear-gradient(to right, transparent, ${theme.primary})` }}
+            />
+            <span 
+              className="text-[9px] sm:text-[10px] tracking-[4px] sm:tracking-[6px] uppercase font-sans"
+              style={{ color: theme.primary }}
+            >
               Our Purpose
             </span>
-            <div className="h-px w-12 sm:w-16 md:w-20 bg-gradient-to-l from-transparent to-[#D4AF37]" />
+            <div 
+              className="h-px w-12 sm:w-16 md:w-20"
+              style={{ background: `linear-gradient(to left, transparent, ${theme.primary})` }}
+            />
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-bold text-[#f5f0e8]">
-            Mission & <span className="bg-gradient-to-r from-[#D4AF37] via-[#f5c842] to-[#D4AF37] bg-clip-text text-transparent">Vision</span>
+          <h2 
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-bold"
+            style={{ color: theme.text }}
+          >
+            Mission &{" "}
+            <span 
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage: `linear-gradient(to right, ${theme.primary}, ${theme.text}, ${theme.primary})`,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              Vision
+            </span>
           </h2>
         </FadeIn>
 
@@ -1081,35 +375,60 @@ export default function AboutPage({ client }: { client: Client }) {
             <motion.div
               whileHover={{ y: -10 }}
               transition={{ type: "spring", stiffness: 200 }}
-              className="relative h-full bg-gradient-to-br from-[#0f0f0f] via-[#0d0d0d] to-[#080808] border border-[rgba(212,175,55,0.2)] p-8 sm:p-10 md:p-12 lg:p-14 overflow-hidden group"
+              className="relative h-full p-8 sm:p-10 md:p-12 lg:p-14 overflow-hidden group"
+              style={{
+                background: `linear-gradient(to bottom right, ${theme.bgCard}, ${theme.bgSecondary}, ${theme.bg})`,
+                border: `1px solid ${theme.primary}33`,
+              }}
             >
-              <motion.div initial={{ width: 0 }} whileInView={{ width: 80 }} viewport={{ once: true }} transition={{ duration: 1, delay: 0.3 }} className="absolute top-0 left-0 h-px bg-[#D4AF37]" />
-              <motion.div initial={{ height: 0 }} whileInView={{ height: 80 }} viewport={{ once: true }} transition={{ duration: 1, delay: 0.3 }} className="absolute top-0 left-0 w-px bg-[#D4AF37]" />
+              <motion.div initial={{ width: 0 }} whileInView={{ width: 80 }} viewport={{ once: true }} transition={{ duration: 1, delay: 0.3 }} className="absolute top-0 left-0 h-px" style={{ backgroundColor: theme.primary }} />
+              <motion.div initial={{ height: 0 }} whileInView={{ height: 80 }} viewport={{ once: true }} transition={{ duration: 1, delay: 0.3 }} className="absolute top-0 left-0 w-px" style={{ backgroundColor: theme.primary }} />
 
-              <div className="absolute inset-0 bg-gradient-to-br from-[rgba(212,175,55,0.05)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div 
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{ background: `linear-gradient(to bottom right, ${theme.primary}14, transparent)` }}
+              />
 
               <div className="relative z-10">
                 <motion.div
                   whileHover={{ scale: 1.1, rotate: -5 }}
                   className="inline-block mb-6 sm:mb-8"
                 >
-                  <div className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 rounded-full border-2 border-[#D4AF37] flex items-center justify-center text-3xl sm:text-4xl bg-[rgba(212,175,55,0.05)]">
+                  <div 
+                    className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 rounded-full flex items-center justify-center text-3xl sm:text-4xl"
+                    style={{ 
+                      border: `2px solid ${theme.primary}`,
+                      backgroundColor: `${theme.primary}0d`,
+                    }}
+                  >
                     🎯
                   </div>
                 </motion.div>
 
                 <div className="flex items-center gap-3 mb-4 sm:mb-5">
-                  <div className="h-px w-8 sm:w-10 bg-[#D4AF37]" />
-                  <span className="text-[#D4AF37] text-[10px] sm:text-[11px] tracking-[4px] sm:tracking-[5px] uppercase font-sans font-light">
+                  <div 
+                    className="h-px w-8 sm:w-10"
+                    style={{ backgroundColor: theme.primary }}
+                  />
+                  <span 
+                    className="text-[10px] sm:text-[11px] tracking-[4px] sm:tracking-[5px] uppercase font-sans font-light"
+                    style={{ color: theme.primary }}
+                  >
                     Our Mission
                   </span>
                 </div>
 
-                <h3 className="text-2xl sm:text-3xl md:text-[34px] lg:text-[38px] font-bold text-[#f5f0e8] mb-5 sm:mb-6 leading-[1.15]">
-                  What Drives <span className="text-[#D4AF37]">Us</span>
+                <h3 
+                  className="text-2xl sm:text-3xl md:text-[34px] lg:text-[38px] font-bold mb-5 sm:mb-6 leading-[1.15]"
+                  style={{ color: theme.text }}
+                >
+                  What Drives <span style={{ color: theme.primary }}>Us</span>
                 </h3>
 
-                <p className="text-[rgba(245,240,232,0.7)] font-sans text-sm sm:text-[15px] md:text-base leading-[1.8] sm:leading-[1.9] font-light italic">
+                <p 
+                  className="font-sans text-sm sm:text-[15px] md:text-base leading-[1.8] sm:leading-[1.9] font-light italic"
+                  style={{ color: theme.textMuted }}
+                >
                   &ldquo;{mission}&rdquo;
                 </p>
 
@@ -1118,7 +437,8 @@ export default function AboutPage({ client }: { client: Client }) {
                   whileInView={{ width: "100%" }}
                   viewport={{ once: true }}
                   transition={{ duration: 1, delay: 0.6 }}
-                  className="mt-8 sm:mt-10 h-px bg-gradient-to-r from-[#D4AF37] via-[rgba(212,175,55,0.3)] to-transparent"
+                  className="mt-8 sm:mt-10 h-px"
+                  style={{ background: `linear-gradient(to right, ${theme.primary}, ${theme.primary}4d, transparent)` }}
                 />
               </div>
             </motion.div>
@@ -1131,10 +451,16 @@ export default function AboutPage({ client }: { client: Client }) {
               transition={{ type: "spring", stiffness: 200 }}
               className="relative h-full overflow-hidden group"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37] via-[#c9a227] to-[#a88820]" />
-              
-              <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `radial-gradient(circle, #0a0a0a 1px, transparent 1px)`, backgroundSize: "20px 20px" }} />
-              <div className="absolute inset-0 bg-gradient-to-tr from-[rgba(10,10,10,0.5)] via-transparent to-transparent" />
+              <div 
+                className="absolute inset-0"
+                style={{ background: `linear-gradient(to bottom right, ${theme.primary}, ${theme.accent}, ${theme.primaryDark})` }}
+              />
+
+              <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `radial-gradient(circle, ${theme.bg} 1px, transparent 1px)`, backgroundSize: "20px 20px" }} />
+              <div 
+                className="absolute inset-0"
+                style={{ background: `linear-gradient(to top right, ${theme.bg}80, transparent, transparent)` }}
+              />
 
               <motion.div
                 animate={{ x: ["-100%", "200%"] }}
@@ -1147,23 +473,41 @@ export default function AboutPage({ client }: { client: Client }) {
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   className="inline-block mb-6 sm:mb-8"
                 >
-                  <div className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 rounded-full border-2 border-[#0a0a0a] flex items-center justify-center text-3xl sm:text-4xl bg-[rgba(10,10,10,0.1)]">
+                  <div 
+                    className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 rounded-full flex items-center justify-center text-3xl sm:text-4xl"
+                    style={{ 
+                      border: `2px solid ${theme.bg}`,
+                      backgroundColor: `${theme.bg}1a`,
+                    }}
+                  >
                     🌟
                   </div>
                 </motion.div>
 
                 <div className="flex items-center gap-3 mb-4 sm:mb-5">
-                  <div className="h-px w-8 sm:w-10 bg-[#0a0a0a]" />
-                  <span className="text-[#0a0a0a] text-[10px] sm:text-[11px] tracking-[4px] sm:tracking-[5px] uppercase font-sans font-bold">
+                  <div 
+                    className="h-px w-8 sm:w-10"
+                    style={{ backgroundColor: theme.bg }}
+                  />
+                  <span 
+                    className="text-[10px] sm:text-[11px] tracking-[4px] sm:tracking-[5px] uppercase font-sans font-bold"
+                    style={{ color: theme.bg }}
+                  >
                     Our Vision
                   </span>
                 </div>
 
-                <h3 className="text-2xl sm:text-3xl md:text-[34px] lg:text-[38px] font-bold text-[#0a0a0a] mb-5 sm:mb-6 leading-[1.15]">
+                <h3 
+                  className="text-2xl sm:text-3xl md:text-[34px] lg:text-[38px] font-bold mb-5 sm:mb-6 leading-[1.15]"
+                  style={{ color: theme.bg }}
+                >
                   Where We&apos;re Headed
                 </h3>
 
-                <p className="text-[rgba(10,10,10,0.85)] font-sans text-sm sm:text-[15px] md:text-base leading-[1.8] sm:leading-[1.9] font-medium italic">
+                <p 
+                  className="font-sans text-sm sm:text-[15px] md:text-base leading-[1.8] sm:leading-[1.9] font-medium italic"
+                  style={{ color: `${theme.bg}d9` }}
+                >
                   &ldquo;{vision}&rdquo;
                 </p>
 
@@ -1172,7 +516,8 @@ export default function AboutPage({ client }: { client: Client }) {
                   whileInView={{ width: "100%" }}
                   viewport={{ once: true }}
                   transition={{ duration: 1, delay: 0.6 }}
-                  className="mt-8 sm:mt-10 h-px bg-gradient-to-r from-[#0a0a0a] via-[rgba(10,10,10,0.3)] to-transparent"
+                  className="mt-8 sm:mt-10 h-px"
+                  style={{ background: `linear-gradient(to right, ${theme.bg}, ${theme.bg}4d, transparent)` }}
                 />
               </div>
             </motion.div>
@@ -1183,13 +528,22 @@ export default function AboutPage({ client }: { client: Client }) {
       {/* ════════════════════════════════════════════════════ */}
       {/*  5. CORE VALUES                                     */}
       {/* ════════════════════════════════════════════════════ */}
-      <section className="px-4 sm:px-6 md:px-[5%] py-16 sm:py-20 md:py-24 lg:py-[100px] bg-[#0a0a0a]">
+      <section 
+        className="px-4 sm:px-6 md:px-[5%] py-16 sm:py-20 md:py-24 lg:py-[100px]"
+        style={{ backgroundColor: theme.bg }}
+      >
         <FadeIn className="text-center mb-12 sm:mb-14 md:mb-16">
-          <span className="text-[#D4AF37] text-[9px] sm:text-[10px] tracking-[4px] sm:tracking-[6px] uppercase font-sans block mb-3 sm:mb-4 md:mb-5">
+          <span 
+            className="text-[9px] sm:text-[10px] tracking-[4px] sm:tracking-[6px] uppercase font-sans block mb-3 sm:mb-4 md:mb-5"
+            style={{ color: theme.primary }}
+          >
             What We Stand For
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-bold text-[#f5f0e8] m-0">
-            Our Core <span className="text-[#D4AF37]">Values</span>
+          <h2 
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-bold m-0"
+            style={{ color: theme.text }}
+          >
+            Our Core <span style={{ color: theme.primary }}>Values</span>
           </h2>
         </FadeIn>
 
@@ -1202,17 +556,25 @@ export default function AboutPage({ client }: { client: Client }) {
               viewport={{ once: true }}
               transition={{ delay: i * 0.15, duration: 0.8 }}
               whileHover={{ y: -12 }}
-              className="bg-[#0f0f0f] border border-[rgba(212,175,55,0.1)] p-6 sm:p-7 md:p-8 relative group cursor-pointer overflow-hidden"
+              className="p-6 sm:p-7 md:p-8 relative group cursor-pointer overflow-hidden"
+              style={{
+                backgroundColor: theme.bgCard,
+                border: `1px solid ${theme.primary}1a`,
+              }}
             >
               <motion.div
-                className="absolute top-0 left-0 h-[2px] bg-[#D4AF37]"
+                className="absolute top-0 left-0 h-[2px]"
+                style={{ backgroundColor: theme.primary }}
                 initial={{ width: "0%" }}
                 whileInView={{ width: "100%" }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.2 + 0.5, duration: 0.8 }}
               />
 
-              <div className="absolute inset-0 bg-gradient-to-br from-[rgba(212,175,55,0.08)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div 
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{ background: `linear-gradient(to bottom right, ${theme.primary}14, transparent)` }}
+              />
 
               <div className="relative z-10">
                 <motion.div
@@ -1222,15 +584,24 @@ export default function AboutPage({ client }: { client: Client }) {
                 >
                   {value.icon}
                 </motion.div>
-                <h3 className="text-base sm:text-lg md:text-xl font-bold text-[#f5f0e8] mb-2 sm:mb-3">
+                <h3 
+                  className="text-base sm:text-lg md:text-xl font-bold mb-2 sm:mb-3"
+                  style={{ color: theme.text }}
+                >
                   {value.title}
                 </h3>
-                <p className="text-[rgba(245,240,232,0.55)] font-sans text-xs sm:text-[13px] leading-[1.7] font-light m-0">
+                <p 
+                  className="font-sans text-xs sm:text-[13px] leading-[1.7] font-light m-0"
+                  style={{ color: theme.textMuted }}
+                >
                   {value.desc}
                 </p>
               </div>
 
-              <div className="absolute bottom-3 right-3 text-[rgba(212,175,55,0.1)] text-3xl sm:text-4xl font-sans font-bold">
+              <div 
+                className="absolute bottom-3 right-3 text-3xl sm:text-4xl font-sans font-bold"
+                style={{ color: `${theme.primary}1a` }}
+              >
                 0{i + 1}
               </div>
             </motion.div>
@@ -1241,19 +612,34 @@ export default function AboutPage({ client }: { client: Client }) {
       {/* ════════════════════════════════════════════════════ */}
       {/*  6. JOURNEY TIMELINE                                */}
       {/* ════════════════════════════════════════════════════ */}
-      <section className="px-4 sm:px-6 md:px-[5%] py-16 sm:py-20 md:py-24 lg:py-[100px] bg-[#080808] relative overflow-hidden">
+      <section 
+        className="px-4 sm:px-6 md:px-[5%] py-16 sm:py-20 md:py-24 lg:py-[100px] relative overflow-hidden"
+        style={{ backgroundColor: theme.bgSecondary }}
+      >
         <FadeIn className="text-center mb-12 sm:mb-14 md:mb-16">
-          <span className="text-[#D4AF37] text-[9px] sm:text-[10px] tracking-[4px] sm:tracking-[6px] uppercase font-sans block mb-3 sm:mb-4 md:mb-5">
+          <span 
+            className="text-[9px] sm:text-[10px] tracking-[4px] sm:tracking-[6px] uppercase font-sans block mb-3 sm:mb-4 md:mb-5"
+            style={{ color: theme.primary }}
+          >
             Our Journey
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-bold text-[#f5f0e8] m-0">
-            A Story of <span className="text-[#D4AF37]">Growth</span>
+          <h2 
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-bold m-0"
+            style={{ color: theme.text }}
+          >
+            A Story of <span style={{ color: theme.primary }}>Growth</span>
           </h2>
         </FadeIn>
 
         <div className="max-w-[900px] mx-auto relative">
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[rgba(212,175,55,0.3)] to-transparent -translate-x-1/2" />
-          <div className="md:hidden absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[rgba(212,175,55,0.3)] to-transparent" />
+          <div 
+            className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2"
+            style={{ background: `linear-gradient(to bottom, transparent, ${theme.primary}4d, transparent)` }}
+          />
+          <div 
+            className="md:hidden absolute left-4 top-0 bottom-0 w-px"
+            style={{ background: `linear-gradient(to bottom, transparent, ${theme.primary}4d, transparent)` }}
+          />
 
           {timeline.map((item, i) => (
             <FadeIn key={i} delay={i * 0.15} direction={i % 2 === 0 ? "left" : "right"}>
@@ -1266,7 +652,10 @@ export default function AboutPage({ client }: { client: Client }) {
                     transition={{ delay: i * 0.15 + 0.3, type: "spring", stiffness: 300 }}
                     className="hidden md:inline-block"
                   >
-                    <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#D4AF37]">
+                    <div 
+                      className="text-3xl sm:text-4xl md:text-5xl font-bold"
+                      style={{ color: theme.primary }}
+                    >
                       {item.year}
                     </div>
                   </motion.div>
@@ -1278,30 +667,51 @@ export default function AboutPage({ client }: { client: Client }) {
                     whileInView={{ scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.15 + 0.5, type: "spring", stiffness: 300 }}
-                    className="relative w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#D4AF37] border-4 border-[#080808]"
+                    className="relative w-4 h-4 sm:w-5 sm:h-5 rounded-full"
+                    style={{ 
+                      backgroundColor: theme.primary,
+                      border: `4px solid ${theme.bgSecondary}`,
+                    }}
                   >
                     <motion.div
                       animate={{ scale: [1, 1.5, 1], opacity: [0.7, 0, 0.7] }}
                       transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
-                      className="absolute inset-0 rounded-full bg-[#D4AF37]"
+                      className="absolute inset-0 rounded-full"
+                      style={{ backgroundColor: theme.primary }}
                     />
                   </motion.div>
                 </div>
 
                 <div className={`pl-12 md:pl-0 md:w-1/2 ${i % 2 === 0 ? "md:pl-12" : "md:pr-12 md:text-right"}`}>
-                  <div className="md:hidden text-2xl sm:text-3xl font-bold text-[#D4AF37] mb-2">
+                  <div 
+                    className="md:hidden text-2xl sm:text-3xl font-bold mb-2"
+                    style={{ color: theme.primary }}
+                  >
                     {item.year}
                   </div>
-                  
+
                   <motion.div
                     whileHover={{ y: -4 }}
-                    className="relative bg-[#0f0f0f] border border-[rgba(212,175,55,0.15)] p-5 sm:p-6 md:p-7 group"
+                    className="relative p-5 sm:p-6 md:p-7 group"
+                    style={{
+                      backgroundColor: theme.bgCard,
+                      border: `1px solid ${theme.primary}26`,
+                    }}
                   >
-                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-[#D4AF37] via-[rgba(212,175,55,0.3)] to-transparent" />
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-[#f5f0e8] mb-2 sm:mb-3">
+                    <div 
+                      className="absolute top-0 left-0 w-full h-px"
+                      style={{ background: `linear-gradient(to right, ${theme.primary}, ${theme.primary}4d, transparent)` }}
+                    />
+                    <h3 
+                      className="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-3"
+                      style={{ color: theme.text }}
+                    >
                       {item.title}
                     </h3>
-                    <p className="text-[rgba(245,240,232,0.6)] font-sans text-xs sm:text-[13px] md:text-sm leading-[1.7] font-light m-0">
+                    <p 
+                      className="font-sans text-xs sm:text-[13px] md:text-sm leading-[1.7] font-light m-0"
+                      style={{ color: theme.textMuted }}
+                    >
                       {item.desc}
                     </p>
                   </motion.div>
@@ -1316,7 +726,10 @@ export default function AboutPage({ client }: { client: Client }) {
       {/*  7. CHEF SECTION                                    */}
       {/* ════════════════════════════════════════════════════ */}
       {(chefName || chefQuote) && (
-        <section className="relative overflow-hidden bg-[#0a0a0a]">
+        <section 
+          className="relative overflow-hidden"
+          style={{ backgroundColor: theme.bg }}
+        >
           <div
             className="absolute inset-[-10%] bg-cover bg-center"
             style={{ backgroundImage: `url(${chefImage})`, filter: "brightness(0.12) blur(3px)" }}
@@ -1329,35 +742,56 @@ export default function AboutPage({ client }: { client: Client }) {
                   className="w-full h-[300px] sm:h-[400px] md:h-[450px] lg:h-[500px] bg-cover bg-center bg-top"
                   style={{ backgroundImage: `url(${chefImage})`, filter: "brightness(0.85)" }}
                 />
-                <div className="hidden md:block absolute -top-4 -left-4 lg:-top-5 lg:-left-5 right-4 lg:right-5 bottom-4 lg:bottom-5 border border-[rgba(212,175,55,0.3)] pointer-events-none" />
+                <div 
+                  className="hidden md:block absolute -top-4 -left-4 lg:-top-5 lg:-left-5 right-4 lg:right-5 bottom-4 lg:bottom-5 pointer-events-none"
+                  style={{ border: `1px solid ${theme.primary}4d` }}
+                />
               </div>
             </ScaleIn>
 
             <FadeIn direction="right" className="flex flex-col justify-center">
               <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-10 lg:py-0">
-                <span className="text-[#D4AF37] text-[9px] sm:text-[10px] tracking-[4px] sm:tracking-[5px] uppercase font-sans block mb-5 sm:mb-6 md:mb-8">
+                <span 
+                  className="text-[9px] sm:text-[10px] tracking-[4px] sm:tracking-[5px] uppercase font-sans block mb-5 sm:mb-6 md:mb-8"
+                  style={{ color: theme.primary }}
+                >
                   The Mastermind
                 </span>
 
                 {chefQuote && (
                   <>
-                    <div className="text-4xl sm:text-5xl md:text-[60px] text-[#D4AF37] leading-[0.5] mb-4 sm:mb-5 md:mb-6 font-serif">
+                    <div 
+                      className="text-4xl sm:text-5xl md:text-[60px] leading-[0.5] mb-4 sm:mb-5 md:mb-6 font-serif"
+                      style={{ color: theme.primary }}
+                    >
                       &ldquo;
                     </div>
-                    <p className="text-lg sm:text-xl md:text-2xl lg:text-[26px] leading-[1.4] sm:leading-[1.5] text-[#f5f0e8] italic m-0 mb-6 sm:mb-8 md:mb-10 font-normal max-w-lg">
+                    <p 
+                      className="text-lg sm:text-xl md:text-2xl lg:text-[26px] leading-[1.4] sm:leading-[1.5] italic m-0 mb-6 sm:mb-8 md:mb-10 font-normal max-w-lg"
+                      style={{ color: theme.text }}
+                    >
                       {chefQuote}
                     </p>
                   </>
                 )}
 
-                <div className="w-10 sm:w-12 md:w-[60px] h-px bg-[#D4AF37] mb-4 sm:mb-5 md:mb-6" />
+                <div 
+                  className="w-10 sm:w-12 md:w-[60px] h-px mb-4 sm:mb-5 md:mb-6"
+                  style={{ backgroundColor: theme.primary }}
+                />
 
                 {chefName && (
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-[#f5f0e8] m-0 mb-1 sm:mb-2">
+                  <h3 
+                    className="text-lg sm:text-xl md:text-2xl font-bold m-0 mb-1 sm:mb-2"
+                    style={{ color: theme.text }}
+                  >
                     {chefName}
                   </h3>
                 )}
-                <p className="text-[#D4AF37] font-sans text-[10px] sm:text-[11px] md:text-xs tracking-[2px] sm:tracking-[3px] uppercase m-0">
+                <p 
+                  className="font-sans text-[10px] sm:text-[11px] md:text-xs tracking-[2px] sm:tracking-[3px] uppercase m-0"
+                  style={{ color: theme.primary }}
+                >
                   {chefRole}
                 </p>
               </div>
@@ -1370,12 +804,21 @@ export default function AboutPage({ client }: { client: Client }) {
       {/*  8. TEAM MEMBERS                                    */}
       {/* ════════════════════════════════════════════════════ */}
       {teamMembers.length > 0 && (
-        <section className="px-4 sm:px-6 md:px-[5%] py-16 sm:py-20 md:py-24 lg:py-[120px] bg-[#080808]">
+        <section 
+          className="px-4 sm:px-6 md:px-[5%] py-16 sm:py-20 md:py-24 lg:py-[120px]"
+          style={{ backgroundColor: theme.bgSecondary }}
+        >
           <FadeIn className="text-center mb-10 sm:mb-14 md:mb-16 lg:mb-20">
-            <span className="text-[#D4AF37] text-[9px] sm:text-[10px] tracking-[4px] sm:tracking-[6px] uppercase font-sans block mb-3 sm:mb-4 md:mb-5">
+            <span 
+              className="text-[9px] sm:text-[10px] tracking-[4px] sm:tracking-[6px] uppercase font-sans block mb-3 sm:mb-4 md:mb-5"
+              style={{ color: theme.primary }}
+            >
               Our People
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-bold text-[#f5f0e8] m-0">
+            <h2 
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-bold m-0"
+              style={{ color: theme.text }}
+            >
               The Team Behind {restaurantName}
             </h2>
           </FadeIn>
@@ -1383,23 +826,42 @@ export default function AboutPage({ client }: { client: Client }) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[2px] sm:gap-[3px] max-w-[1200px] mx-auto">
             {teamMembers.map((member, i) => (
               <FadeIn key={i} delay={i * 0.15}>
-                <motion.div whileHover={{ y: -8 }} className="bg-[#0f0f0f] overflow-hidden">
+                <motion.div 
+                  whileHover={{ y: -8 }} 
+                  className="overflow-hidden"
+                  style={{ backgroundColor: theme.bgCard }}
+                >
                   <div
                     className="h-48 sm:h-56 md:h-64 lg:h-[320px] bg-cover bg-center bg-top relative"
                     style={{ backgroundImage: `url(${member.image || PLACEHOLDER})`, filter: "brightness(0.8) grayscale(0.3)" }}
                   >
-                    <div className="absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-t from-[#0f0f0f] to-transparent" />
+                    <div 
+                      className="absolute bottom-0 left-0 right-0 h-14"
+                      style={{ background: `linear-gradient(to top, ${theme.bgCard}, transparent)` }}
+                    />
                   </div>
                   <div className="p-5 sm:p-6 md:p-7 lg:p-8">
-                    <div className="w-5 sm:w-6 h-px bg-[#D4AF37] mb-3 sm:mb-4" />
-                    <h3 className="text-base sm:text-lg md:text-xl font-bold text-[#f5f0e8] m-0 mb-1">
+                    <div 
+                      className="w-5 sm:w-6 h-px mb-3 sm:mb-4"
+                      style={{ backgroundColor: theme.primary }}
+                    />
+                    <h3 
+                      className="text-base sm:text-lg md:text-xl font-bold m-0 mb-1"
+                      style={{ color: theme.text }}
+                    >
                       {member.name}
                     </h3>
-                    <p className="text-[#D4AF37] font-sans text-[9px] sm:text-[10px] md:text-[11px] tracking-[1.5px] sm:tracking-[2px] uppercase m-0 mb-3 sm:mb-4">
+                    <p 
+                      className="font-sans text-[9px] sm:text-[10px] md:text-[11px] tracking-[1.5px] sm:tracking-[2px] uppercase m-0 mb-3 sm:mb-4"
+                      style={{ color: theme.primary }}
+                    >
                       {member.role}
                     </p>
                     {member.bio && (
-                      <p className="text-[rgba(245,240,232,0.6)] font-sans text-[11px] sm:text-xs md:text-[13px] leading-[1.6] sm:leading-[1.7] m-0 font-light">
+                      <p 
+                        className="font-sans text-[11px] sm:text-xs md:text-[13px] leading-[1.6] sm:leading-[1.7] m-0 font-light"
+                        style={{ color: theme.textMuted }}
+                      >
                         {member.bio}
                       </p>
                     )}
@@ -1415,25 +877,54 @@ export default function AboutPage({ client }: { client: Client }) {
       {/*  9. AWARDS                                          */}
       {/* ════════════════════════════════════════════════════ */}
       {awards.length > 0 && (
-        <section className="px-4 sm:px-6 md:px-[5%] py-12 sm:py-16 md:py-20 bg-[#0f0f0f] border-t border-[rgba(212,175,55,0.15)]">
+        <section 
+          className="px-4 sm:px-6 md:px-[5%] py-12 sm:py-16 md:py-20"
+          style={{ 
+            backgroundColor: theme.bgSecondary,
+            borderTop: `1px solid ${theme.primary}26`,
+          }}
+        >
           <div className="max-w-[1100px] mx-auto">
             <FadeIn className="text-center mb-10 sm:mb-12 md:mb-[60px]">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-bold text-[#f5f0e8] m-0">
+              <h2 
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-bold m-0"
+                style={{ color: theme.text }}
+              >
                 Recognition & Awards
               </h2>
             </FadeIn>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-[rgba(212,175,55,0.1)]">
+            <div 
+              className="grid grid-cols-2 lg:grid-cols-4 gap-px"
+              style={{ backgroundColor: `${theme.primary}1a` }}
+            >
               {awards.map((award, i) => (
                 <ScaleIn key={i} delay={i * 0.1}>
-                  <div className="bg-[#0f0f0f] p-6 sm:p-8 md:p-10 lg:p-12 text-center">
-                    <div className="text-[#D4AF37] text-xl sm:text-2xl mb-3 sm:mb-4">✦</div>
-                    <div className="text-xl sm:text-2xl md:text-[28px] font-bold text-[#D4AF37] font-sans mb-2 sm:mb-3">
+                  <div 
+                    className="p-6 sm:p-8 md:p-10 lg:p-12 text-center"
+                    style={{ backgroundColor: theme.bgCard }}
+                  >
+                    <div 
+                      className="text-xl sm:text-2xl mb-3 sm:mb-4"
+                      style={{ color: theme.primary }}
+                    >
+                      ✦
+                    </div>
+                    <div 
+                      className="text-xl sm:text-2xl md:text-[28px] font-bold font-sans mb-2 sm:mb-3"
+                      style={{ color: theme.primary }}
+                    >
                       {award.year}
                     </div>
-                    <h4 className="text-xs sm:text-sm md:text-[15px] font-bold text-[#f5f0e8] m-0 mb-1 sm:mb-2 leading-[1.3]">
+                    <h4 
+                      className="text-xs sm:text-sm md:text-[15px] font-bold m-0 mb-1 sm:mb-2 leading-[1.3]"
+                      style={{ color: theme.text }}
+                    >
                       {award.title}
                     </h4>
-                    <p className="text-[rgba(245,240,232,0.5)] font-sans text-[9px] sm:text-[10px] md:text-[11px] tracking-[1px] sm:tracking-[2px] m-0 uppercase">
+                    <p 
+                      className="font-sans text-[9px] sm:text-[10px] md:text-[11px] tracking-[1px] sm:tracking-[2px] m-0 uppercase"
+                      style={{ color: theme.textMuted, opacity: 0.7 }}
+                    >
                       {award.org || award.organization}
                     </p>
                   </div>
@@ -1447,13 +938,30 @@ export default function AboutPage({ client }: { client: Client }) {
       {/* ════════════════════════════════════════════════════ */}
       {/*  10. CTA                                            */}
       {/* ════════════════════════════════════════════════════ */}
-      <section className="px-4 sm:px-6 md:px-[5%] py-16 sm:py-20 md:py-24 bg-gradient-to-br from-[#080808] via-[#0a0a0a] to-[#080808] border-t border-[rgba(212,175,55,0.15)]">
+      <section 
+        className="px-4 sm:px-6 md:px-[5%] py-16 sm:py-20 md:py-24"
+        style={{
+          background: `linear-gradient(to bottom right, ${theme.bgSecondary}, ${theme.bg}, ${theme.bgSecondary})`,
+          borderTop: `1px solid ${theme.primary}26`,
+        }}
+      >
         <FadeIn className="text-center max-w-3xl mx-auto">
-          <div className="text-4xl sm:text-5xl text-[#D4AF37] mb-6 sm:mb-8">✦</div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#f5f0e8] mb-4 sm:mb-6">
-            Become Part of Our <span className="text-[#D4AF37]">Story</span>
+          <div 
+            className="text-4xl sm:text-5xl mb-6 sm:mb-8"
+            style={{ color: theme.primary }}
+          >
+            ✦
+          </div>
+          <h2 
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6"
+            style={{ color: theme.text }}
+          >
+            Become Part of Our <span style={{ color: theme.primary }}>Story</span>
           </h2>
-          <p className="text-[rgba(245,240,232,0.6)] font-sans text-sm sm:text-base mb-8 sm:mb-10 font-light leading-relaxed">
+          <p 
+            className="font-sans text-sm sm:text-base mb-8 sm:mb-10 font-light leading-relaxed"
+            style={{ color: theme.textMuted }}
+          >
             Every guest at {restaurantName} adds a beautiful chapter to our journey. We&apos;d love to welcome you to our family.
           </p>
           {client.phone && (
@@ -1461,7 +969,11 @@ export default function AboutPage({ client }: { client: Client }) {
               href={`tel:${client.phone}`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
-              className="inline-block px-8 sm:px-10 md:px-12 py-3.5 sm:py-4 bg-gradient-to-br from-[#D4AF37] to-[#c9a227] text-[#0a0a0a] text-[10px] sm:text-[11px] tracking-[3px] sm:tracking-[4px] uppercase font-sans font-bold cursor-pointer no-underline"
+              className="inline-block px-8 sm:px-10 md:px-12 py-3.5 sm:py-4 text-[10px] sm:text-[11px] tracking-[3px] sm:tracking-[4px] uppercase font-sans font-bold cursor-pointer no-underline"
+              style={{
+                background: `linear-gradient(to bottom right, ${theme.primary}, ${theme.accent})`,
+                color: theme.bg,
+              }}
             >
               Reserve Your Table
             </motion.a>

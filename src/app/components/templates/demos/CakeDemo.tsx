@@ -1,27 +1,134 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, Phone, Mail, MapPin, MessageCircle, Heart, Cake, Star, Gift } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import CakeTemplate from "@/app/components/sites/cake";
+import { Client } from "@/lib/supabase";
 
 const WHATSAPP_NUMBER = "918103558368";
 
+const DEMO_CLIENT: Client = {
+  id: "demo-cake",
+  business_name: "Sweet Bites",
+  template: "Cake Shop",
+  subdomain: "sweet-bites-demo",
+  tagline: "Atelier de Pâtisserie",
+  about: "Sweet Bites is Bhopal's premier luxury bakery, crafting bespoke cakes and pastries with the finest ingredients sourced from around the world.",
+  about_short: "Where tradition meets artistry. Premium cakes for the discerning palate.",
+  phone: "+91 8103558368",
+  whatsapp: "918103558368",
+  email: "hello@sweetbites.com",
+  address: "MP Nagar Zone 1, Bhopal, MP",
+  city: "Bhopal",
+  working_hours: "Mon-Sun: 9 AM - 9 PM",
+  established_year: "2010",
+  year_established: "2010",
+  happy_customers: "10K+",
+
+  // Images
+  hero_image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1600&q=80",
+  hero_image_url: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1600&q=80",
+  about_hero_image: "https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=1600&q=80",
+  menu_hero_image: "https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=1600&q=80",
+  gallery_hero_image: "https://images.unsplash.com/photo-1464195244916-405fa0a82545?w=1600&q=80",
+  contact_hero_image: "https://images.unsplash.com/photo-1602351447937-745cb720612f?w=1600&q=80",
+  about_image: "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=800&q=80",
+  chef_image: "https://images.unsplash.com/photo-1607631568010-a87245c0daf8?w=600&q=80",
+
+  // Stats
+  stat_1_number: "10000",
+  stat_1_label: "Patrons",
+  stat_2_number: "500",
+  stat_2_label: "Bespoke",
+  stat_3_number: "50",
+  stat_3_label: "Flavors",
+  stat_4_number: "4.9",
+  stat_4_label: "Rating",
+
+  // Products
+  products: [
+    {
+      name: "Belgian Truffle",
+      price: "₹1,250",
+      description: "Premium Belgian chocolate with hand-crafted ganache",
+      image_url: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80",
+    },
+    {
+      name: "Velvet Royale",
+      price: "₹1,450",
+      description: "Classic red velvet crowned with mascarpone",
+      image_url: "https://images.unsplash.com/photo-1623246123320-0d6636755796?w=600&q=80",
+    },
+    {
+      name: "Saffron Pistachio",
+      price: "₹1,650",
+      description: "Kashmiri saffron infused with imported pistachios",
+      image_url: "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=600&q=80",
+    },
+  ],
+
+  // Reviews
+  reviews: [
+    { name: "Aisha Mehta", text: "Sweet Bites transformed our wedding into a fairytale. The cake was a masterpiece.", rating: 5, role: "Bride" },
+    { name: "Rohit Sharma", text: "Every order from Sweet Bites is an experience. Pure luxury in every bite.", rating: 5, role: "Patron" },
+    { name: "Priya Verma", text: "The attention to detail is unmatched. Truly an atelier in the heart of Bhopal.", rating: 5, role: "Connoisseur" },
+  ],
+
+  // Gallery
+  gallery_images: [
+    "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&q=80",
+    "https://images.unsplash.com/photo-1623246123320-0d6636755796?w=800&q=80",
+    "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=800&q=80",
+    "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=800&q=80",
+    "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=800&q=80",
+    "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=800&q=80",
+    "https://images.unsplash.com/photo-1558636508-e0db3814bd1d?w=800&q=80",
+    "https://images.unsplash.com/photo-1602351447937-745cb720612f?w=800&q=80",
+  ],
+
+  // Opening hours
+  opening_hours: [
+    { days: "Monday - Friday", hours: "9:00 AM - 9:00 PM" },
+    { days: "Saturday", hours: "9:00 AM - 10:00 PM" },
+    { days: "Sunday", hours: "10:00 AM - 8:00 PM" },
+  ],
+
+  primary_color: "#D4AF37",
+  secondary_color: "#0F1F1F",
+  status: "live",
+  plan_type: "starter",
+  plan_price: 799,
+  instagram: "https://instagram.com/sweetbites",
+  facebook: "https://facebook.com/sweetbites",
+};
+
 export default function CakeDemo() {
   return (
-    <div className="min-h-screen bg-[#FFF5F7]">
-      {/* Template Banner */}
-      <div className="bg-gradient-to-r from-[#D4647C] to-[#B84960] text-white py-3 px-4 sticky top-0 z-50 shadow-lg">
+    <>
+      <style jsx global>{`
+        body > header,
+        body > nav,
+        body > footer,
+        body > div.fixed.bottom-6.right-6 {
+          display: none !important;
+        }
+      `}</style>
+
+      <div className="bg-gradient-to-r from-[#0F1F1F] to-[#162929] text-white py-3 px-4 sticky top-0 z-[60] shadow-lg border-b border-[var(--theme-primary)]/20">
         <div className="container mx-auto flex items-center justify-between flex-wrap gap-2">
-          <Link href="/templates" className="flex items-center gap-2 text-sm hover:underline">
+          <Link href="/templates" className="flex items-center gap-2 text-sm hover:underlinetext-[var(--theme-primary)]">
             <ArrowLeft className="w-4 h-4" />
             Back to Templates
           </Link>
           <div className="flex items-center gap-3 text-sm">
-            <span className="hidden sm:inline">📋 You&apos;re viewing: <strong>Sweet Bites Template Demo</strong></span>
+            <span className="hidden sm:inline text-[#F0F5F0]/80">
+              ✦ Viewing: <strong className="text-[#D4AF37]">Sweet Bites Premium</strong>
+            </span>
             <a
-              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I want this Sweet Bites template for my bakery")}`}
+              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I want this Sweet Bites premium cake template")}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-white text-[#D4647C] px-4 py-1.5 rounded-full font-bold text-xs hover:bg-[#FFF5F7] transition-all"
+              className="bg-gradient-to-r from-[var(--theme-primary)] to-[#B89030] text-[#0F1F1F] px-4 py-1.5 rounded-full font-bold text-xs hover:scale-105 transition-all"
             >
               💬 Get This Template
             </a>
@@ -29,258 +136,7 @@ export default function CakeDemo() {
         </div>
       </div>
 
-      {/* ===== NAVBAR ===== */}
-      <nav className="bg-white sticky top-12 z-40 shadow-lg border-b border-[#F8D8E0]">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-gradient-to-br from-[#D4647C] to-[#B84960] rounded-2xl flex items-center justify-center text-2xl">
-              🎂
-            </div>
-            <div>
-              <div className="text-xl font-bold text-[#5C2837]" style={{ fontFamily: "'Playfair Display', serif" }}>
-                Sweet Bites
-              </div>
-              <div className="text-[10px] text-[#D4647C] uppercase tracking-wider">Bakery & Cake Studio</div>
-            </div>
-          </div>
-          <div className="hidden md:flex items-center gap-6">
-            {["Home", "Menu", "Custom", "Gallery", "Order"].map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="text-sm text-[#5C2837] hover:text-[#D4647C] transition-colors font-medium">
-                {item}
-              </a>
-            ))}
-            <a
-              href={`tel:+918103558368`}
-              className="bg-gradient-to-r from-[#D4647C] to-[#B84960] hover:from-[#B84960] hover:to-[#D4647C] text-white px-4 py-2 rounded-full text-sm font-bold transition-all shadow-md"
-            >
-              📞 Order Now
-            </a>
-          </div>
-        </div>
-      </nav>
-
-      {/* ===== HERO SECTION ===== */}
-      <section id="home" className="relative py-20 md:py-28 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#FFF5F7] via-[#FFE5EC] to-[#FFD0DC]"></div>
-        <div className="absolute top-20 -left-20 w-96 h-96 bg-[#D4647C]/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 -right-20 w-96 h-96 bg-[#F8D8E0]/40 rounded-full blur-3xl"></div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 bg-[#D4647C]/10 border border-[#D4647C]/20 px-4 py-2 rounded-full text-[#D4647C] text-xs font-bold uppercase tracking-wider mb-6">
-                <Heart className="w-4 h-4 fill-[#D4647C]" />
-                Bhopal&apos;s Most Loved Bakery
-              </div>
-
-              <h1
-                className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-[#5C2837]"
-                style={{ fontFamily: "'Playfair Display', serif" }}
-              >
-                Made with{" "}
-                <span className="italic text-[#D4647C]">Love</span>,
-                <br />
-                Baked to <span className="italic text-[#D4647C]">Perfection</span>
-              </h1>
-
-              <p className="text-lg text-[#7A4B5C] mb-8 leading-relaxed">
-                Freshly baked cakes, pastries, and treats made with the finest ingredients. 
-                Custom designs for birthdays, weddings & special occasions.
-              </p>
-
-              <div className="flex flex-wrap gap-4">
-                <a
-                  href={`https://wa.me/${WHATSAPP_NUMBER}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-gradient-to-r from-[#D4647C] to-[#B84960] text-white font-bold px-8 py-4 rounded-full transition-all flex items-center gap-2 shadow-xl hover:-translate-y-1"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  Order on WhatsApp
-                </a>
-                <a
-                  href={`tel:+918103558368`}
-                  className="bg-white text-[#D4647C] border-2 border-[#D4647C] font-bold px-8 py-4 rounded-full transition-all flex items-center gap-2 shadow-xl hover:-translate-y-1"
-                >
-                  <Phone className="w-5 h-5" />
-                  Call to Order
-                </a>
-              </div>
-
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-4 mt-12">
-                {[
-                  { value: "10K+", label: "Happy Customers" },
-                  { value: "500+", label: "Custom Cakes" },
-                  { value: "4.9★", label: "Rating" },
-                ].map((stat) => (
-                  <div key={stat.label} className="text-center">
-                    <div className="text-3xl font-bold text-[#D4647C]" style={{ fontFamily: "'Playfair Display', serif" }}>
-                      {stat.value}
-                    </div>
-                    <div className="text-xs text-[#7A4B5C] mt-1">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right Side */}
-            <div className="relative">
-              <div className="aspect-square bg-white rounded-3xl border-4 border-[#F8D8E0] flex items-center justify-center text-9xl shadow-2xl">
-                🎂
-              </div>
-              <div className="absolute -top-4 -right-4 bg-white px-4 py-2 rounded-full shadow-2xl font-bold text-sm border-2 border-[#F8D8E0]">
-                🍰 Fresh Daily
-              </div>
-              <div className="absolute -bottom-4 -left-4 bg-[#D4647C] text-white px-4 py-2 rounded-full shadow-2xl font-bold text-sm">
-                💝 Made with Love
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== MENU ===== */}
-      <section id="menu" className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <div className="text-[#D4647C] text-sm font-bold uppercase tracking-[2px] mb-3">— Our Menu</div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#5C2837] mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Sweet <span className="italic text-[#D4647C]">Delights</span>
-            </h2>
-            <p className="text-[#7A4B5C]">Freshly baked daily with premium ingredients</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { emoji: "🎂", name: "Birthday Cakes", price: "₹500+", desc: "Custom designs" },
-              { emoji: "🧁", name: "Cupcakes", price: "₹50/pc", desc: "Various flavors" },
-              { emoji: "🍰", name: "Pastries", price: "₹80+", desc: "Fresh daily" },
-              { emoji: "🍪", name: "Cookies", price: "₹200/box", desc: "Crispy & soft" },
-              { emoji: "🥧", name: "Pies & Tarts", price: "₹400+", desc: "Seasonal fruits" },
-              { emoji: "🍩", name: "Donuts", price: "₹40/pc", desc: "Glazed perfection" },
-              { emoji: "🥐", name: "Croissants", price: "₹60/pc", desc: "Buttery flaky" },
-              { emoji: "🎁", name: "Gift Boxes", price: "₹999+", desc: "Perfect gifts" },
-            ].map((item) => (
-              <div
-                key={item.name}
-                className="bg-[#FFF5F7] p-6 rounded-3xl border border-[#F8D8E0] hover:border-[#D4647C] hover:shadow-xl hover:-translate-y-2 transition-all group cursor-pointer text-center"
-              >
-                <div className="text-5xl mb-3 group-hover:scale-110 transition-transform">{item.emoji}</div>
-                <h3 className="font-bold text-[#5C2837] mb-1" style={{ fontFamily: "'Playfair Display', serif" }}>
-                  {item.name}
-                </h3>
-                <div className="text-[#D4647C] font-bold text-lg mb-2">{item.price}</div>
-                <p className="text-[#7A4B5C] text-xs">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== CUSTOM ORDER ===== */}
-      <section id="custom" className="py-20 bg-[#FFF5F7]">
-        <div className="container mx-auto px-4">
-          <div className="bg-gradient-to-br from-[#D4647C] to-[#B84960] rounded-3xl p-10 md:p-16 text-center text-white shadow-2xl">
-            <Gift className="w-16 h-16 mx-auto mb-4" />
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Custom <span className="italic">Cake Designs</span>
-            </h2>
-            <p className="text-lg mb-8 max-w-xl mx-auto opacity-90">
-              Tell us your idea and we&apos;ll bring it to life! Perfect for birthdays, weddings, anniversaries, and special occasions.
-            </p>
-            <a
-              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I want to order a custom cake")}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-white text-[#D4647C] font-bold px-8 py-4 rounded-full shadow-xl hover:-translate-y-1 transition-all"
-            >
-              <MessageCircle className="w-5 h-5" />
-              Order Custom Cake
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== REVIEWS ===== */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#5C2837] mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Sweet <span className="italic text-[#D4647C]">Reviews</span>
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { name: "Riya Sharma", text: "Best cakes in Bhopal! Made my daughter's birthday special." },
-              { name: "Amit Verma", text: "Custom wedding cake was beyond expectations. Highly recommended!" },
-              { name: "Priya Patel", text: "Fresh, delicious, and beautiful. My family loves Sweet Bites!" },
-            ].map((review) => (
-              <div key={review.name} className="bg-[#FFF5F7] p-7 rounded-3xl border border-[#F8D8E0]">
-                <div className="flex gap-1 mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#D4647C] text-[#D4647C]" />
-                  ))}
-                </div>
-                <p className="text-[#7A4B5C] italic mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
-                  &quot;{review.text}&quot;
-                </p>
-                <div className="flex items-center gap-3 pt-4 border-t border-[#F8D8E0]">
-                  <div className="w-12 h-12 bg-gradient-to-br from-[#D4647C] to-[#B84960] rounded-full flex items-center justify-center text-white font-bold">
-                    {review.name[0]}
-                  </div>
-                  <div className="font-bold text-[#5C2837]">{review.name}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== CONTACT ===== */}
-      <section id="order" className="py-20 bg-gradient-to-br from-[#FFE5EC] to-[#FFD0DC]">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#5C2837] mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Order <span className="italic text-[#D4647C]">Today!</span>
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {[
-              { icon: Phone, title: "Call Us", value: "+91 8103558368", href: "tel:+918103558368" },
-              { icon: MessageCircle, title: "WhatsApp", value: "Chat Now", href: `https://wa.me/${WHATSAPP_NUMBER}` },
-              { icon: MapPin, title: "Visit Us", value: "Bhopal, MP", href: "#" },
-            ].map((item) => (
-              <a
-                key={item.title}
-                href={item.href}
-                target={item.href.startsWith("http") ? "_blank" : undefined}
-                rel="noopener noreferrer"
-                className="bg-white p-6 rounded-3xl border border-[#F8D8E0] hover:border-[#D4647C] hover:shadow-xl transition-all text-center"
-              >
-                <div className="w-14 h-14 bg-gradient-to-br from-[#D4647C] to-[#B84960] rounded-2xl flex items-center justify-center mx-auto mb-3">
-                  <item.icon className="w-7 h-7 text-white" />
-                </div>
-                <div className="font-bold text-[#5C2837] mb-1">{item.title}</div>
-                <div className="text-[#7A4B5C] text-sm">{item.value}</div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== FOOTER ===== */}
-      <footer className="bg-[#5C2837] text-[#FFD0DC] py-8 text-center">
-        <div className="container mx-auto px-4">
-          <div className="text-2xl mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
-            🎂 Sweet Bites
-          </div>
-          <p className="text-sm">© 2025 Sweet Bites Bakery. Made with 💝</p>
-          <p className="text-xs mt-2 text-[#D4647C]">Demo by AVB Software - Get this template at ₹799/month</p>
-        </div>
-      </footer>
-    </div>
+      <CakeTemplate client={DEMO_CLIENT} />
+    </>
   );
 }

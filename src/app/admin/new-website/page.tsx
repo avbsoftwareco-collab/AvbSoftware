@@ -1,41 +1,59 @@
-
-
-
 "use client";
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { 
-  ArrowLeft, Sparkles, Save, Eye, Plus, X, Loader, Check, ArrowRight,
-  Phone, Mail, MapPin, Package, Star, Crown, Zap
+import {
+  ArrowLeft,
+  Sparkles,
+  Save,
+  Eye,
+  Plus,
+  X,
+  Loader,
+  Check,
+  ArrowRight,
+  Phone,
+  Mail,
+  MapPin,
+  Package,
+  Star,
+  Crown,
 } from "lucide-react";
 import { createNewClient, Client } from "@/lib/supabase";
 import ImageUpload from "@/app/admin/ImageUpload";
 
 const TEMPLATES = [
-  { 
-    id: "Timber Pro", 
-    name: "Timber Pro", 
-    emoji: "🪵", 
+  {
+    id: "Timber Pro",
+    name: "Timber Pro",
+    emoji: "🪵",
     desc: "Premium template for timber, wood & furniture businesses",
-    color: "from-[#8B6F47] to-[#6B5535]"
+    color: "from-[#8B6F47] to-[#6B5535]",
   },
-  { 
-    id: "Cake Shop", 
-    name: "Sweet Bites", 
-    emoji: "🎂", 
+  {
+    id: "Cake Shop",
+    name: "Sweet Bites",
+    emoji: "🎂",
     desc: "Sweet template for bakeries and cake shops",
-    color: "from-[#D4647C] to-[#B84960]"
+    color: "from-[#D4647C] to-[#B84960]",
   },
-  { 
-    id: "Restaurant Pro", 
-    name: "Restaurant Pro", 
-    emoji: "🍽️", 
+  {
+    id: "Restaurant Pro",
+    name: "Restaurant Pro",
+    emoji: "🍽️",
     desc: "Dark luxury template for restaurants, bars, cafes & pubs",
-    color: "from-[#D4AF37] to-[#8B6914]"
+    color: "from-[#D4AF37] to-[#8B6914]",
+  },
+  {
+    id: "Resort Luxe",
+    name: "Resort Luxe",
+    emoji: "🏝️",
+    desc: "Luxury template for resorts, hotels, villas & premium stays",
+    color: "from-[#1e3a5f] to-[#0a1f3a]",
   },
 ];
+
 const PLANS = [
   {
     id: "starter",
@@ -53,8 +71,8 @@ const PLANS = [
       "WhatsApp integration",
       "Order/Booking system",
       "Subdomain (name.avbsoftware.com)",
-      "Basic SEO"
-    ]
+      "Basic SEO",
+    ],
   },
   {
     id: "professional",
@@ -72,9 +90,9 @@ const PLANS = [
       "Business Email",
       "Priority Support",
       "Monthly Reports",
-      "Unlimited Updates"
-    ]
-  }
+      "Unlimited Updates",
+    ],
+  },
 ];
 
 export default function NewWebsitePage() {
@@ -111,6 +129,9 @@ export default function NewWebsitePage() {
     status: "draft",
   });
 
+  // ✅ Safe subdomain (always string, never undefined)
+  const safeSubdomain = formData.subdomain || "default";
+
   useEffect(() => {
     const loggedIn = localStorage.getItem("avb_admin_logged_in");
     if (loggedIn !== "true") {
@@ -130,12 +151,12 @@ export default function NewWebsitePage() {
         .replace(/\s+/g, "-")
         .replace(/-+/g, "-")
         .trim();
-      setFormData(prev => ({ ...prev, business_name: value, subdomain }));
+      setFormData((prev) => ({ ...prev, business_name: value, subdomain }));
     }
   };
 
   const handlePlanChange = (planId: "starter" | "professional") => {
-    const plan = PLANS.find(p => p.id === planId);
+    const plan = PLANS.find((p) => p.id === planId);
     setFormData({
       ...formData,
       plan_type: planId,
@@ -148,16 +169,19 @@ export default function NewWebsitePage() {
       alert("Pehle Business Name daalo!");
       return;
     }
-    
+
     setAiLoading(true);
-    
+
     setTimeout(() => {
       const templates: Record<string, string> = {
         "Timber Pro": `Welcome to ${formData.business_name}, your trusted partner in premium wood solutions in ${formData.city}.`,
         "Cake Shop": `Welcome to ${formData.business_name}, ${formData.city}'s most loved bakery!`,
+        "Restaurant Pro": `Welcome to ${formData.business_name}, a fine dining experience in ${formData.city} where every dish tells a story.`,
+        "Resort Luxe": `Welcome to ${formData.business_name}, a luxury escape in ${formData.city} where every moment becomes a treasured memory.`,
       };
 
-      const aiAbout = templates[formData.template] || `Welcome to ${formData.business_name}.`;
+      const aiAbout =
+        templates[formData.template] || `Welcome to ${formData.business_name}.`;
       handleChange("about", aiAbout);
       setAiLoading(false);
     }, 2000);
@@ -166,7 +190,7 @@ export default function NewWebsitePage() {
   const addProduct = () => {
     handleChange("products", [
       ...(formData.products || []),
-      { name: "", price: "", description: "", image_url: "" }
+      { name: "", price: "", description: "", image_url: "" },
     ]);
   };
 
@@ -184,7 +208,7 @@ export default function NewWebsitePage() {
   const addReview = () => {
     handleChange("reviews", [
       ...(formData.reviews || []),
-      { name: "", text: "", rating: 5, role: "" }
+      { name: "", text: "", rating: 5, role: "" },
     ]);
   };
 
@@ -215,7 +239,11 @@ export default function NewWebsitePage() {
     const result = await createNewClient(clientData);
 
     if (result) {
-      alert(`✅ Website ${status === "live" ? "LIVE" : "Draft"} ho gayi!\nPlan: ${formData.plan_type === 'professional' ? '👑 Professional' : '🌟 Starter'}`);
+      alert(
+        `✅ Website ${status === "live" ? "LIVE" : "Draft"} ho gayi!\nPlan: ${
+          formData.plan_type === "professional" ? "👑 Professional" : "🌟 Starter"
+        }`
+      );
       router.push("/admin/dashboard");
     } else {
       alert("❌ Save karne me error aaya!");
@@ -229,20 +257,42 @@ export default function NewWebsitePage() {
     <div className="min-h-screen bg-[#F5F0E6]">
       <header className="bg-white border-b border-[#E8DEC8] sticky top-0 z-50 shadow-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/admin/dashboard" className="flex items-center gap-2 text-[#8B6F47] hover:text-[#6B5535] font-semibold">
+          <Link
+            href="/admin/dashboard"
+            className="flex items-center gap-2 text-[#8B6F47] hover:text-[#6B5535] font-semibold"
+          >
             <ArrowLeft className="w-5 h-5" />
             Back to Dashboard
           </Link>
-          <h1 className="text-xl font-bold text-[#2B2419]" style={{ fontFamily: "'Playfair Display', serif" }}>
+          <h1
+            className="text-xl font-bold text-[#2B2419]"
+            style={{ fontFamily: "'Playfair Display', serif" }}
+          >
             Create New Website
           </h1>
           <div className="flex gap-2">
-            <button onClick={() => handleSave("draft")} disabled={saving} className="px-4 py-2 bg-[#FAF5EA] text-[#8B6F47] rounded-xl font-semibold text-sm hover:bg-[#E8DCC4] flex items-center gap-1 disabled:opacity-50">
+            <button
+              onClick={() => handleSave("draft")}
+              disabled={saving}
+              className="px-4 py-2 bg-[#FAF5EA] text-[#8B6F47] rounded-xl font-semibold text-sm hover:bg-[#E8DCC4] flex items-center gap-1 disabled:opacity-50"
+            >
               <Save className="w-4 h-4" />
               Save Draft
             </button>
-            <button onClick={() => handleSave("live")} disabled={saving} className="px-4 py-2 bg-gradient-to-r from-[#8B6F47] to-[#6B5535] text-white rounded-xl font-semibold text-sm flex items-center gap-1 hover:shadow-lg disabled:opacity-50">
-              {saving ? <><Loader className="w-4 h-4 animate-spin" /> Saving...</> : <><Eye className="w-4 h-4" /> Generate</>}
+            <button
+              onClick={() => handleSave("live")}
+              disabled={saving}
+              className="px-4 py-2 bg-gradient-to-r from-[#8B6F47] to-[#6B5535] text-white rounded-xl font-semibold text-sm flex items-center gap-1 hover:shadow-lg disabled:opacity-50"
+            >
+              {saving ? (
+                <>
+                  <Loader className="w-4 h-4 animate-spin" /> Saving...
+                </>
+              ) : (
+                <>
+                  <Eye className="w-4 h-4" /> Generate
+                </>
+              )}
             </button>
           </div>
         </div>
@@ -283,20 +333,26 @@ export default function NewWebsitePage() {
       </div>
 
       <main className="container mx-auto px-4 py-8 max-w-4xl">
-        
         {/* ============ STEP 1: PLAN SELECTION ============ */}
         {step === 1 && (
           <div className="bg-white rounded-2xl p-8 border border-[#E8DEC8] shadow-md">
-            <h2 className="text-3xl font-bold text-[#2B2419] mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
+            <h2
+              className="text-3xl font-bold text-[#2B2419] mb-2"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
               Step 1: Choose <span className="italic gradient-text">Plan</span>
             </h2>
-            <p className="text-[#6B5D4A] mb-6">Select which plan client purchased</p>
+            <p className="text-[#6B5D4A] mb-6">
+              Select which plan client purchased
+            </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {PLANS.map((plan) => (
                 <button
                   key={plan.id}
-                  onClick={() => handlePlanChange(plan.id as "starter" | "professional")}
+                  onClick={() =>
+                    handlePlanChange(plan.id as "starter" | "professional")
+                  }
                   className={`p-6 rounded-2xl border-2 text-left transition-all hover:-translate-y-1 ${
                     formData.plan_type === plan.id
                       ? "border-[#8B6F47] bg-[#FAF5EA] shadow-xl scale-105"
@@ -304,7 +360,9 @@ export default function NewWebsitePage() {
                   }`}
                 >
                   <div className="flex items-start justify-between mb-4">
-                    <div className={`w-16 h-16 bg-gradient-to-br ${plan.color} rounded-2xl flex items-center justify-center text-3xl shadow-lg`}>
+                    <div
+                      className={`w-16 h-16 bg-gradient-to-br ${plan.color} rounded-2xl flex items-center justify-center text-3xl shadow-lg`}
+                    >
                       {plan.emoji}
                     </div>
                     {formData.plan_type === plan.id && (
@@ -313,17 +371,27 @@ export default function NewWebsitePage() {
                       </div>
                     )}
                   </div>
-                  
-                  <h3 className="text-2xl font-bold text-[#2B2419] mb-1" style={{ fontFamily: "'Playfair Display', serif" }}>
+
+                  <h3
+                    className="text-2xl font-bold text-[#2B2419] mb-1"
+                    style={{ fontFamily: "'Playfair Display', serif" }}
+                  >
                     {plan.name}
                   </h3>
-                  <div className="text-3xl font-bold gradient-text mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
-                    ₹{plan.price}<span className="text-sm text-[#6B5D4A]">/month</span>
+                  <div
+                    className="text-3xl font-bold gradient-text mb-4"
+                    style={{ fontFamily: "'Playfair Display', serif" }}
+                  >
+                    ₹{plan.price}
+                    <span className="text-sm text-[#6B5D4A]">/month</span>
                   </div>
 
                   <div className="space-y-2">
                     {plan.features.slice(0, 5).map((feature, i) => (
-                      <div key={i} className="flex items-start gap-2 text-sm text-[#6B5D4A]">
+                      <div
+                        key={i}
+                        className="flex items-start gap-2 text-sm text-[#6B5D4A]"
+                      >
                         <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
                         <span>{feature}</span>
                       </div>
@@ -339,13 +407,17 @@ export default function NewWebsitePage() {
             </div>
 
             {/* Custom Domain Field for Professional */}
-            {formData.plan_type === 'professional' && (
+            {formData.plan_type === "professional" && (
               <div className="mt-6 p-5 bg-yellow-50 border border-yellow-300 rounded-2xl">
                 <div className="flex items-start gap-3 mb-3">
                   <Crown className="w-6 h-6 text-yellow-600 flex-shrink-0" />
                   <div>
-                    <h4 className="font-bold text-yellow-700 mb-1">Custom Domain Setup</h4>
-                    <p className="text-sm text-yellow-600">Enter client&apos;s custom domain (you can add later too)</p>
+                    <h4 className="font-bold text-yellow-700 mb-1">
+                      Custom Domain Setup
+                    </h4>
+                    <p className="text-sm text-yellow-600">
+                      Enter client&apos;s custom domain (you can add later too)
+                    </p>
                   </div>
                 </div>
                 <input
@@ -373,10 +445,16 @@ export default function NewWebsitePage() {
         {/* ============ STEP 2: TEMPLATE ============ */}
         {step === 2 && (
           <div className="bg-white rounded-2xl p-8 border border-[#E8DEC8] shadow-md">
-            <h2 className="text-3xl font-bold text-[#2B2419] mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Step 2: Choose <span className="italic gradient-text">Template</span>
+            <h2
+              className="text-3xl font-bold text-[#2B2419] mb-2"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              Step 2: Choose{" "}
+              <span className="italic gradient-text">Template</span>
             </h2>
-            <p className="text-[#6B5D4A] mb-6">Select the template for client&apos;s business</p>
+            <p className="text-[#6B5D4A] mb-6">
+              Select the template for client&apos;s business
+            </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {TEMPLATES.map((template) => (
@@ -389,10 +467,15 @@ export default function NewWebsitePage() {
                       : "border-[#E8DEC8] hover:border-[#D4C29E] bg-white"
                   }`}
                 >
-                  <div className={`w-16 h-16 bg-gradient-to-br ${template.color} rounded-2xl flex items-center justify-center text-3xl mb-4 shadow-lg`}>
+                  <div
+                    className={`w-16 h-16 bg-gradient-to-br ${template.color} rounded-2xl flex items-center justify-center text-3xl mb-4 shadow-lg`}
+                  >
                     {template.emoji}
                   </div>
-                  <h3 className="text-xl font-bold text-[#2B2419] mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
+                  <h3
+                    className="text-xl font-bold text-[#2B2419] mb-2"
+                    style={{ fontFamily: "'Playfair Display', serif" }}
+                  >
                     {template.name}
                   </h3>
                   <p className="text-sm text-[#6B5D4A]">{template.desc}</p>
@@ -406,8 +489,17 @@ export default function NewWebsitePage() {
             </div>
 
             <div className="flex gap-3 mt-8">
-              <button onClick={() => setStep(1)} className="flex-1 py-3 bg-[#FAF5EA] text-[#8B6F47] font-bold rounded-xl">← Back</button>
-              <button onClick={() => setStep(3)} disabled={!formData.template} className="flex-1 py-3 bg-gradient-to-r from-[#8B6F47] to-[#6B5535] text-white font-bold rounded-xl disabled:opacity-50 flex items-center justify-center gap-2">
+              <button
+                onClick={() => setStep(1)}
+                className="flex-1 py-3 bg-[#FAF5EA] text-[#8B6F47] font-bold rounded-xl"
+              >
+                ← Back
+              </button>
+              <button
+                onClick={() => setStep(3)}
+                disabled={!formData.template}
+                className="flex-1 py-3 bg-gradient-to-r from-[#8B6F47] to-[#6B5535] text-white font-bold rounded-xl disabled:opacity-50 flex items-center justify-center gap-2"
+              >
                 Next: Business Info <ArrowRight className="w-5 h-5" />
               </button>
             </div>
@@ -417,78 +509,177 @@ export default function NewWebsitePage() {
         {/* ============ STEP 3: BUSINESS INFO ============ */}
         {step === 3 && (
           <div className="bg-white rounded-2xl p-8 border border-[#E8DEC8] shadow-md">
-            <h2 className="text-3xl font-bold text-[#2B2419] mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Step 3: Business <span className="italic gradient-text">Info</span>
+            <h2
+              className="text-3xl font-bold text-[#2B2419] mb-6"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              Step 3: Business{" "}
+              <span className="italic gradient-text">Info</span>
             </h2>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-bold text-[#2B2419] mb-2">Business Name *</label>
+                <label className="block text-sm font-bold text-[#2B2419] mb-2">
+                  Business Name *
+                </label>
                 <input
                   type="text"
                   value={formData.business_name}
-                  onChange={(e) => handleChange("business_name", e.target.value)}
+                  onChange={(e) =>
+                    handleChange("business_name", e.target.value)
+                  }
                   placeholder="e.g., business Name"
                   className="w-full px-4 py-3 bg-[#FAF5EA] border border-[#E8DEC8] rounded-xl outline-none focus:border-[#8B6F47]"
                 />
                 {formData.subdomain && (
                   <p className="text-xs text-[#8B6F47] mt-1">
-                    🌐 URL: <code className="bg-[#FAF5EA] px-2 py-0.5 rounded">{formData.subdomain}.avbsoftware.com</code>
+                    🌐 URL:{" "}
+                    <code className="bg-[#FAF5EA] px-2 py-0.5 rounded">
+                      {formData.subdomain}.avbsoftware.com
+                    </code>
                   </p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-[#2B2419] mb-2">Tagline</label>
-                <input type="text" value={formData.tagline} onChange={(e) => handleChange("tagline", e.target.value)} placeholder="e.g., Premium Wood Solutions" className="w-full px-4 py-3 bg-[#FAF5EA] border border-[#E8DEC8] rounded-xl outline-none focus:border-[#8B6F47]" />
+                <label className="block text-sm font-bold text-[#2B2419] mb-2">
+                  Tagline
+                </label>
+                <input
+                  type="text"
+                  value={formData.tagline}
+                  onChange={(e) => handleChange("tagline", e.target.value)}
+                  placeholder="e.g., Premium Wood Solutions"
+                  className="w-full px-4 py-3 bg-[#FAF5EA] border border-[#E8DEC8] rounded-xl outline-none focus:border-[#8B6F47]"
+                />
               </div>
 
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="block text-sm font-bold text-[#2B2419]">About Business *</label>
-                  <button onClick={generateAboutWithAI} disabled={aiLoading} className="text-xs px-3 py-1.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-bold flex items-center gap-1 disabled:opacity-50">
-                    {aiLoading ? <><Loader className="w-3 h-3 animate-spin" /> Generating...</> : <><Sparkles className="w-3 h-3" /> AI Generate</>}
+                  <label className="block text-sm font-bold text-[#2B2419]">
+                    About Business *
+                  </label>
+                  <button
+                    onClick={generateAboutWithAI}
+                    disabled={aiLoading}
+                    className="text-xs px-3 py-1.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-bold flex items-center gap-1 disabled:opacity-50"
+                  >
+                    {aiLoading ? (
+                      <>
+                        <Loader className="w-3 h-3 animate-spin" /> Generating...
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="w-3 h-3" /> AI Generate
+                      </>
+                    )}
                   </button>
                 </div>
-                <textarea value={formData.about} onChange={(e) => handleChange("about", e.target.value)} rows={5} className="w-full px-4 py-3 bg-[#FAF5EA] border border-[#E8DEC8] rounded-xl outline-none focus:border-[#8B6F47] resize-none" />
+                <textarea
+                  value={formData.about}
+                  onChange={(e) => handleChange("about", e.target.value)}
+                  rows={5}
+                  className="w-full px-4 py-3 bg-[#FAF5EA] border border-[#E8DEC8] rounded-xl outline-none focus:border-[#8B6F47] resize-none"
+                />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-bold text-[#2B2419] mb-2"><Phone className="w-4 h-4 inline mr-1" /> Phone *</label>
-                  <input type="tel" value={formData.phone} onChange={(e) => handleChange("phone", e.target.value)} placeholder="+91 0000000000" className="w-full px-4 py-3 bg-[#FAF5EA] border border-[#E8DEC8] rounded-xl outline-none focus:border-[#8B6F47]" />
+                  <label className="block text-sm font-bold text-[#2B2419] mb-2">
+                    <Phone className="w-4 h-4 inline mr-1" /> Phone *
+                  </label>
+                  <input
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) => handleChange("phone", e.target.value)}
+                    placeholder="+91 0000000000"
+                    className="w-full px-4 py-3 bg-[#FAF5EA] border border-[#E8DEC8] rounded-xl outline-none focus:border-[#8B6F47]"
+                  />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-[#2B2419] mb-2">WhatsApp</label>
-                  <input type="tel" value={formData.whatsapp} onChange={(e) => handleChange("whatsapp", e.target.value)} placeholder="+91 0000000000" className="w-full px-4 py-3 bg-[#FAF5EA] border border-[#E8DEC8] rounded-xl outline-none focus:border-[#8B6F47]" />
+                  <label className="block text-sm font-bold text-[#2B2419] mb-2">
+                    WhatsApp
+                  </label>
+                  <input
+                    type="tel"
+                    value={formData.whatsapp}
+                    onChange={(e) => handleChange("whatsapp", e.target.value)}
+                    placeholder="+91 0000000000"
+                    className="w-full px-4 py-3 bg-[#FAF5EA] border border-[#E8DEC8] rounded-xl outline-none focus:border-[#8B6F47]"
+                  />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-[#2B2419] mb-2"><Mail className="w-4 h-4 inline mr-1" /> Email</label>
-                  <input type="email" value={formData.email} onChange={(e) => handleChange("email", e.target.value)} className="w-full px-4 py-3 bg-[#FAF5EA] border border-[#E8DEC8] rounded-xl outline-none focus:border-[#8B6F47]" />
+                  <label className="block text-sm font-bold text-[#2B2419] mb-2">
+                    <Mail className="w-4 h-4 inline mr-1" /> Email
+                  </label>
+                  <input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => handleChange("email", e.target.value)}
+                    className="w-full px-4 py-3 bg-[#FAF5EA] border border-[#E8DEC8] rounded-xl outline-none focus:border-[#8B6F47]"
+                  />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-[#2B2419] mb-2"><MapPin className="w-4 h-4 inline mr-1" /> City</label>
-                  <input type="text" value={formData.city} onChange={(e) => handleChange("city", e.target.value)} className="w-full px-4 py-3 bg-[#FAF5EA] border border-[#E8DEC8] rounded-xl outline-none focus:border-[#8B6F47]" />
+                  <label className="block text-sm font-bold text-[#2B2419] mb-2">
+                    <MapPin className="w-4 h-4 inline mr-1" /> City
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.city}
+                    onChange={(e) => handleChange("city", e.target.value)}
+                    className="w-full px-4 py-3 bg-[#FAF5EA] border border-[#E8DEC8] rounded-xl outline-none focus:border-[#8B6F47]"
+                  />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-[#2B2419] mb-2">Full Address</label>
-                <input type="text" value={formData.address} onChange={(e) => handleChange("address", e.target.value)} className="w-full px-4 py-3 bg-[#FAF5EA] border border-[#E8DEC8] rounded-xl outline-none focus:border-[#8B6F47]" />
+                <label className="block text-sm font-bold text-[#2B2419] mb-2">
+                  Full Address
+                </label>
+                <input
+                  type="text"
+                  value={formData.address}
+                  onChange={(e) => handleChange("address", e.target.value)}
+                  className="w-full px-4 py-3 bg-[#FAF5EA] border border-[#E8DEC8] rounded-xl outline-none focus:border-[#8B6F47]"
+                />
               </div>
 
               <div className="pt-4 border-t border-[#E8DEC8]">
-                <h3 className="text-lg font-bold text-[#2B2419] mb-3">🖼️ Website Images</h3>
+                <h3 className="text-lg font-bold text-[#2B2419] mb-3">
+                  🖼️ Website Images
+                </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <ImageUpload label="🎨 Logo" currentImage={formData.logo_url} subdomain={formData.subdomain} type="logo" onUpload={(url) => handleChange("logo_url", url)} onRemove={() => handleChange("logo_url", "")} />
-                  <ImageUpload label="🖼️ Hero Banner" currentImage={formData.hero_image_url} subdomain={formData.subdomain} type="hero" onUpload={(url) => handleChange("hero_image_url", url)} onRemove={() => handleChange("hero_image_url", "")} />
+                  <ImageUpload
+                    label="🎨 Logo"
+                    currentImage={formData.logo_url}
+                    subdomain={safeSubdomain}
+                    type="logo"
+                    onUpload={(url) => handleChange("logo_url", url)}
+                    onRemove={() => handleChange("logo_url", "")}
+                  />
+                  <ImageUpload
+                    label="🖼️ Hero Banner"
+                    currentImage={formData.hero_image_url}
+                    subdomain={safeSubdomain}
+                    type="hero"
+                    onUpload={(url) => handleChange("hero_image_url", url)}
+                    onRemove={() => handleChange("hero_image_url", "")}
+                  />
                 </div>
               </div>
             </div>
 
             <div className="flex gap-3 mt-8">
-              <button onClick={() => setStep(2)} className="flex-1 py-3 bg-[#FAF5EA] text-[#8B6F47] font-bold rounded-xl">← Back</button>
-              <button onClick={() => setStep(4)} className="flex-1 py-3 bg-gradient-to-r from-[#8B6F47] to-[#6B5535] text-white font-bold rounded-xl flex items-center justify-center gap-2">
+              <button
+                onClick={() => setStep(2)}
+                className="flex-1 py-3 bg-[#FAF5EA] text-[#8B6F47] font-bold rounded-xl"
+              >
+                ← Back
+              </button>
+              <button
+                onClick={() => setStep(4)}
+                className="flex-1 py-3 bg-gradient-to-r from-[#8B6F47] to-[#6B5535] text-white font-bold rounded-xl flex items-center justify-center gap-2"
+              >
                 Next: Products <ArrowRight className="w-5 h-5" />
               </button>
             </div>
@@ -498,40 +689,89 @@ export default function NewWebsitePage() {
         {/* ============ STEP 4: PRODUCTS & REVIEWS ============ */}
         {step === 4 && (
           <div className="bg-white rounded-2xl p-8 border border-[#E8DEC8] shadow-md">
-            <h2 className="text-3xl font-bold text-[#2B2419] mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Step 4: Products & <span className="italic gradient-text">Reviews</span>
+            <h2
+              className="text-3xl font-bold text-[#2B2419] mb-6"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              Step 4: Products &{" "}
+              <span className="italic gradient-text">Reviews</span>
             </h2>
 
             <div className="mb-8">
               <h3 className="text-xl font-bold text-[#2B2419] mb-4 flex items-center gap-2">
-                <Package className="w-5 h-5 text-[#8B6F47]" /> Products / Services
+                <Package className="w-5 h-5 text-[#8B6F47]" /> Products /
+                Services
               </h3>
 
               <div className="space-y-3">
                 {formData.products?.map((product, index) => (
-                  <div key={index} className="p-4 bg-[#FAF5EA] rounded-xl border border-[#E8DEC8]">
+                  <div
+                    key={index}
+                    className="p-4 bg-[#FAF5EA] rounded-xl border border-[#E8DEC8]"
+                  >
                     <div className="flex items-center justify-between mb-3">
-                      <h4 className="font-bold text-[#2B2419]">Product {index + 1}</h4>
+                      <h4 className="font-bold text-[#2B2419]">
+                        Product {index + 1}
+                      </h4>
                       {formData.products && formData.products.length > 1 && (
-                        <button onClick={() => removeProduct(index)} className="text-red-500 hover:bg-red-50 p-1 rounded">
+                        <button
+                          onClick={() => removeProduct(index)}
+                          className="text-red-500 hover:bg-red-50 p-1 rounded"
+                        >
                           <X className="w-4 h-4" />
                         </button>
                       )}
                     </div>
 
                     <div className="mb-3">
-                      <ImageUpload label="📸 Product Image" currentImage={product.image_url} subdomain={formData.subdomain} type="product" onUpload={(url) => updateProduct(index, "image_url", url)} onRemove={() => updateProduct(index, "image_url", "")} />
+                      <ImageUpload
+                        label="📸 Product Image"
+                        currentImage={product.image_url}
+                        subdomain={safeSubdomain}
+                        type="product"
+                        onUpload={(url) =>
+                          updateProduct(index, "image_url", url)
+                        }
+                        onRemove={() => updateProduct(index, "image_url", "")}
+                      />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      <input type="text" value={product.name} onChange={(e) => updateProduct(index, "name", e.target.value)} placeholder="Product name" className="px-3 py-2 bg-white border border-[#E8DEC8] rounded-lg outline-none focus:border-[#8B6F47]" />
-                      <input type="text" value={product.price} onChange={(e) => updateProduct(index, "price", e.target.value)} placeholder="Price" className="px-3 py-2 bg-white border border-[#E8DEC8] rounded-lg outline-none focus:border-[#8B6F47]" />
+                      <input
+                        type="text"
+                        value={product.name}
+                        onChange={(e) =>
+                          updateProduct(index, "name", e.target.value)
+                        }
+                        placeholder="Product name"
+                        className="px-3 py-2 bg-white border border-[#E8DEC8] rounded-lg outline-none focus:border-[#8B6F47]"
+                      />
+                      <input
+                        type="text"
+                        value={product.price}
+                        onChange={(e) =>
+                          updateProduct(index, "price", e.target.value)
+                        }
+                        placeholder="Price"
+                        className="px-3 py-2 bg-white border border-[#E8DEC8] rounded-lg outline-none focus:border-[#8B6F47]"
+                      />
                     </div>
-                    <input type="text" value={product.description} onChange={(e) => updateProduct(index, "description", e.target.value)} placeholder="Description" className="w-full mt-3 px-3 py-2 bg-white border border-[#E8DEC8] rounded-lg outline-none focus:border-[#8B6F47]" />
+                    <input
+                      type="text"
+                      value={product.description}
+                      onChange={(e) =>
+                        updateProduct(index, "description", e.target.value)
+                      }
+                      placeholder="Description"
+                      className="w-full mt-3 px-3 py-2 bg-white border border-[#E8DEC8] rounded-lg outline-none focus:border-[#8B6F47]"
+                    />
                   </div>
                 ))}
 
-                <button onClick={addProduct} className="w-full py-3 border-2 border-dashed border-[#D4C29E] text-[#8B6F47] rounded-xl font-bold hover:bg-[#FAF5EA] flex items-center justify-center gap-2">
+                <button
+                  onClick={addProduct}
+                  className="w-full py-3 border-2 border-dashed border-[#D4C29E] text-[#8B6F47] rounded-xl font-bold hover:bg-[#FAF5EA] flex items-center justify-center gap-2"
+                >
                   <Plus className="w-5 h-5" /> Add Product
                 </button>
               </div>
@@ -539,38 +779,82 @@ export default function NewWebsitePage() {
 
             <div>
               <h3 className="text-xl font-bold text-[#2B2419] mb-4 flex items-center gap-2">
-                <Star className="w-5 h-5 text-[#C9A45C] fill-[#C9A45C]" /> Reviews
+                <Star className="w-5 h-5 text-[#C9A45C] fill-[#C9A45C]" />{" "}
+                Reviews
               </h3>
 
               <div className="space-y-3">
                 {formData.reviews?.map((review, index) => (
-                  <div key={index} className="p-4 bg-[#FAF5EA] rounded-xl border border-[#E8DEC8]">
+                  <div
+                    key={index}
+                    className="p-4 bg-[#FAF5EA] rounded-xl border border-[#E8DEC8]"
+                  >
                     <div className="flex items-center justify-between mb-3">
-                      <h4 className="font-bold text-[#2B2419]">Review {index + 1}</h4>
+                      <h4 className="font-bold text-[#2B2419]">
+                        Review {index + 1}
+                      </h4>
                       {formData.reviews && formData.reviews.length > 1 && (
-                        <button onClick={() => removeReview(index)} className="text-red-500 hover:bg-red-50 p-1 rounded">
+                        <button
+                          onClick={() => removeReview(index)}
+                          className="text-red-500 hover:bg-red-50 p-1 rounded"
+                        >
                           <X className="w-4 h-4" />
                         </button>
                       )}
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      <input type="text" value={review.name} onChange={(e) => updateReview(index, "name", e.target.value)} placeholder="Customer name" className="px-3 py-2 bg-white border border-[#E8DEC8] rounded-lg outline-none focus:border-[#8B6F47]" />
-                      <input type="text" value={review.role} onChange={(e) => updateReview(index, "role", e.target.value)} placeholder="Role" className="px-3 py-2 bg-white border border-[#E8DEC8] rounded-lg outline-none focus:border-[#8B6F47]" />
+                      <input
+                        type="text"
+                        value={review.name}
+                        onChange={(e) =>
+                          updateReview(index, "name", e.target.value)
+                        }
+                        placeholder="Customer name"
+                        className="px-3 py-2 bg-white border border-[#E8DEC8] rounded-lg outline-none focus:border-[#8B6F47]"
+                      />
+                      <input
+                        type="text"
+                        value={review.role}
+                        onChange={(e) =>
+                          updateReview(index, "role", e.target.value)
+                        }
+                        placeholder="Role"
+                        className="px-3 py-2 bg-white border border-[#E8DEC8] rounded-lg outline-none focus:border-[#8B6F47]"
+                      />
                     </div>
-                    <textarea value={review.text} onChange={(e) => updateReview(index, "text", e.target.value)} placeholder="Review text" rows={2} className="w-full mt-3 px-3 py-2 bg-white border border-[#E8DEC8] rounded-lg outline-none focus:border-[#8B6F47] resize-none" />
+                    <textarea
+                      value={review.text}
+                      onChange={(e) =>
+                        updateReview(index, "text", e.target.value)
+                      }
+                      placeholder="Review text"
+                      rows={2}
+                      className="w-full mt-3 px-3 py-2 bg-white border border-[#E8DEC8] rounded-lg outline-none focus:border-[#8B6F47] resize-none"
+                    />
                   </div>
                 ))}
 
-                <button onClick={addReview} className="w-full py-3 border-2 border-dashed border-[#D4C29E] text-[#8B6F47] rounded-xl font-bold hover:bg-[#FAF5EA] flex items-center justify-center gap-2">
+                <button
+                  onClick={addReview}
+                  className="w-full py-3 border-2 border-dashed border-[#D4C29E] text-[#8B6F47] rounded-xl font-bold hover:bg-[#FAF5EA] flex items-center justify-center gap-2"
+                >
                   <Plus className="w-5 h-5" /> Add Review
                 </button>
               </div>
             </div>
 
             <div className="flex gap-3 mt-8">
-              <button onClick={() => setStep(3)} className="flex-1 py-3 bg-[#FAF5EA] text-[#8B6F47] font-bold rounded-xl">← Back</button>
-              <button onClick={() => setStep(5)} className="flex-1 py-3 bg-gradient-to-r from-[#8B6F47] to-[#6B5535] text-white font-bold rounded-xl flex items-center justify-center gap-2">
+              <button
+                onClick={() => setStep(3)}
+                className="flex-1 py-3 bg-[#FAF5EA] text-[#8B6F47] font-bold rounded-xl"
+              >
+                ← Back
+              </button>
+              <button
+                onClick={() => setStep(5)}
+                className="flex-1 py-3 bg-gradient-to-r from-[#8B6F47] to-[#6B5535] text-white font-bold rounded-xl flex items-center justify-center gap-2"
+              >
                 Next: Review <ArrowRight className="w-5 h-5" />
               </button>
             </div>
@@ -580,30 +864,46 @@ export default function NewWebsitePage() {
         {/* ============ STEP 5: REVIEW & SAVE ============ */}
         {step === 5 && (
           <div className="bg-white rounded-2xl p-8 border border-[#E8DEC8] shadow-md">
-            <h2 className="text-3xl font-bold text-[#2B2419] mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Step 5: Review & <span className="italic gradient-text">Generate</span>
+            <h2
+              className="text-3xl font-bold text-[#2B2419] mb-6"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              Step 5: Review &{" "}
+              <span className="italic gradient-text">Generate</span>
             </h2>
 
             <div className="space-y-4 mb-6">
               {/* Selected Plan Banner */}
-              <div className={`p-5 rounded-2xl border-2 ${
-                formData.plan_type === 'professional'
-                  ? 'bg-gradient-to-br from-[#FFF9E6] to-[#FFF3CC] border-[#C9A45C]'
-                  : 'bg-gradient-to-br from-[#FAF5EA] to-[#E8DCC4] border-[#8B6F47]'
-              }`}>
+              <div
+                className={`p-5 rounded-2xl border-2 ${
+                  formData.plan_type === "professional"
+                    ? "bg-gradient-to-br from-[#FFF9E6] to-[#FFF3CC] border-[#C9A45C]"
+                    : "bg-gradient-to-br from-[#FAF5EA] to-[#E8DCC4] border-[#8B6F47]"
+                }`}
+              >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="text-4xl">
-                      {formData.plan_type === 'professional' ? '👑' : '🌟'}
+                      {formData.plan_type === "professional" ? "👑" : "🌟"}
                     </div>
                     <div>
-                      <div className="text-xs text-[#8B6F47] font-bold uppercase">Selected Plan</div>
-                      <div className="text-2xl font-bold text-[#2B2419]" style={{ fontFamily: "'Playfair Display', serif" }}>
-                        {formData.plan_type === 'professional' ? 'Professional' : 'Starter'}
+                      <div className="text-xs text-[#8B6F47] font-bold uppercase">
+                        Selected Plan
+                      </div>
+                      <div
+                        className="text-2xl font-bold text-[#2B2419]"
+                        style={{ fontFamily: "'Playfair Display', serif" }}
+                      >
+                        {formData.plan_type === "professional"
+                          ? "Professional"
+                          : "Starter"}
                       </div>
                     </div>
                   </div>
-                  <div className="text-3xl font-bold gradient-text" style={{ fontFamily: "'Playfair Display', serif" }}>
+                  <div
+                    className="text-3xl font-bold gradient-text"
+                    style={{ fontFamily: "'Playfair Display', serif" }}
+                  >
                     ₹{formData.plan_price}
                     <span className="text-sm text-[#6B5D4A]">/mo</span>
                   </div>
@@ -612,29 +912,47 @@ export default function NewWebsitePage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-5 bg-[#FAF5EA] rounded-xl border border-[#E8DEC8]">
                 <div>
-                  <div className="text-xs text-[#8B6F47] font-bold uppercase">Template</div>
-                  <div className="text-[#2B2419] font-bold">{formData.template}</div>
+                  <div className="text-xs text-[#8B6F47] font-bold uppercase">
+                    Template
+                  </div>
+                  <div className="text-[#2B2419] font-bold">
+                    {formData.template}
+                  </div>
                 </div>
                 <div>
-                  <div className="text-xs text-[#8B6F47] font-bold uppercase">Business</div>
-                  <div className="text-[#2B2419] font-bold">{formData.business_name}</div>
+                  <div className="text-xs text-[#8B6F47] font-bold uppercase">
+                    Business
+                  </div>
+                  <div className="text-[#2B2419] font-bold">
+                    {formData.business_name}
+                  </div>
                 </div>
                 <div>
-                  <div className="text-xs text-[#8B6F47] font-bold uppercase">URL</div>
+                  <div className="text-xs text-[#8B6F47] font-bold uppercase">
+                    URL
+                  </div>
                   <code className="bg-white px-2 py-1 rounded text-sm">
-                    {formData.plan_type === 'professional' && formData.custom_domain
+                    {formData.plan_type === "professional" &&
+                    formData.custom_domain
                       ? formData.custom_domain
                       : `${formData.subdomain}.avbsoftware.com`}
                   </code>
                 </div>
                 <div>
-                  <div className="text-xs text-[#8B6F47] font-bold uppercase">Phone</div>
-                  <div className="text-[#2B2419] font-bold">{formData.phone}</div>
+                  <div className="text-xs text-[#8B6F47] font-bold uppercase">
+                    Phone
+                  </div>
+                  <div className="text-[#2B2419] font-bold">
+                    {formData.phone}
+                  </div>
                 </div>
                 <div className="col-span-2">
-                  <div className="text-xs text-[#8B6F47] font-bold uppercase">Stats</div>
+                  <div className="text-xs text-[#8B6F47] font-bold uppercase">
+                    Stats
+                  </div>
                   <div className="text-[#2B2419] font-bold">
-                    📦 {formData.products?.length || 0} products • ⭐ {formData.reviews?.length || 0} reviews
+                    📦 {formData.products?.length || 0} products • ⭐{" "}
+                    {formData.reviews?.length || 0} reviews
                     {formData.logo_url && " • 🎨 Logo ✓"}
                     {formData.hero_image_url && " • 🖼️ Hero ✓"}
                   </div>
@@ -642,20 +960,51 @@ export default function NewWebsitePage() {
               </div>
 
               <div className="p-4 bg-green-50 border border-green-200 rounded-xl">
-                <p className="text-sm text-green-700 font-bold">✅ Ready to generate website!</p>
+                <p className="text-sm text-green-700 font-bold">
+                  ✅ Ready to generate website!
+                </p>
                 <p className="text-xs text-green-600 mt-1">
-                  Plan: <strong>{formData.plan_type === 'professional' ? '👑 Professional ₹2,499/mo' : '🌟 Starter ₹799/mo'}</strong>
+                  Plan:{" "}
+                  <strong>
+                    {formData.plan_type === "professional"
+                      ? "👑 Professional ₹2,499/mo"
+                      : "🌟 Starter ₹799/mo"}
+                  </strong>
                 </p>
               </div>
             </div>
 
             <div className="flex gap-3">
-              <button onClick={() => setStep(4)} className="flex-1 py-3 bg-[#FAF5EA] text-[#8B6F47] font-bold rounded-xl">← Edit</button>
-              <button onClick={() => handleSave("draft")} disabled={saving} className="flex-1 py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-bold rounded-xl flex items-center justify-center gap-2 disabled:opacity-50">
-                {saving ? <Loader className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />} Save Draft
+              <button
+                onClick={() => setStep(4)}
+                className="flex-1 py-3 bg-[#FAF5EA] text-[#8B6F47] font-bold rounded-xl"
+              >
+                ← Edit
               </button>
-              <button onClick={() => handleSave("live")} disabled={saving} className="flex-1 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold rounded-xl shadow-lg flex items-center justify-center gap-2 disabled:opacity-50">
-                {saving ? <><Loader className="w-5 h-5 animate-spin" /> Generating...</> : <>🚀 Generate Website</>}
+              <button
+                onClick={() => handleSave("draft")}
+                disabled={saving}
+                className="flex-1 py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-bold rounded-xl flex items-center justify-center gap-2 disabled:opacity-50"
+              >
+                {saving ? (
+                  <Loader className="w-5 h-5 animate-spin" />
+                ) : (
+                  <Save className="w-5 h-5" />
+                )}{" "}
+                Save Draft
+              </button>
+              <button
+                onClick={() => handleSave("live")}
+                disabled={saving}
+                className="flex-1 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold rounded-xl shadow-lg flex items-center justify-center gap-2 disabled:opacity-50"
+              >
+                {saving ? (
+                  <>
+                    <Loader className="w-5 h-5 animate-spin" /> Generating...
+                  </>
+                ) : (
+                  <>🚀 Generate Website</>
+                )}
               </button>
             </div>
           </div>

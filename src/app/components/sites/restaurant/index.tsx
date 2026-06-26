@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Client } from "@/lib/supabase";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
@@ -9,71 +9,97 @@ import AboutPage from "./AboutPage";
 import MenuPage from "./MenuPage";
 import GalleryPage from "./GalleryPage";
 import ContactPage from "./ContactPage";
+import BlogPage from "./BlogPage";
+import BlogPostPage from "./BlogPostPage";
+import { getThemeCSSVars } from "./useTheme";
 
-const VALID_PAGES = ["home", "about", "menu", "gallery", "contact"];
+interface Props {
+  client: Client;
+}
 
-export default function RestaurantTemplate({ client }: { client: Client }) {
-  const [currentPage, setCurrentPage] = useState("home");
+export default function RestaurantTemplate({ client }: Props) {
+  const [currentPage, setCurrentPage] = useState<string>("home");
+  const [currentBlogSlug, setCurrentBlogSlug] = useState<string>("");
 
-  // URL hash se page padho (reload pe yaad rahega)
-  useEffect(() => {
-    const hash = window.location.hash.replace("#", "");
-    if (hash && VALID_PAGES.includes(hash)) {
-      setCurrentPage(hash);
+  // 🎨 Get theme CSS variables based on client's selected theme
+  const themeStyle = getThemeCSSVars(client);
+
+  // 🔥 Enhanced setPage function — supports blog post navigation
+  const handleSetPage = (page: string, postSlug?: string) => {
+    // If navigating to a blog post, save the slug
+    if (page === "blog-post" && postSlug) {
+      setCurrentBlogSlug(postSlug);
     }
 
-    const handleHashChange = () => {
-      const newHash = window.location.hash.replace("#", "");
-      if (newHash && VALID_PAGES.includes(newHash)) {
-        setCurrentPage(newHash);
-      } else if (!newHash) {
-        setCurrentPage("home");
-      }
-    };
+    // Block blog access for Starter plan users
+    if (
+      (page === "blog" || page === "blog-post") &&
+      client.plan_type !== "professional"
+    ) {
+      console.warn("Blog is only available for Professional plan");
+      setCurrentPage("home");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
 
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
-  }, []);
-
-  const changePage = (page: string) => {
-    if (!VALID_PAGES.includes(page)) return;
-    
     setCurrentPage(page);
-    
-    if (page === "home") {
-      window.history.pushState(null, "", window.location.pathname);
-    } else {
-      window.history.pushState(null, "", `#${page}`);
-    }
-    
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // ── Render Current Page ──
+  const renderPage = () => {
+    switch (currentPage) {
+      case "home":
+        return <HomePage client={client} setPage={handleSetPage as any} />;
+
+      case "about":
+        return <AboutPage client={client} setPage={handleSetPage as any} />;
+
+      case "menu":
+        return <MenuPage client={client} setPage={handleSetPage as any} />;
+
+      case "gallery":
+        return <GalleryPage client={client} setPage={handleSetPage as any} />;
+
+      case "contact":
+        return <ContactPage client={client} setPage={handleSetPage as any} />;
+
+      // 🔥 BLOG PAGES (Professional Plan Only)
+      case "blog":
+        return <BlogPage client={client} setPage={handleSetPage} />;
+
+      case "blog-post":
+        return (
+          <BlogPostPage
+            client={client}
+            postSlug={currentBlogSlug}
+            setPage={handleSetPage}
+          />
+        );
+
+      default:
+        return <HomePage client={client} setPage={handleSetPage as any} />;
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
-      <Navbar client={client} currentPage={currentPage} setPage={changePage} />
+    <div
+      className="min-h-screen bg-[var(--theme-bg)]"
+      style={themeStyle}
+    >
+      {/* Navbar */}
+      <Navbar
+        client={client}
+        currentPage={currentPage === "blog-post" ? "blog" : currentPage}
+        setPage={handleSetPage as any}
+      />
 
-      {currentPage === "home" && <HomePage client={client} setPage={changePage} />}
-      {currentPage === "about" && <AboutPage client={client} />}
-      {currentPage === "menu" && <MenuPage client={client} />}
-      {currentPage === "gallery" && <GalleryPage client={client} />}
-      {currentPage === "contact" && <ContactPage client={client} />}
+      {/* Page Content */}
+      {renderPage()}
 
-      <Footer client={client} setPage={changePage} />
-
-      {/* Floating WhatsApp */}
-      {client.whatsapp && (
-        <a
-          href={`https://wa.me/${client.whatsapp.replace(/\D/g, '')}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-[#D4AF37] rounded-full flex items-center justify-center shadow-2xl shadow-[#D4AF37]/30 hover:scale-110 transition-transform"
-        >
-          <svg className="w-7 h-7 text-[#0a0a0a]" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-          </svg>
-          <span className="absolute inset-0 rounded-full bg-[#D4AF37] animate-ping opacity-20"></span>
-        </a>
+      {/* Footer - Hide on blog post page for cleaner reading experience */}
+      {currentPage !== "blog-post" && (
+        <Footer client={client} setPage={handleSetPage as any} />
       )}
     </div>
   );

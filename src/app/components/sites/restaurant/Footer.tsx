@@ -10,20 +10,20 @@ interface Props {
 
 export default function Footer({ client, setPage }: Props) {
   return (
-    <footer className="bg-[#050505] text-white/60 border-t border-[#D4AF37]/10">
+    <footer className="bg-[#050505] text-white/60 border-t border-[var(--theme-primary)]/10">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               {client.logo_url ? (
-                <img src={client.logo_url} alt={client.business_name} className="w-14 h-14 rounded-full object-cover border-2 border-[#D4AF37]" />
+                <img src={client.logo_url} alt={client.business_name} className="w-14 h-14 rounded-full object-cover border-2 border-[var(--theme-primary)]" />
               ) : (
-                <div className="w-14 h-14 bg-gradient-to-br from-[#D4AF37] to-[#8B6914] rounded-full flex items-center justify-center text-2xl">🍽️</div>
+                <div className="w-14 h-14 bg-gradient-to-br from-[var(--theme-primary)] to-[#8B6914] rounded-full flex items-center justify-center text-2xl">🍽️</div>
               )}
               <div>
                 <div className="text-2xl font-bold text-white" style={{ fontFamily: "'Playfair Display', serif" }}>{client.business_name}</div>
-                <div className="text-xs text-[#D4AF37] uppercase tracking-[3px]">{client.tagline || 'Restaurant & Bar'}</div>
+                <div className="text-xstext-[var(--theme-primary)] uppercase tracking-[3px]">{client.tagline || 'Restaurant & Bar'}</div>
               </div>
             </div>
             <p className="text-sm text-white/40 max-w-md leading-relaxed mb-6">
@@ -65,7 +65,7 @@ export default function Footer({ client, setPage }: Props) {
       <div className="border-t border-white/5">
         <div className="container mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-white/30">© {new Date().getFullYear()} {client.business_name}. All rights reserved.</p>
-          <p className="text-xs text-[#D4AF37]/50">Powered by <a href="https://avbsoftware.com" className="hover:text-[#D4AF37] font-semibold" target="_blank" rel="noopener noreferrer">AVB Software</a></p>
+          <p className="text-xstext-[var(--theme-primary)]/50">Powered by <a href="https://avbsoftware.com" className="hover:text-[#D4AF37] font-semibold" target="_blank" rel="noopener noreferrer">AVB Software</a></p>
         </div>
       </div>
     </footer>

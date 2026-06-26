@@ -160,7 +160,63 @@ export const templates: Template[] = [
     demoBusinessName: "The Golden Fork",
     demoComponent: "RestaurantDemo",
   },
+
+
+
+  // ============================================
+// RESORT LUXE - Luxury Resort, Hotel, Villa
+// ============================================
+{
+  id: "resort-luxe",
+  slug: "resort-luxe",
+  name: "Resort Luxe",
+  category: "Hotel & Resort",
+  shortDescription: "Premium luxury template for resorts, hotels & villas",
+  description: "A high-end luxury template designed for resorts, boutique hotels, villas, and premium stays. Features dynamic rooms, theme picker with 10 luxury themes, guest reviews, gallery, and stunning cinematic design.",
+  emoji: "🏝️",
+  isNew: true,
+  bestseller: true,
+  features: [
+    "Luxury Premium Design",
+    "10 Theme Colors (5 Dark + 5 Light)",
+    "Multi-Page Website (7 Pages)",
+    "Dynamic Room/Villa Manager",
+    "Hero Slideshow & Video Support",
+    "Photo Gallery with Lightbox",
+    "Dynamic Guest Reviews System",
+    "Booking via WhatsApp",
+    "Founder & Heritage Section",
+    "Mission & Vision",
+    "Google Maps Integration",
+    "Mobile Responsive",
+    "SEO Optimized",
+  ],
+  sections: [
+    "Home Page (Cinematic Hero)",
+    "About / Heritage Page",
+    "Rooms & Villas Page",
+    "Gallery Page",
+    "Guest Reviews Page",
+    "Contact & Booking Page",
+    "Footer",
+  ],
+  colors: {
+    primary: "#D4AF37",
+    secondary: "#1e3a5f",
+    accent: "#000000",
+  },
+  pricing: {
+    monthly: 999,
+    yearly: 9999,
+  },
+  deliveryTime: "4-6 Days",
+  demoBusinessName: "The Whispering Palms Resort",
+  demoComponent: "ResortDemo",
+},
 ];
+
+
+
 
 // ============================================
 // HELPER FUNCTIONS
