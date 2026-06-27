@@ -2,7 +2,7 @@ export interface CakeTheme {
   id: string;
   name: string;
   description: string;
-  preview: string; // emoji
+  preview: string;
   colors: {
     bg: string;
     bgSecondary: string;
@@ -17,6 +17,7 @@ export interface CakeTheme {
 }
 
 export const CAKE_THEMES: Record<string, CakeTheme> = {
+  // ═══ ORIGINAL DARK THEMES ═══
   emerald_noir: {
     id: "emerald_noir",
     name: "Emerald Noir",
@@ -34,6 +35,65 @@ export const CAKE_THEMES: Record<string, CakeTheme> = {
       shadow: "rgba(212, 175, 55, 0.15)",
     },
   },
+
+  // ✅ NEW: ROSE GOLD (Pink + Rose gold elegance)
+  rose_gold: {
+    id: "rose_gold",
+    name: "Rose Gold",
+    description: "Pink + Rose gold elegance",
+    preview: "🌸",
+    colors: {
+      bg: "#2A1A1F",
+      bgSecondary: "#3A2329",
+      bgCard: "#4A2D36",
+      primary: "#E8B4B8",
+      accent: "#B76E79",
+      text: "#FFF5F0",
+      textLight: "rgba(255, 245, 240, 0.6)",
+      border: "rgba(232, 180, 184, 0.25)",
+      shadow: "rgba(232, 180, 184, 0.2)",
+    },
+  },
+
+  // ✅ NEW: MIDNIGHT BLUE (Navy + Silver)
+  midnight_blue: {
+    id: "midnight_blue",
+    name: "Midnight Blue",
+    description: "Deep navy with silver elegance",
+    preview: "🌙",
+    colors: {
+      bg: "#0A1428",
+      bgSecondary: "#0D1830",
+      bgCard: "#101E3A",
+      primary: "#E5E4E2",
+      accent: "#A8A9AD",
+      text: "#F0F4FF",
+      textLight: "rgba(240, 244, 255, 0.6)",
+      border: "rgba(229, 228, 226, 0.2)",
+      shadow: "rgba(229, 228, 226, 0.15)",
+    },
+  },
+
+  // ✅ NEW: VINTAGE CREAM (Beige + Brown)
+  vintage_cream: {
+    id: "vintage_cream",
+    name: "Vintage Cream",
+    description: "Warm cream with vintage brown",
+    preview: "🥮",
+    colors: {
+      bg: "#F5EFE0",
+      bgSecondary: "#EDE4D0",
+      bgCard: "#FFFFFF",
+      primary: "#8B6F47",
+      accent: "#6B5535",
+      text: "#2B2419",
+      textLight: "rgba(43, 36, 25, 0.6)",
+      border: "rgba(139, 111, 71, 0.25)",
+      shadow: "rgba(139, 111, 71, 0.15)",
+    },
+  },
+
+  // ═══ EXISTING DARK THEMES ═══
   midnight_gold: {
     id: "midnight_gold",
     name: "Midnight Gold",
@@ -155,10 +215,32 @@ export const CAKE_THEMES: Record<string, CakeTheme> = {
   },
 };
 
-// Helper function - get theme by ID with fallback
-export function getTheme(themeId?: string, customColors?: Partial<CakeTheme['colors']>): CakeTheme {
-  const theme = CAKE_THEMES[themeId || 'emerald_noir'] || CAKE_THEMES.emerald_noir;
-  
+// ✅ Helper function with detailed logging
+export function getTheme(
+  themeId?: string,
+  customColors?: Partial<CakeTheme["colors"]>
+): CakeTheme {
+  // Default fallback
+  const defaultTheme = CAKE_THEMES.emerald_noir;
+
+  if (!themeId) {
+    console.warn("⚠️ No theme ID provided, using default: emerald_noir");
+    return defaultTheme;
+  }
+
+  const theme = CAKE_THEMES[themeId];
+
+  if (!theme) {
+    console.warn(
+      `⚠️ Theme "${themeId}" not found! Available themes:`,
+      Object.keys(CAKE_THEMES)
+    );
+    console.warn(`⚠️ Falling back to: emerald_noir`);
+    return defaultTheme;
+  }
+
+  console.log(`✅ Theme loaded: ${theme.name} (${themeId})`);
+
   // If client has custom colors, override
   if (customColors && Object.keys(customColors).length > 0) {
     return {
@@ -169,6 +251,16 @@ export function getTheme(themeId?: string, customColors?: Partial<CakeTheme['col
       },
     };
   }
-  
+
   return theme;
+}
+
+// Get all theme IDs (for admin theme picker)
+export function getAllThemeIds(): string[] {
+  return Object.keys(CAKE_THEMES);
+}
+
+// Get all themes as array (for admin)
+export function getAllThemes(): CakeTheme[] {
+  return Object.values(CAKE_THEMES);
 }
